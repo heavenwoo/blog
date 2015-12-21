@@ -2,6 +2,8 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    # Import custom configuration
+    - { resource: '@TaichiBlogBundle/Resources/config/config.yml' }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -21,7 +23,8 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        #assets_version: SomeVersionScheme
+        #assets_version: 0.1.0
+        #assets_version_format: %%s?version=%%s
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -67,3 +70,24 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+#Assetic Configuration
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+        uglifyjs2:
+            bin: /usr/local/bin/uglifyjs
+            node: /usr/local/bin/node
+    assets:
+        jquery_and_bootstrap:
+            inputs:
+                - '@TaichiBlogBundle/Resources/public/js/vendor/jquery-1.11.2.js'
+                - '@TaichiBlogBundle/Resources/public/js/vendor/bootstrap.min.js'
+                - '@TaichiBlogBundle/Resources/public/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'
+#                - '@TaichiBlogBundle/Resources/public/js/vendor/npm.js'
+        bootstrap:
+            inputs:
+                - '@TaichiBlogBundle/Resources/public/css/bootstrap.min.css'
+                - '@TaichiBlogBundle/Resources/public/css/bootstrap-theme.min.css'

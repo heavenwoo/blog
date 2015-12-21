@@ -1,0 +1,9 @@
+{% extends "TaichiBlogBundle::layout.html.twig" %}
+
+{% form_theme form 'TaichiBlogBundle:Form:widget.html.twig' %}
+
+{% block title %}TaichiBlogBundle:User:login{% endblock %}
+
+{% block content %}
+{{ form(form) }}
+{% endblock %}

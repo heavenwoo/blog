@@ -4,4 +4,6 @@ composer.lock
 /tests/
 /bin/
 /.idea/
-/var1/
+/var/
+/web/
+/app/config/parameters.yml

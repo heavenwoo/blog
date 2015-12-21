@@ -1,0 +1,4 @@
+services:
+#    taichi_blog.example:
+#        class: Taichi\BlogBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
