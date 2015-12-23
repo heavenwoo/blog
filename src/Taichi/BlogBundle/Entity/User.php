@@ -27,6 +27,7 @@ class User
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      * @Assert\Length(min=4, max=20)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -34,6 +35,8 @@ class User
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\Length(min=4, max=20)
+     * @Assert\NotBlank()
      */
     private $password;
 
@@ -41,6 +44,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\Email()
      */
     private $email;
 

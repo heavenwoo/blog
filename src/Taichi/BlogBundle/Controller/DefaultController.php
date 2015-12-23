@@ -8,19 +8,19 @@ use Taichi\BlogBundle\Entity\Category;
 use Taichi\BlogBundle\Entity\Post;
 use Taichi\BlogBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/")
+     * @Template()
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $site_name = $this->getParameter('site_name');
-
-        return $this->render('TaichiBlogBundle:Default:index.html.twig', compact('site_name'));
+        return ['site' => $this->getSiteConfig()];
     }
 
     /**

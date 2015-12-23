@@ -1,3 +1,4 @@
 parameters:
-    site_name: Taichi Blog
+    site:
+        name: Taichi Blog
     posts_per_page: 10

@@ -55,4 +55,9 @@ class Controller extends BaseController
             ->getManager()
             ->getRepository('TaichiBlogBundle:Comment');
     }
+
+    protected function getSiteConfig()
+    {
+        return $this->getParameter('site');
+    }
 }
