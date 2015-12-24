@@ -4,6 +4,7 @@ namespace Taichi\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -11,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -25,11 +26,11 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      * @Assert\Length(min=4, max=20)
      * @Assert\NotBlank()
      */
-    private $name;
+    private $username;
 
     /**
      * @var string
@@ -47,6 +48,11 @@ class User
      * @Assert\Email()
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="json_array")
+     */
+    private $roles = [];
 
     /**
      * @var \DateTime
@@ -88,30 +94,17 @@ class User
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return User
-     */
-    public function setName($name)
+    public function getUsername()
     {
-        $this->name = $name;
+        return $this->username;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
 
         return $this;
     }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
     /**
      * Set password
      *
@@ -158,6 +151,33 @@ class User
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Returns the roles or permissions granted to the user for security.
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        $roles = $this->roles;
+
+        // guarantees that a user always has at least one role for security
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return array_unique($roles);
+    }
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
     }
 
     /**
@@ -276,6 +296,26 @@ class User
         return $this->updatedAt;
     }
 
+    /**
+     * Returns the salt that was originally used to encode the password.
+     */
+    public function getSalt()
+    {
+        // See "Do you need to use a Salt?" at http://symfony.com/doc/current/cookbook/security/entity_provider.html
+        // we're using bcrypt in security.yml to encode the password, so
+        // the salt value is built-in and you don't have to generate one
+
+        return;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     */
+    public function eraseCredentials()
+    {
+        // if you had a plainPassword property, you'd nullify it here
+        // $this->plainPassword = null;
+    }
     /**
      * @ORM\PrePersist()
      */

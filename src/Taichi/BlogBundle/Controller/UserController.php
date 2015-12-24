@@ -19,7 +19,7 @@ class UserController extends Controller
     /**
      * @Route("/{id}", requirements={
      *     "id": "[0-9]+"
-     * })
+     * }, name="user_index")
      */
     public function indexAction($id)
     {
@@ -27,56 +27,4 @@ class UserController extends Controller
             // ...
         ]);
     }
-
-    /**
-     * @Route("/login")
-     * @Method({"GET", "POST"})
-     * @Template()
-     */
-    public function loginAction(Request $request)
-    {
-        $user = new User();
-
-        $form = $this->createFormBuilder($user)
-            ->setAction($this->generateUrl('taichi_blog_user_login'))
-            ->setMethod('POST')
-            ->add('name', TextType::class, [
-                'label' => 'Username',
-                'attr'  => [
-                    'placeholder' => 'Username',
-                ],
-            ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Password',
-                'attr'  => [
-                    'placeholder' => 'Password',
-                ],
-            ])
-            ->add('login', SubmitType::class, [
-                'label' => 'Login',
-            ])
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $data = $form->getData();
-        }
-
-        return [
-            'form' => $form->createView(),
-            'site' => $this->getSiteConfig(),
-        ];
-    }
-
-    /**
-     * @Route("/logout")
-     */
-    public function logoutAction()
-    {
-        return $this->render('TaichiBlogBundle:User:logout.html.twig', [
-            // ...
-        ]);
-    }
-
 }

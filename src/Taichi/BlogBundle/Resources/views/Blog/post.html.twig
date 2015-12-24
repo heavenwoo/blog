@@ -1,0 +1,18 @@
+{% extends 'TaichiBlogBundle::layout.html.twig' %}
+
+{% block heading %}
+
+{% endblock %}
+
+{% block content %}
+    <div id="main" class="col-sm-9">
+
+        <div class="messages">
+        </div>
+        <article class="post">
+            <h3>{{ post.subject }}</h3>
+
+            <p>{{ post.content }}</p>
+        </article>
+    </div>
+{% endblock %}

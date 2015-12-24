@@ -4,6 +4,7 @@ namespace Taichi\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
@@ -13,6 +14,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Post
 {
+    /**
+     * Use constants to define configuration options that rarely change instead
+     * of specifying them in app/config/config.yml.
+     * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
+     */
+    const PAGE_ITEMS = 5;
+
     /**
      * @var int
      *
@@ -39,14 +47,17 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="intro", type="string", length=255)
+     * @ORM\Column(name="summary", type="string", length=255)
+     * @Assert\NotBlank(message="post.blank_summary")
      */
-    private $intro;
+    private $summary;
 
     /**
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank(message="post.blank_content")
+     * @Assert\Length(min = "10", minMessage = "post.too_short_content")
      */
     private $content;
 
@@ -61,6 +72,7 @@ class Post
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $createdAt;
 
@@ -68,6 +80,7 @@ class Post
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $updatedAt;
 
@@ -96,6 +109,7 @@ class Post
 
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $comments;
 
@@ -143,27 +157,27 @@ class Post
     }
 
     /**
-     * Set intro
+     * Set summary
      *
-     * @param string $intro
+     * @param string $summary
      *
      * @return Post
      */
-    public function setIntro($intro)
+    public function setSummary($summary)
     {
-        $this->intro = $intro;
+        $this->summary = $summary;
 
         return $this;
     }
 
     /**
-     * Get intro
+     * Get summary
      *
      * @return string
      */
-    public function getIntro()
+    public function getSummary()
     {
-        return $this->intro;
+        return $this->summary;
     }
 
     /**
@@ -305,7 +319,8 @@ class Post
      */
     public function addComment(\Taichi\BlogBundle\Entity\Comment $comment)
     {
-        $this->comments[] = $comment;
+        $this->comments->add($comment);
+        $comment->setPost($this);
 
         return $this;
     }
@@ -318,6 +333,7 @@ class Post
     public function removeComment(\Taichi\BlogBundle\Entity\Comment $comment)
     {
         $this->comments->removeElement($comment);
+        $comment->setPost(null);
     }
 
     /**

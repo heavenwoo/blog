@@ -41,7 +41,7 @@ class Post
      *
      * @ORM\Column(name="intro", type="string", length=255)
      */
-    private $intro;
+    private $summary;
 
     /**
      * @var string
@@ -149,9 +149,9 @@ class Post
      *
      * @return Post
      */
-    public function setIntro($intro)
+    public function setSummary($summary)
     {
-        $this->intro = $intro;
+        $this->summary = $summary;
 
         return $this;
     }
@@ -161,9 +161,9 @@ class Post
      *
      * @return string
      */
-    public function getIntro()
+    public function getSummary()
     {
-        return $this->intro;
+        return $this->summary;
     }
 
     /**

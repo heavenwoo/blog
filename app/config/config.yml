@@ -74,20 +74,24 @@ swiftmailer:
 #Assetic Configuration
 assetic:
     debug:          '%kernel.debug%'
-    use_controller: '%kernel.debug%'
+    use_controller: false
     filters:
         cssrewrite: ~
         uglifyjs2:
             bin: /usr/local/bin/uglifyjs
             node: /usr/local/bin/node
-    assets:
-        jquery_and_bootstrap:
-            inputs:
-                - '@TaichiBlogBundle/Resources/public/js/vendor/jquery-1.11.2.js'
-                - '@TaichiBlogBundle/Resources/public/js/vendor/bootstrap.min.js'
-                - '@TaichiBlogBundle/Resources/public/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'
+#    assets:
+#        jquery_and_bootstrap:
+#            inputs:
+#                - '@TaichiBlogBundle/Resources/public/js/vendor/jquery-1.11.2.js'
+#                - '@TaichiBlogBundle/Resources/public/js/vendor/bootstrap.min.js'
+#                - '@TaichiBlogBundle/Resources/public/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'
 #                - '@TaichiBlogBundle/Resources/public/js/vendor/npm.js'
-        bootstrap:
-            inputs:
-                - '@TaichiBlogBundle/Resources/public/css/bootstrap.min.css'
-                - '@TaichiBlogBundle/Resources/public/css/bootstrap-theme.min.css'
+#        bootstrap:
+#            inputs:
+#                - '@TaichiBlogBundle/Resources/public/css/bootstrap.min.css'
+#                - '@TaichiBlogBundle/Resources/public/css/bootstrap-theme.min.css'
+
+knp_paginator:
+    template:
+        pagination: TaichiBlogBundle:Pagination:flat-ui_pagination.html.twig

@@ -1,0 +1,29 @@
+{% extends 'TaichiBlogBundle::layout.html.twig' %}
+
+{% block heading %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-9">
+
+        <div class="messages">
+        </div>
+        {% for post in posts %}
+        <article class="post">
+            <h6>
+                <a href="{{ path('blog_post', {slug: post.slug}) }}">
+                    {{ post.subject }}
+                </a>
+            </h6>
+
+            <p>{{ post.summary }}</p>
+        </article>
+        {% else %}
+            <div class="well">Null</div>
+        {% endfor %}
+        <div class="text-center">
+            {{ knp_pagination_render(posts) }}
+        </div>
+    </div>
+{% endblock %}
