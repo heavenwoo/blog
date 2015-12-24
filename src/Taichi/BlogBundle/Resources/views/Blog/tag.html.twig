@@ -1,0 +1,33 @@
+{% extends 'TaichiBlogBundle::layout.html.twig' %}
+
+{% block heading %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-9">
+
+        <div class="messages">
+        </div>
+        <div>
+            {{ tag.name }}
+        </div>
+        {% for post in tag.posts %}
+            <article class="post">
+                <h6>
+                    <a href="{{ path('blog_post', {slug: post.slug}) }}">
+                        {{ post.subject }}
+                    </a>
+                </h6>
+
+                <div>
+                    {{ post.createdAt|date("F jS \\@ G:i") }}
+                    <a href="{{ path('user_index', {id: post.user.id}) }}">{{ post.user.username }}</a>
+                </div>
+                <p>{{ post.summary }}</p>
+            </article>
+        {% else %}
+            <div class="well">Null</div>
+        {% endfor %}
+    </div>
+{% endblock %}

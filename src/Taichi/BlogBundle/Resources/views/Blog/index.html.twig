@@ -17,6 +17,15 @@
                 </a>
             </h6>
 
+            <div>
+                {{ post.createdAt|date("F jS \\@ G:i") }}
+                <a href="{{ path('user_index', {id: post.user.id}) }}">{{ post.user.username }}</a>
+            </div>
+            <div>
+                {% for tag in post.tags %}
+                    {{ tag.name }}
+                {% endfor %}
+            </div>
             <p>{{ post.summary }}</p>
         </article>
         {% else %}

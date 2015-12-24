@@ -11,8 +11,23 @@
         </div>
         <article class="post">
             <h3>{{ post.subject }}</h3>
-
+            <div>
+                {{ post.user.username }}
+            </div>
+            <div>
+                {% for tag in post.tags %}
+                    <a href="{{ path('blog_tag', {name: tag.name}) }}" class="href">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+            <hr>
             <p>{{ post.content }}</p>
         </article>
+
+        <comment>
+            {% for comment in post.comments %}
+                {{ comment.content }}
+                <hr>
+            {% endfor %}
+        </comment>
     </div>
 {% endblock %}

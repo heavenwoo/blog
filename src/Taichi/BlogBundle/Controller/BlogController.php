@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Taichi\BlogBundle\Entity\Category;
 use Taichi\BlogBundle\Entity\Post;
+use Taichi\BlogBundle\Entity\Tag;
 use Taichi\BlogBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -49,5 +50,40 @@ class BlogController extends Controller
             'post' => $post,
             'site'  => $this->getSiteConfig(),
         ];
+    }
+
+    /**
+     * @Route("/tag/{name}", name="blog_tag")
+     * @Template()
+     */
+    public function tagAction(Tag $tag)
+    {
+        return [
+            'tag' => $tag,
+            'site'  => $this->getSiteConfig(),
+        ];
+    }
+
+    /**
+     * @Route("/tag/add", name="tag_add")
+     */
+    public function addTagAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $i = 0;
+        while ($i < 30) {
+            $post = $this->getPostRepository()->findOneBy(['id' => ++$i]);
+
+            for ($j = 0; $j < 10; $j++) {
+                /** @var $tag \Taichi\BlogBundle\Entity\Tag */
+                $tag = $this->getTagRepository()->findOneBy(['id' => $j+1]);
+
+                $post->addTag($tag);
+
+                $em->persist($post);
+                $em->flush();
+            }
+        }
     }
 }

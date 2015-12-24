@@ -54,22 +54,22 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
     {
         $passwordEncoder = $this->container->get('security.password_encoder');
 
-        $johnUser = new User();
-        $johnUser->setUsername('john_user');
-        $johnUser->setEmail('john_user@symfony.com');
-        $encodedPassword = $passwordEncoder->encodePassword($johnUser, 'kitten');
-        $johnUser->setPassword($encodedPassword);
-        $johnUser->setCreatedAt(new \DateTime('now'))->setUpdatedAt(new \DateTime('now'));
-        $manager->persist($johnUser);
+        $user = new User();
+        $user->setUsername('john_user');
+        $user->setEmail('john_user@symfony.com');
+        $encodedPassword = $passwordEncoder->encodePassword($user, 'kitten');
+        $user->setPassword($encodedPassword);
+        $user->setCreatedAt(new \DateTime('now'))->setUpdatedAt(new \DateTime('now'));
+        $manager->persist($user);
 
-        $annaAdmin = new User();
-        $annaAdmin->setUsername('heaven');
-        $annaAdmin->setEmail('heavenwoo@live.com');
-        $annaAdmin->setRoles(array('ROLE_ADMIN'));
-        $encodedPassword = $passwordEncoder->encodePassword($annaAdmin, 'heaven');
-        $annaAdmin->setPassword($encodedPassword);
-        $annaAdmin->setCreatedAt(new \DateTime('now'))->setUpdatedAt(new \DateTime('now'));
-        $manager->persist($annaAdmin);
+        $admin = new User();
+        $admin->setUsername('heaven');
+        $admin->setEmail('heavenwoo@live.com');
+        $admin->setRoles(array('ROLE_ADMIN'));
+        $encodedPassword = $passwordEncoder->encodePassword($admin, 'heaven');
+        $admin->setPassword($encodedPassword);
+        $admin->setCreatedAt(new \DateTime('now'))->setUpdatedAt(new \DateTime('now'));
+        $manager->persist($admin);
 
         $manager->flush();
     }

@@ -7,9 +7,6 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Taichi\BlogBundle\Entity\Category;
-use Taichi\BlogBundle\Entity\Tag;
-use Taichi\BlogBundle\Entity\User;
 use Taichi\BlogBundle\Entity\Post;
 use Taichi\BlogBundle\Entity\Comment;
 
@@ -52,7 +49,7 @@ class LoadPostsData implements FixtureInterface, ContainerAwareInterface, Ordere
 //                    ->findOneBy(['id' => mt_rand(1, 10)]);
 //
 //                $tag->addPost($post);
-//                //$post->addTag($tag);
+//                $post->addTag($tag);
 //            }
             $post->setPictureUrl($this->faker->imageUrl(400, 240));
             $post->setCreatedAt(new \DateTime('now - '.$i.'days'));
