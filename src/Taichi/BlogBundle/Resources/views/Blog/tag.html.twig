@@ -9,23 +9,23 @@
 
         <div class="messages">
         </div>
-        <h3>
+        <h1>
             Tag: {{ tag.name }}
-        </h3>
+        </h1>
         <hr>
         {% for post in posts %}
             <article class="post">
-                <h6>
+                <h2>
                     <a href="{{ path('blog_post', {slug: post.slug}) }}">
                         {{ post.subject }}
                     </a>
-                </h6>
+                </h2>
 
-                <div>
-                    <i class="fui-time small"></i> {{ post.createdAt|date("F jS \\@ G:i") }}
-                    <i class="fui-folder small"></i> <a href="{{ path('blog_category', {name: post.category.name}) }}">{{ post.category.name }}</a>
+                <div class="text-muted">
+                    <i class="fa fa-calendar small"></i> {{ post.createdAt|date("F jS \\@ G:i") }}
+                    <i class="fa fa-folder small"></i> <a href="{{ path('blog_category', {name: post.category.name}) }}">{{ post.category.name }}</a>
                 </div>
-                <p>{{ post.summary }}</p>
+                <p class="lead">{{ post.summary }}</p>
             </article>
         {% else %}
             <div class="well">Null</div>

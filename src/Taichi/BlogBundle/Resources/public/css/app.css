@@ -1,0 +1,405 @@
+/* Webfont: Lato-HairlineItalic */
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/Lato-HairlineItalic.eot');
+  src: url('../fonts/lato/Lato-HairlineItalic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/lato/Lato-HairlineItalic.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 300;
+  text-rendering: optimizeLegibility;
+  
+  /* IE9 Compat Modes */
+  /* Modern Browsers */
+}
+/* Webfont: Lato-Hairline */
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/Lato-Hairline.eot');
+  src: url('../fonts/lato/Lato-Hairline.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/lato/Lato-Hairline.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 300;
+  text-rendering: optimizeLegibility;
+  
+  /* IE9 Compat Modes */
+  /* Modern Browsers */
+}
+/* Webfont: Lato-Light */
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/Lato-Light.eot');
+  src: url('../fonts/lato/Lato-Light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/lato/Lato-Light.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  
+  /* IE9 Compat Modes */
+}
+body {
+  margin-top: 70px;
+}
+::-moz-selection {
+  color: #ffffff;
+  background: #18bc9c;
+  text-shadow: none;
+}
+::selection {
+  color: #ffffff;
+  background: #18bc9c;
+  text-shadow: none;
+}
+.navbar {
+  border-width: 0;
+}
+.navbar-default .badge {
+  background-color: #fff;
+  color: #2c3e50;
+}
+.navbar-inverse .badge {
+  background-color: #fff;
+  color: #18bc9c;
+}
+.navbar-brand {
+  line-height: 1;
+}
+.btn {
+  border-width: 2px;
+}
+.btn:active {
+  outline: 0;
+  box-shadow: none;
+}
+.btn-group.open .dropdown-toggle {
+  outline: 0;
+  box-shadow: none;
+}
+.text-primary,
+.text-primary:hover {
+  color: #2c3e50;
+}
+.text-success,
+.text-success:hover {
+  color: #18bc9c;
+}
+.text-danger,
+.text-danger:hover {
+  color: #e74c3c;
+}
+.text-warning,
+.text-warning:hover {
+  color: #f39c12;
+}
+.text-info,
+.text-info:hover {
+  color: #3498db;
+}
+table a:not(.btn),
+.table a:not(.btn) {
+  text-decoration: underline;
+}
+table .dropdown-menu a,
+.table .dropdown-menu a {
+  text-decoration: none;
+}
+table .success,
+.table .success,
+table .warning,
+.table .warning,
+table .danger,
+.table .danger,
+table .info,
+.table .info {
+  color: #fff;
+}
+table .success > th > a,
+.table .success > th > a,
+table .warning > th > a,
+.table .warning > th > a,
+table .danger > th > a,
+.table .danger > th > a,
+table .info > th > a,
+.table .info > th > a,
+table .success > td > a,
+.table .success > td > a,
+table .warning > td > a,
+.table .warning > td > a,
+table .danger > td > a,
+.table .danger > td > a,
+table .info > td > a,
+.table .info > td > a,
+table .success > a,
+.table .success > a,
+table .warning > a,
+.table .warning > a,
+table .danger > a,
+.table .danger > a,
+table .info > a,
+.table .info > a {
+  color: #fff;
+}
+table > thead > tr > th,
+.table > thead > tr > th,
+table > tbody > tr > th,
+.table > tbody > tr > th,
+table > tfoot > tr > th,
+.table > tfoot > tr > th,
+table > thead > tr > td,
+.table > thead > tr > td,
+table > tbody > tr > td,
+.table > tbody > tr > td,
+table > tfoot > tr > td,
+.table > tfoot > tr > td {
+  border: none;
+}
+table-bordered > thead > tr > th,
+.table-bordered > thead > tr > th,
+table-bordered > tbody > tr > th,
+.table-bordered > tbody > tr > th,
+table-bordered > tfoot > tr > th,
+.table-bordered > tfoot > tr > th,
+table-bordered > thead > tr > td,
+.table-bordered > thead > tr > td,
+table-bordered > tbody > tr > td,
+.table-bordered > tbody > tr > td,
+table-bordered > tfoot > tr > td,
+.table-bordered > tfoot > tr > td {
+  border: 1px solid #ecf0f1;
+}
+.form-control,
+input {
+  border-width: 2px;
+  outline: 0;
+  box-shadow: none;
+}
+.form-control:focus,
+input:focus {
+  outline: 0;
+  box-shadow: none;
+}
+.has-warning .help-block,
+.has-warning .control-label,
+.has-warning .radio,
+.has-warning .checkbox,
+.has-warning .radio-inline,
+.has-warning .checkbox-inline,
+.has-warning.radio label,
+.has-warning.checkbox label,
+.has-warning.radio-inline label,
+.has-warning.checkbox-inline label,
+.has-warning .form-control-feedback {
+  color: #f39c12;
+}
+.has-warning .form-control,
+.has-warning .form-control:focus {
+  border: 2px solid #f39c12;
+}
+.has-warning .input-group-addon {
+  border-color: #f39c12;
+}
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label,
+.has-error .form-control-feedback {
+  color: #e74c3c;
+}
+.has-error .form-control,
+.has-error .form-control:focus {
+  border: 2px solid #e74c3c;
+}
+.has-error .input-group-addon {
+  border-color: #e74c3c;
+}
+.has-success .help-block,
+.has-success .control-label,
+.has-success .radio,
+.has-success .checkbox,
+.has-success .radio-inline,
+.has-success .checkbox-inline,
+.has-success.radio label,
+.has-success.checkbox label,
+.has-success.radio-inline label,
+.has-success.checkbox-inline label,
+.has-success .form-control-feedback {
+  color: #18bc9c;
+}
+.has-success .form-control,
+.has-success .form-control:focus {
+  border: 2px solid #18bc9c;
+}
+.has-success .input-group-addon {
+  border-color: #18bc9c;
+}
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+  border-color: transparent;
+}
+.pager a,
+.pager a:hover {
+  color: #fff;
+}
+.pager .disabled > a,
+.pager .disabled > a:hover,
+.pager .disabled > a:focus,
+.pager .disabled > span {
+  background-color: #3be6c4;
+}
+.close {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.4;
+}
+.close:hover,
+.close:focus {
+  color: #fff;
+  opacity: 1;
+}
+.alert .alert-link {
+  color: #fff;
+  text-decoration: underline;
+}
+.progress {
+  height: 10px;
+  outline: 0;
+  box-shadow: none;
+}
+.progress .progress-bar {
+  font-size: 10px;
+  line-height: 10px;
+}
+.well {
+  outline: 0;
+  box-shadow: none;
+}
+a.list-group-item.active,
+a.list-group-item.active:hover,
+a.list-group-item.active:focus {
+  border-color: #ecf0f1;
+}
+a.list-group-item-success.active {
+  background-color: #18bc9c;
+}
+a.list-group-item-success.active:hover,
+a.list-group-item-success.active:focus {
+  background-color: #15a589;
+}
+a.list-group-item-warning.active {
+  background-color: #f39c12;
+}
+a.list-group-item-warning.active:hover,
+a.list-group-item-warning.active:focus {
+  background-color: #e08e0b;
+}
+a.list-group-item-danger.active {
+  background-color: #e74c3c;
+}
+a.list-group-item-danger.active:hover,
+a.list-group-item-danger.active:focus {
+  background-color: #e43725;
+}
+.panel-default .close {
+  color: #2c3e50;
+}
+.modal .close {
+  color: #2c3e50;
+}
+.popover {
+  color: #2c3e50;
+}
+.login {
+  background: url(../img/login/imac.png) 0 0 no-repeat;
+  background-size: 940px 778px;
+  color: #ffffff;
+  margin-bottom: 77px;
+  padding: 38px 38px 267px;
+  position: relative;
+}
+.login-screen {
+  background-color: #18bc9c;
+  min-height: 473px;
+  padding: 123px 199px 33px 306px;
+}
+.login-icon {
+  left: 200px;
+  position: absolute;
+  top: 160px;
+  width: 96px;
+}
+.login-icon > img {
+  display: block;
+  margin-bottom: 6px;
+  width: 100%;
+}
+.login-icon > h4 {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 34px;
+  opacity: .95;
+}
+.login-icon > h4 small {
+  color: inherit;
+  display: block;
+  font-size: inherit;
+  font-weight: 700;
+}
+.login-form {
+  background-color: #ecf0f1;
+  padding: 24px 23px 20px;
+  position: relative;
+  border-radius: 6px;
+}
+.login-form .control-group {
+  margin-bottom: 6px;
+  position: relative;
+}
+.login-form .login-field {
+  border-color: transparent;
+  font-size: 17px;
+  text-indent: 3px;
+}
+.login-form .login-field:focus {
+  border-color: #18bc9c;
+}
+.login-form .login-field:focus + .login-field-icon {
+  color: #18bc9c;
+}
+.login-form .login-field-icon {
+  color: #7b8a8b;
+  font-size: 16px;
+  position: absolute;
+  right: 15px;
+  top: 3px;
+  -webkit-transition: all .25s;
+  transition: all .25s;
+}
+.login-link {
+  color: #7b8a8b;
+  display: block;
+  font-size: 13px;
+  margin-top: 15px;
+  text-align: center;
+}
+footer {
+  background: #ecf0f1;
+  margin-top: 2em;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+footer p {
+  color: #7b8a8b;
+  font-size: 13px;
+  margin-bottom: 0.25em;
+}
+footer #footer-resources {
+  text-align: right;
+}
+footer #footer-resources i {
+  color: #7b8a8b;
+  font-size: 28.5px;
+  margin-left: 0.5em;
+}

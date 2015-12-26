@@ -24,8 +24,7 @@ class BlogController extends Controller
      */
     public function indexAction($page)
     {
-//        $posts = $this->getPostRepository()->findAll();
-        $query = $this->getPostRepository()->findAll();
+        $query = $this->getPostRepository()->findBy([], ['createdAt' => 'DESC']);
 
         /** @var $paginator \Knp\Component\Pager\Paginator */
         $paginator = $this->get('knp_paginator');

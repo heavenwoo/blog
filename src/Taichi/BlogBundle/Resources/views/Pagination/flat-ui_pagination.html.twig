@@ -19,11 +19,11 @@
 
         {% if previous is defined %}
             <li class="previous">
-                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="fui-arrow-left"></a>
+                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="fa fa-arrow-left"></a>
             </li>
         {% else %}
             <li class="disabled">
-                <a class="fui-arrow-left"></a>
+                <span><i class="fa fa-arrow-left"></i> </span>
             </li>
         {% endif %}
 
@@ -74,11 +74,11 @@
 
         {% if next is defined %}
             <li class="next">
-                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}" class="fui-arrow-right"></a>
+                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}" class="fa fa-arrow-right"></a>
             </li>
         {% else %}
             <li class="disabled">
-                <a class="fui-arrow-right"></a>
+                <span><i class="fa fa-arrow-right"></i> </span>
             </li>
         {% endif %}
     </ul>

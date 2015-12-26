@@ -7,12 +7,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="//cdn.bootcss.com/flat-ui/2.2.2/css/flat-ui.min.css" rel="stylesheet">
-
     {% block stylesheets %}
-        {% stylesheets
-        '@TaichiBlogBundle/Resources/public/css/main.css' %}
+        {% stylesheets filter="cssrewrite"
+        '@TaichiBlogBundle/Resources/public/css/bootstrap.css'
+        '@TaichiBlogBundle/Resources/public/css/app.css' %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
@@ -34,23 +34,28 @@
                 <a class="navbar-brand" href="{{ path('blog_index') }}">{{ site.name }}</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{ path('blog_index') }}">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if app.user and is_granted('ROLE_ADMIN') %}
                         <li>
                             <a href="{{ path('admin_dashboard') }}">
-                                <i class="fui-gear"></i> Admin
+                                <i class="fa fa-lock"></i> Admin
                             </a>
                         </li>
                     {% endif %}
                     {% if app.user %}
-                        <li><a href="{{ path('security_logout') }}"><i class="fui-exit"></i> Logout</a></li>
+                        <li>
+                            <a href="{{ path('security_logout') }}">
+                                <i class="fa fa-sign-out"></i>
+                                Logout
+                            </a>
+                        </li>
                     {% else %}
-                        <li><a href="{{ path('security_login_form') }}"><i class="fui-lock"></i> Login</a></li>
+                        <li>
+                            <a href="{{ path('security_login_form') }}">
+                                <i class="fa fa-sign-in"></i>
+                                Login
+                            </a>
+                        </li>
                     {% endif %}
                 </ul>
             </div><!--/.nav-collapse -->
@@ -62,16 +67,28 @@
     <div class="row">
         {% block content %}{% endblock %}
     </div>
-    {% block footer %}
-        <footer class="panel-footer">
-            <p class="pull-right"><a href="#">Back to top</a></p>
-            <p>Heaven</p>
-        </footer>
-    {% endblock %}
 </div> <!-- /container -->
+{% block footer %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div id="footer-copyright" class="col-md-6">
+                    <p>© 2015 - The Symfony Project</p>
+                    <p>MIT License</p>
+                </div>
+                <div id="footer-resources" class="col-md-6">
+                    <p>
+                        <a href="https://twitter.com/symfony"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/SensioLabs"><i class="fa fa-facebook"></i></a>
+                        <a href="http://symfony.com/blog"><i class="fa fa-rss"></i></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
 <script src="//cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="//cdn.bootcss.com/flat-ui/2.2.2/js/flat-ui.min.js"></script>
 {% javascripts '@TaichiBlogBundle/Resources/public/js/main.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

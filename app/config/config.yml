@@ -77,6 +77,8 @@ assetic:
     use_controller: false
     filters:
         cssrewrite: ~
+        scssphp:
+            formatter: "Leafo\\ScssPhp\\Formatter\\Compressed"
         uglifyjs2:
             bin: /usr/local/bin/uglifyjs
             node: /usr/local/bin/node
