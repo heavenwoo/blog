@@ -1,37 +1,33 @@
 {% extends 'TaichiBlogBundle::layout.html.twig' %}
 
-{% block heading %}
+{% block body_id 'blog_index' %}
 
-{% endblock %}
+{% block heading %}{% endblock %}
 
 {% block content %}
-    <div class="col-sm-9">
+    <h1>
+        Tag: {{ tag.name }}
+    </h1>
+    <hr>
+    {% for post in posts %}
+        <article class="post">
+            <h2>
+                <a href="{{ path('blog_post', {slug: post.slug}) }}">
+                    {{ post.subject }}
+                </a>
+            </h2>
 
-        <div class="messages">
-        </div>
-        <h1>
-            Tag: {{ tag.name }}
-        </h1>
-        <hr>
-        {% for post in posts %}
-            <article class="post">
-                <h2>
-                    <a href="{{ path('blog_post', {slug: post.slug}) }}">
-                        {{ post.subject }}
-                    </a>
-                </h2>
-
-                <div class="text-muted">
-                    <i class="fa fa-calendar small"></i> {{ post.createdAt|date("F jS \\@ G:i") }}
-                    <i class="fa fa-folder small"></i> <a href="{{ path('blog_category', {name: post.category.name}) }}">{{ post.category.name }}</a>
-                </div>
-                <p class="lead">{{ post.summary }}</p>
-            </article>
-        {% else %}
-            <div class="well">Null</div>
-        {% endfor %}
-        <div class="text-center">
-            {{ knp_pagination_render(posts) }}
-        </div>
+            <ul class="post-meta">
+                <li><i class="fa fa-calendar small"></i> {{ post.createdAt|date("F jS \\@ G:i") }}</li>
+                <li><i class="fa fa-folder small"></i> <a
+                            href="{{ path('blog_category', {name: post.category.name}) }}">{{ post.category.name }}</a></li>
+            </ul>
+            <p class="lead">{{ post.summary }}</p>
+        </article>
+    {% else %}
+        <div class="well">Null</div>
+    {% endfor %}
+    <div class="text-center">
+        {{ knp_pagination_render(posts) }}
     </div>
 {% endblock %}

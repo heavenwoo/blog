@@ -19,7 +19,7 @@
                             <i class="fa fa-files-o fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ postCounts }}</div>
+                            <div class="huge">{{ posts|length }}</div>
                             <div>Posts</div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                             <i class="fa fa-comments fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ commentCounts }}</div>
+                            <div class="huge">{{ comments|length }}</div>
                             <div>Comments</div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                             <i class="fa fa-folder-o fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ categoryCounts }}</div>
+                            <div class="huge">{{ categories|length }}</div>
                             <div>Categories</div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                             <i class="fa fa-tags fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ tagCounts }}</div>
+                            <div class="huge">{{ tags|length }}</div>
                             <div>Tags</div>
                         </div>
                     </div>

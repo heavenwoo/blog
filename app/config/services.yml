@@ -8,4 +8,10 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     slugger:
-            class: Taichi\BlogBundle\Utils\Slugger
+        class: Taichi\BlogBundle\Utils\Slugger
+
+    markdown:
+        class: Taichi\BlogBundle\Utils\Markdown
+
+    # These are the Twig extensions that create new filters and functions for
+    # using them in the templates

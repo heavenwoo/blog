@@ -19,7 +19,7 @@ class Post
      * of specifying them in app/config/config.yml.
      * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
      */
-    const PAGE_ITEMS = 5;
+    const PAGE_ITEMS = 10;
 
     /**
      * @var int

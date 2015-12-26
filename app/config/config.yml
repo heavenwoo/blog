@@ -8,11 +8,11 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    app_locales: en|zh
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: [en] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -77,6 +77,7 @@ assetic:
     use_controller: false
     filters:
         cssrewrite: ~
+        jsqueeze: ~
         scssphp:
             formatter: "Leafo\\ScssPhp\\Formatter\\Compressed"
         uglifyjs2:
@@ -96,4 +97,4 @@ assetic:
 
 knp_paginator:
     template:
-        pagination: TaichiBlogBundle:Pagination:flat-ui_pagination.html.twig
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig

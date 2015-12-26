@@ -5,11 +5,16 @@ namespace Taichi\BlogBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Taichi\BlogBundle\Entity\Category;
+use Taichi\BlogBundle\Entity\Comment;
 use Taichi\BlogBundle\Entity\Post;
 use Taichi\BlogBundle\Entity\Tag;
 use Taichi\BlogBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
+use Taichi\BlogBundle\Form\CommentType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -47,7 +52,7 @@ class BlogController extends Controller
     {
         return [
             'post' => $post,
-            'site'  => $this->getSiteConfig(),
+            'site' => $this->getSiteConfig(),
         ];
     }
 
@@ -68,7 +73,7 @@ class BlogController extends Controller
         $posts->setUsedRoute('blog_tag_paginated');
 
         return [
-            'tag' => $tag,
+            'tag'   => $tag,
             'posts' => $posts,
             'site'  => $this->getSiteConfig(),
         ];
@@ -92,8 +97,76 @@ class BlogController extends Controller
 
         return [
             'category' => $category,
-            'posts' => $posts,
-            'site'  => $this->getSiteConfig(),
+            'posts'    => $posts,
+            'site'     => $this->getSiteConfig(),
+        ];
+    }
+
+    /**
+     * @Route("/comment/{postSlug}/new", name = "comment_new")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     *
+     * @Method("POST")
+     * @ParamConverter("post", options={"mapping": {"postSlug": "slug"}})
+     *
+     * NOTE: The ParamConverter mapping is required because the route parameter
+     * (postSlug) doesn't match any of the Doctrine entity properties (slug).
+     * See
+     * http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
+     *
+     * @Template()
+     */
+    public function commentAction(Post $post, Request $request)
+    {
+        $form = $this->createForm(CommentType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Comment $comment */
+            $comment = $form->getData();
+            $comment->setUser($this->getUser());
+            $comment->setPost($post);
+            $comment->setCreatedAt(new \DateTime('now'))
+                ->setUpdatedAt(new \DateTime('now'));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('blog_post', ['slug' => $post->getSlug()]);
+        }
+
+        return [
+            'post' => $post,
+            'form' => $form->createView(),
+            'site' => $this->getSiteConfig(),
+        ];
+    }
+
+
+    /**
+     * This controller is called directly via the render() function in the
+     * blog/post_show.html.twig template. That's why it's not needed to define
+     * a route name for it.
+     *
+     * The "id" of the Post is passed in and then turned into a Post object
+     * automatically by the ParamConverter.
+     *
+     * @param Post $post
+     *
+     * @return Response
+     *
+     * @Template("TaichiBlogBundle:Blog:_comment_form.html.twig")
+     */
+    public function commentFormAction(Post $post)
+    {
+        $form = $this->createForm(CommentType::class);
+
+        return [
+            'post' => $post,
+            'form' => $form->createView(),
+            'site' => $this->getSiteConfig(),
         ];
     }
 
@@ -110,7 +183,7 @@ class BlogController extends Controller
 
             for ($j = 0; $j < 10; $j++) {
                 /** @var $tag \Taichi\BlogBundle\Entity\Tag */
-                $tag = $this->getTagRepository()->findOneBy(['id' => $j+1]);
+                $tag = $this->getTagRepository()->findOneBy(['id' => $j + 1]);
 
                 $post->addTag($tag);
 

@@ -28,18 +28,18 @@ class BlogController extends Controller
      */
     public function dashboardAction()
     {
-        $postCounts = count($this->getPostRepository());
-        $commentCounts = count($this->getCommentRepository());
-        $userCounts = count($this->getUserRepository());
-        $categoryCounts = count($this->getCategoryRepository());
-        $tagCounts = count($this->getTagRepository());
+        $posts = $this->getPostRepository()->findAll();
+        $comments = $this->getCommentRepository()->findAll();
+        $users = $this->getUserRepository()->findAll();
+        $categories = $this->getCategoryRepository()->findAll();
+        $tags = $this->getTagRepository()->findAll();
 
         return [
-            'postCounts'     => $postCounts,
-            'commentCounts'  => $commentCounts,
-            'userCounts'     => $userCounts,
-            'categoryCounts' => $categoryCounts,
-            'tagCounts'      => $tagCounts,
+            'posts'      => $posts,
+            'comments'   => $comments,
+            'users'      => $users,
+            'categories' => $categories,
+            'tags'       => $tags,
         ];
     }
 
