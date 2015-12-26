@@ -25,7 +25,7 @@ class BlogController extends Controller
     public function indexAction($page)
     {
 //        $posts = $this->getPostRepository()->findAll();
-        $query = $this->getPostRepository()->queryLatest();
+        $query = $this->getPostRepository()->findAll();
 
         /** @var $paginator \Knp\Component\Pager\Paginator */
         $paginator = $this->get('knp_paginator');
@@ -53,13 +53,47 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/tag/{name}", name="blog_tag")
+     * @Route("/tag/{name}", name="blog_tag", defaults={"page" = 1})
+     * @Route("/tag/{name}/page/{page}", name="blog_tag_paginated", requirements={"page" : "\d+"})
      * @Template()
      */
-    public function tagAction(Tag $tag)
+    public function tagAction($page, Tag $tag)
     {
+        $query = $tag->getPosts();
+
+        /** @var $paginator \Knp\Component\Pager\Paginator */
+        $paginator = $this->get('knp_paginator');
+
+        $posts = $paginator->paginate($query, $page, Post::PAGE_ITEMS);
+
+        $posts->setUsedRoute('blog_tag_paginated');
+
         return [
             'tag' => $tag,
+            'posts' => $posts,
+            'site'  => $this->getSiteConfig(),
+        ];
+    }
+
+    /**
+     * @Route("/category/{name}", name="blog_category", defaults={"page" = 1})
+     * @Route("/category/{name}/page/{page}", name="blog_category_paginated", requirements={"page" : "\d+"})
+     * @Template()
+     */
+    public function categoryAction($page, Category $category)
+    {
+        $query = $category->getPosts();
+
+        /** @var $paginator \Knp\Component\Pager\Paginator */
+        $paginator = $this->get('knp_paginator');
+
+        $posts = $paginator->paginate($query, $page, Post::PAGE_ITEMS);
+
+        $posts->setUsedRoute('blog_category_paginated');
+
+        return [
+            'category' => $category,
+            'posts' => $posts,
             'site'  => $this->getSiteConfig(),
         ];
     }

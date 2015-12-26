@@ -190,4 +190,12 @@ class Tag
     {
         $this->setUpdatedAt(new \DateTime('now'));
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

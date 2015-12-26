@@ -1,0 +1,52 @@
+{% extends "TaichiBlogBundle:Admin:layout.html.twig" %}
+
+{% block title %}Taichi Blog Admin Panel{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="h1 page-header">
+                <span>Create Post</span>
+                <div class="pull-right">
+                    {{ include('TaichiBlogBundle:Admin:Blog/_form.html.twig', {
+                        form: delete_form,
+                        button_label: 'Delete',
+                        button_css: 'btn btn-lg btn-block btn-danger',
+                        show_confirmation: true,
+                    }, with_context = false) }}
+                </div>
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>{{ post.subject }}</h1>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Summary</th>
+                    <td>{{ post.summary }}</td>
+                </tr>
+                <tr>
+                    <th>Content</th>
+                    <td>{{ post.content }}</td>
+                </tr>
+                <tr>
+                    <th>Author</th>
+                    <td><p>{{ post.user.username }}</p></td>
+                </tr>
+                <tr>
+                    <th>Created At</th>
+                    <td><p>{{ post.createdAt|date("F jS \\@ G:i") }}</p></td>
+                </tr>
+                </tbody>
+            </table>
+            <a href="{{ path('admin_post_edit', { id: post.id }) }}" class="btn btn-lg btn-block btn-success">
+                <i class="fa fa-edit"></i> Edit
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

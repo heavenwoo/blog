@@ -259,4 +259,12 @@ class Category
     {
         $this->setUpdatedAt(new \DateTime('now'));
     }
+
+    /*
+     * get the category name
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

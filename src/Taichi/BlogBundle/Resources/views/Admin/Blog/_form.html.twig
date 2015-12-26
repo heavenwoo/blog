@@ -1,0 +1,32 @@
+{#
+    By default, forms enable client-side validation. This means that you can't
+    test the server-side validation errors from the browser. To temporarily
+    disable this validation, add the 'novalidate' attribute:
+
+    {{ form_start(form, { attr: { novalidate: 'novalidate' } }) }}
+#}
+
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% if show_confirmation|default(false) %}
+    {% set attr = {'data-confirmation': 'true'} %}
+    {{ include('TaichiBlogBundle:Admin:Blog/_delete_post_confirmation.html.twig') }}
+{% endif %}
+
+{{ form_start(form, { attr: attr|default({}) }) }}
+    {{ form_widget(form) }}
+<div class="form-group">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-10">
+        <input type="submit" value="{{ button_label|default('Create Post') }}"
+               class="{{ button_css|default("btn btn-success btn-lg btn-block") }}" data-toggle="modal"
+               data-target="#confirmationModal"/>
+
+        {% if include_back_to_home_link|default(false) %}
+        <a href="{{ path('admin_post_list') }}" class="btn btn-link">
+            Back to Posts list
+        </a>
+    </div>
+</div>
+{% endif %}
+{{ form_end(form) }}

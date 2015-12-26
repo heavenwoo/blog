@@ -40,12 +40,17 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="../navbar/">Default</a></li>
-                    <li class="active"><a href="./">Static top</a></li>
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('admin_dashboard') }}">
+                                <i class="fui-gear"></i> Admin
+                            </a>
+                        </li>
+                    {% endif %}
                     {% if app.user %}
-                        <li><a href="{{ path('security_logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        <li><a href="{{ path('security_logout') }}"><i class="fui-exit"></i> Logout</a></li>
                     {% else %}
-                        <li><a href="{{ path('security_login_form') }}">Login</a></li>
+                        <li><a href="{{ path('security_login_form') }}"><i class="fui-lock"></i> Login</a></li>
                     {% endif %}
                 </ul>
             </div><!--/.nav-collapse -->

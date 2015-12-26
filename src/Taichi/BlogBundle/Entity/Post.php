@@ -34,6 +34,7 @@ class Post
      * @var string
      *
      * @ORM\Column(name="subject", type="string", length=255)
+     * @Assert\NotBlank(message="The subject field should not be blank.")
      */
     private $subject;
 
@@ -48,7 +49,7 @@ class Post
      * @var string
      *
      * @ORM\Column(name="summary", type="string", length=255)
-     * @Assert\NotBlank(message="post.blank_summary")
+     * @Assert\NotBlank(message="The Summary field should not be blank.")
      */
     private $summary;
 
@@ -56,8 +57,8 @@ class Post
      * @var string
      *
      * @ORM\Column(name="content", type="text")
-     * @Assert\NotBlank(message="post.blank_content")
-     * @Assert\Length(min = "10", minMessage = "post.too_short_content")
+     * @Assert\NotBlank(message="The Content field should not be blank.")
+     * @Assert\Length(min = "10", minMessage = "The content is too short, 10 words is required at least.")
      */
     private $content;
 
@@ -95,6 +96,7 @@ class Post
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts", cascade={"persist"})
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @Assert\NotBlank(message="The Category field should not be blank.")
      */
     private $category;
 
