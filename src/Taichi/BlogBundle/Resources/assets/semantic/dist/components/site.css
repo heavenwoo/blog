@@ -17,18 +17,6 @@
 @font-face {
   font-family: 'Lato';
   font-style: normal;
-  font-weight: 100;
-  src: local('Lato Regular'), local('Lato-Regular'), url('../../../public/fonts/lato/Lato-Thin.woff') format('woff');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 100;
-  src: local('Lato Regular'), local('Lato-Regular'), url('../../../public/fonts/lato/Lato-ThinItalic.woff') format('woff');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
   font-weight: 300;
   src: local('Lato Regular'), local('Lato-Regular'), url('../../../public/fonts/lato/Lato-Light.woff') format('woff');
 }
@@ -42,37 +30,13 @@
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
-  src: local('Lato Regular'), local('Lato-Regular'), url('../../../public/fonts/lato/Lato-Regular.woff') format('woff');
+  src: local('Lato Regular'), local('Lato-Regular'), url('../../../public/fonts/lato/Lato-Light.woff') format('woff');
 }
 @font-face {
   font-family: 'Lato';
   font-style: normal;
-  font-weight: 700;
-  src: local('Lato Bold'), local('Lato-Bold'), url('../../../public/fonts/lato/Lato-Bold.woff') format('woff');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: italic;
   font-weight: 400;
-  src: local('Lato Italic'), local('Lato-Italic'), url('../../../public/fonts/lato/Lato-Italic.woff') format('woff');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url('../../../public/fonts/lato/Lato-BoldItalic.woff') format('woff');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 900;
-  src: local('Lato Regular'), local('Lato-Regular'), url('../../../public/fonts/lato/Lato-Black.woff') format('woff');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 100;
-  src: local('Lato Regular'), local('Lato-Regular'), url('../../../public/fonts/lato/Lato-BlackItalic.woff') format('woff');
+  src: local('Lato Regular'), local('Lato-Regular'), url('../../../public/fonts/lato/Lato-LightItalic.woff') format('woff');
 }
 html,
 body {

@@ -27,9 +27,10 @@
                             {{ form_row(form.category) }}
                             {{ form_row(form.summary) }}
                             {{ form_row(form.content) }}
+                            <div class="col-lg-2"></div>
+                            <div id="preview" class="alert alert-info col-lg-10">Content preview</div>
                             {{ form_row(form.tags) }}
                             {{ form_row(form.pictureUrl) }}
-
                             <div class="form-group">
                                 <div class="col-lg-2">&nbsp;</div>
                                 <div class="col-lg-10">
@@ -63,5 +64,17 @@
             placeholder: "Select the tags",
             maximumSelectionSize: 3
         });
+        document.getElementById("post_content").oninput=function() {
+            this.editor.update();
+        };
+        function Editor(input, preview) {
+            this.update = function () {
+                preview.innerHTML = markdown.toHTML(input.value);
+            };
+            input.editor = this;
+            this.update();
+        }
+        new Editor(document.getElementById("post_content"), document.getElementById("preview"));
+
     </script>
 {% endblock %}

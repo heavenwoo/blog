@@ -24,6 +24,7 @@
     {% block stylesheets %}
         {% stylesheets
         '@TaichiBlogBundle/Resources/public/admin/css/timeline.css'
+        "@TaichiBlogBundle/Resources/public/css/highlight-solarized-light.css"
         '@TaichiBlogBundle/Resources/public/admin/css/sb-admin-2.css' %}
         <link href="{{ asset_url }}" rel="stylesheet">
         {% endstylesheets %}
@@ -364,6 +365,8 @@
 <script src="//cdn.bootcss.com/morris.js/0.5.1/morris.min.js"></script>
 {% block javascripts %}
     {% javascripts
+    "@TaichiBlogBundle/Resources/public/js/highlight.pack.js"
+    '@TaichiBlogBundle/Resources/public/js/markdown.js'
     '@TaichiBlogBundle/Resources/public/admin/js/sb-admin-2.js'
     '@TaichiBlogBundle/Resources/public/admin/js/admin.js'%}
     <script src="{{ asset_url }}"></script>
