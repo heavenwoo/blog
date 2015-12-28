@@ -41,13 +41,6 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="slug", type="string", length=255)
-     */
-    private $slug;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="summary", type="string", length=255)
      * @Assert\NotBlank(message="The Summary field should not be blank.")
      */

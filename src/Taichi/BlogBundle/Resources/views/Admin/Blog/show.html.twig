@@ -27,11 +27,11 @@
                 <tbody>
                 <tr>
                     <th>Summary</th>
-                    <td>{{ post.summary }}</td>
+                    <td>{{ post.summary|markdown }}</td>
                 </tr>
                 <tr>
                     <th>Content</th>
-                    <td>{{ post.content }}</td>
+                    <td>{{ post.content|markdown }}</td>
                 </tr>
                 <tr>
                     <th>Author</th>

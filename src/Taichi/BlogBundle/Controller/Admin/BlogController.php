@@ -68,8 +68,7 @@ class BlogController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post->setSlug($this->get('slugger')->slugify($post->getSubject()))
-                ->setUser($this->getUser())
+            $post->setUser($this->getUser())
                 ->setCreatedAt(new \DateTime('now'))
                 ->setUpdatedAt(new \DateTime('now'));
 
@@ -131,7 +130,6 @@ class BlogController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $post->setSlug($this->get('slugger')->slugify($post->getSubject()));
             $em->flush();
 
             $this->addFlash('success', 'Post updated successfully');

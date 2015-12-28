@@ -45,7 +45,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/post/{slug}", name="blog_post")
+     * @Route("/post/{id}", name="blog_post")
      * @Template()
      */
     public function postAction(Post $post)
@@ -103,14 +103,14 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/comment/{postSlug}/new", name = "comment_new")
+     * @Route("/comment/{postId}/new", name = "comment_new")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      *
      * @Method("POST")
-     * @ParamConverter("post", options={"mapping": {"postSlug": "slug"}})
+     * @ParamConverter("post", options={"mapping": {"postId": "id"}})
      *
      * NOTE: The ParamConverter mapping is required because the route parameter
-     * (postSlug) doesn't match any of the Doctrine entity properties (slug).
+     * (postId) doesn't match any of the Doctrine entity properties (id).
      * See
      * http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
      *
@@ -134,7 +134,7 @@ class BlogController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            return $this->redirectToRoute('blog_post', ['slug' => $post->getSlug()]);
+            return $this->redirectToRoute('blog_post', ['id' => $post->getId()]);
         }
 
         return [

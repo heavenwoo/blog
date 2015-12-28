@@ -10,8 +10,5 @@ services:
     slugger:
         class: Taichi\BlogBundle\Utils\Slugger
 
-    markdown:
-        class: Taichi\BlogBundle\Utils\Markdown
-
     # These are the Twig extensions that create new filters and functions for
     # using them in the templates
