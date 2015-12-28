@@ -1,0 +1,127 @@
+.hidden.menu {
+    display: none;
+}
+.ui.vertical.banner {
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/banner.png");
+    padding: 1.5rem 0;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    background-repeat:no-repeat;
+}
+.ui.vertical {
+    background-color: #000;
+}
+.masthead.segment {
+    min-height: 300px;
+    padding: 1em 0em;
+}
+.masthead .logo.item img {
+    margin-right: 1em;
+}
+.masthead .ui.menu .ui.button {
+    margin-left: 0.5em;
+}
+.masthead h1.ui.header {
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
+}
+.ui.vertical.stripe {
+    padding: 2em 0em;
+}
+.ui.vertical.stripe .button + h3,
+.ui.vertical.stripe p + h3 {
+    margin-top: 3em;
+}
+.ui.vertical.stripe .floated.image {
+    clear: both;
+}
+.ui.vertical.stripe p {
+    font-size: 1em;
+}
+.ui.vertical.stripe .horizontal.divider {
+    margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+    padding: 0em;
+}
+.quote.stripe.segment .grid .column {
+    padding-top: 5em;
+    padding-bottom: 5em;
+}
+
+.footer.segment {
+    padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+    display: none;
+}
+
+@media only screen and (max-width: 700px) {
+    .ui.fixed.menu {
+        display: none !important;
+    }
+    .secondary.pointing.menu .item,
+    .secondary.pointing.menu .menu {
+        display: none;
+    }
+    .secondary.pointing.menu .toc.item {
+        display: block;
+    }
+    .masthead.segment {
+        min-height: 350px;
+    }
+    .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+    }
+    .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+    }
+}
+
+.hljs {
+    font-family: Monaco, 'Andale Mono', Consolas, 'Ubuntu Mono', monospace;;
+    font-size: 12px;
+    color: black;
+    text-shadow: 0 1px white;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+
+}
+
+.post-meta {
+    color: #ccc;
+    margin-bottom: 0.5em;
+}
+.post-meta a {
+    color: #ccc;
+}
+.post-meta a:hover {
+    color: #888;
+}
+.post-meta.post-show {
+    margin-top: 2em;
+}
+
+.ui.pagination a {
+    color: #009c95;
+}

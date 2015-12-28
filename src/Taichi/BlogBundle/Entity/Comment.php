@@ -3,6 +3,7 @@
 namespace Taichi\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -25,6 +26,8 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank(message="The subject field should not be blank.")
+     * @Assert\Length(min = "10", minMessage = "The content is too short, 10 words is required at least.")
      */
     private $content;
 

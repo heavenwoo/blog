@@ -1,35 +1,38 @@
-{% extends 'TaichiBlogBundle::layout.html.twig' %}
+{% extends 'TaichiBlogBundle:Blog:index.html.twig' %}
 
-{% block body_id 'blog_index' %}
-
-{% block heading %}{% endblock %}
-
-{% block content %}
-    <h1>
+{% block heading %}
+    <h1 class="ui inverted header">
         Category: {{ category.name }}
     </h1>
-    <hr>
+{% endblock %}
+
+{% block content %}
     {% for post in posts %}
-        <article>
-            <h2>
+        <article class="post">
+            <h1>
                 <a href="{{ path('blog_post', {slug: post.slug}) }}">
                     {{ post.subject }}
                 </a>
-            </h2>
+            </h1>
 
-            <ul class="post-meta">
-                <li><i class="fa fa-calendar small"></i> {{ post.createdAt|date("Y-m-d G:i") }}</li>
+            <div class="ui horizontal post-meta">
+                <i class="calendar icon"></i> <span class="item">{{ post.createdAt|date("Y-m-d G:i") }}</span>
                 {% for tag in post.tags %}
-                    <li><i class="fa fa-tag small"></i> <a
-                                href="{{ path('blog_tag', {name: tag.name}) }}">{{ tag.name }}</a></li>
+                    <i class="tag icon"></i> <a
+                        class="item" href="{{ path('blog_tag', {name: tag.name}) }}">{{ tag.name }}</a>
                 {% endfor %}
-            </ul>
-            <p class="lead">{{ post.summary }}</p>
+            </div>
+            {{ post.summary|markdown }}
         </article>
+        <h4 class="ui horizontal header divider">
+            <a href="{{ path('blog_post', {slug: post.slug}) }}">
+                Read More
+            </a>
+        </h4>
     {% else %}
         <div class="well">Null</div>
     {% endfor %}
-    <div class="text-center">
-        {{ knp_pagination_render(posts) }}
-    </div>
+
+    {% include('TaichiBlogBundle:Pagination:ui-pager.html.twig') %}
+
 {% endblock %}

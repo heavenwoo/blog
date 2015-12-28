@@ -10,6 +10,10 @@
                 <source>Next</source>
                 <target>上一页</target>
             </trans-unit>
+            <trans-unit id="label">
+                <source>label.content</source>
+                <target>请留言: </target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

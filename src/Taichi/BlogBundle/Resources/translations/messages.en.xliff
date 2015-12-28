@@ -10,6 +10,10 @@
                 <source>Next</source>
                 <target>Next</target>
             </trans-unit>
+            <trans-unit id="label">
+                <source>label.content</source>
+                <target>Leave a comment: </target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -1,0 +1,58 @@
+{#
+/**
+ * @file
+ * Semantic UI Sliding pagination control implementation.
+ *
+ * View that can be used with the pagination module
+ *
+ */
+#}
+
+{% if pageCount > 1 %}
+    <div class="ui pagination menu">
+
+        {% if previous is defined %}
+            <a class="item" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i class="chevron left icon"></i></a>
+        {% else %}
+            <span class="disabled item"><i class="chevron left icon"></i></span>
+        {% endif %}
+
+        {% if startPage > 1 %}
+        <a class="item" href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a>
+        {% if startPage == 3 %}
+        <a class="item" href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
+        {% elseif startPage != 2 %}
+        <li class="disabled item">
+            <span>&hellip;</span>
+            {% endif %}
+            {% endif %}
+
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <a class="item" href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                {% else %}
+                    <span class="disabled item">{{ page }}</span>
+                {% endif %}
+
+            {% endfor %}
+
+            {% if pageCount > endPage %}
+            {% if pageCount > (endPage + 1) %}
+            {% if pageCount > (endPage + 2) %}
+        <li class="disabled item">
+            <span>&hellip;</span>
+            {% else %}
+                <a class="item"
+                   href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount -1 }}</a>
+            {% endif %}
+            {% endif %}
+            <a class="item" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+            {% endif %}
+
+            {% if next is defined %}
+                <a class="item" href="{{ path(route, query|merge({(pageParameterName): next})) }}"><i class="chevron right icon"></i></a>
+            {% else %}
+                <span class="disabled item"><i class="chevron right icon"></i></span>
+            {% endif %}
+    </div>
+{% endif %}

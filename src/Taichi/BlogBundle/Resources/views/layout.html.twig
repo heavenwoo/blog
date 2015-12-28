@@ -1,111 +1,207 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- Standard Meta -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
     <title>{% block title %}   {% endblock %}{{ site.name }}</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% block stylesheets %}
-        {% stylesheets filter="scssphp" output="css/app.css"
-        "@TaichiBlogBundle/Resources/public/scss/bootstrap.scss"
-        "@TaichiBlogBundle/Resources/public/scss/font-awesome.scss"
-        "@TaichiBlogBundle/Resources/public/css/bootstrap-datetimepicker.min.css"
-        "@TaichiBlogBundle/Resources/public/css/font-lato.css"
-        "@TaichiBlogBundle/Resources/public/css/prism.css"
-        "@TaichiBlogBundle/Resources/public/scss/main.scss" %}
+        {% stylesheets output="css/app.css"
+        "@TaichiBlogBundle/Resources/public/css/semantic.css"
+        "@TaichiBlogBundle/Resources/public/css/highlight-solarized-light.css"
+        "@TaichiBlogBundle/Resources/assets/semantic/dist/app.css" %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="//cdn.bootcss.com/semantic-ui/2.1.7/components/icon.min.css" rel="stylesheet">
+
+    {% block javascripts %}
+        {% javascripts filter="?jsqueeze" output="js/app.js"
+        "@TaichiBlogBundle/Resources/public/js/jquery-2.1.4.js"
+        "@TaichiBlogBundle/Resources/public/css/semantic.js"
+        "@TaichiBlogBundle/Resources/public/js/rainyday.min.js"
+        "@TaichiBlogBundle/Resources/public/js/highlight.pack.js"
+        "@TaichiBlogBundle/Resources/assets/semantic/dist/app.js" %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
 </head>
-<body id="{% block body_id %}{% endblock %}">
-{% block nav %}
-    <header>
-        <div class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{{ path('blog_index') }}">{{ site.name }}</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if app.user and is_granted('ROLE_ADMIN') %}
-                            <li>
-                                <a href="{{ path('admin_dashboard') }}">
+<body>
+
+{% block body %}
+    <!-- Following Menu -->
+    <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+            <a class="item" href="{{ path('blog_index') }}">
+                {% image '@TaichiBlogBundle/Resources/public/img/logo.png' %}
+                <img src="{{ asset_url }}" class="logo">
+                {% endimage %}
+            </a>
+            <div class="right menu">
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <div class="item">
+                        <a class="ui button" href="{{ path('admin_dashboard') }}">
+                            <i class="fa fa-lock"></i> Admin
+                        </a>
+                    </div>
+                {% endif %}
+                {% if app.user %}
+                    <div class="item">
+                        <a class="ui primary button" href="{{ path('security_logout') }}">
+                            <i class="fa fa-sign-out"></i>
+                            Logout
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="item">
+                        <a class="ui button" href="{{ path('security_login_form') }}">
+                            <i class="fa fa-sign-in"></i>
+                            Sign in
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a class="ui primary button">Sign Up</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a class="item" href="{{ path('blog_index') }}">
+            {% image '@TaichiBlogBundle/Resources/public/img/logo.png' %}
+            <img src="{{ asset_url }}" class="mini image">
+            {% endimage %}
+        </a>
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+            <a class="item" href="{{ path('admin_dashboard') }}">
+                <i class="fa fa-lock"></i> Admin
+            </a>
+        {% endif %}
+        {% if app.user %}
+            <a class="item" href="{{ path('security_logout') }}">
+                <i class="fa fa-sign-out"></i>
+                Logout
+            </a>
+        {% else %}
+            <a class="item" href="{{ path('security_login_form') }}">
+                <i class="fa fa-sign-in"></i>
+                Sign in
+            </a>
+            <a class="item">Sign Up</a>
+        {% endif %}
+    </div>
+
+
+    <!-- Page Contents -->
+    <div class="pusher">
+        {% block header %}
+            <header class="ui inverted vertical masthead center aligned segment banner">
+
+                <div class="ui container">
+                    <div class="ui large secondary inverted pointing menu">
+                        <a class="toc item">
+                            <i class="sidebar icon"></i>
+                        </a>
+                        <a class="active item" href="{{ path('blog_index') }}">{{ site.name }}</a>
+                        <div class="right item">
+                            {% if app.user and is_granted('ROLE_ADMIN') %}
+                                <a class="ui inverted button" href="{{ path('admin_dashboard') }}">
                                     <i class="fa fa-lock"></i> Admin
                                 </a>
-                            </li>
-                        {% endif %}
-                        {% if app.user %}
-                            <li>
-                                <a href="{{ path('security_logout') }}">
+                            {% endif %}
+                            {% if app.user %}
+                                <a class="ui inverted teal button" href="{{ path('security_logout') }}">
                                     <i class="fa fa-sign-out"></i>
                                     Logout
                                 </a>
-                            </li>
-                        {% else %}
-                            <li>
-                                <a href="{{ path('security_login_form') }}">
+                            {% else %}
+                                <a class="ui inverted button" href="{{ path('security_login_form') }}">
                                     <i class="fa fa-sign-in"></i>
-                                    Login
+                                    Sign in
                                 </a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </div>
-    </header>
-{% endblock %}
+                                <a class="ui inverted teal button">Sign Up</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
 
-<div class="container body-container">
-    {% block heading %}{% endblock %}
-    <div class="row">
-        <div class="col-md-12">
-            {{ include('TaichiBlogBundle::_flash_messages.html.twig') }}
-            {% block content %}{% endblock %}
-        </div>
-    </div>
-</div> <!-- /container -->
-{% block footer %}
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div id="footer-copyright" class="col-md-6">
-                    <p>© 2015 - The Symfony Project</p>
+                <div class="ui text container">
+                    {% block heading %}
+                    <h1 class="ui inverted header">
+                        Taichi Blog
+                    </h1>
+                    <h2>Built by Symfony 3 and Semantic UI</h2>
+                    {% endblock %}
                 </div>
-                <div id="footer-resources" class="col-md-6">
-                    <p>
-                        <a href="https://www.github.com/heavenwoo/blog"><i class="fa fa-github"></i></a>
-                        <a href="#"><i class="fa fa-chevron-up"></i></a>
-                    </p>
-                </div>
+
+            </header>
+        {% endblock %}
+
+        <div class="ui vertical stripe segment">
+            <div class="ui text container">
+                {{ include('TaichiBlogBundle::_flash_messages.html.twig') }}
+                {% block content %}{% endblock %}
             </div>
         </div>
-    </footer>
-{% endblock %}
-{% block javascripts %}
-    {% javascripts filter="?jsqueeze" output="js/app.js"
-    "@TaichiBlogBundle/Resources/public/js/jquery-2.1.4.js"
-    "@TaichiBlogBundle/Resources/public/js/moment.min.js"
-    "@TaichiBlogBundle/Resources/public/js/bootstrap-3.3.4.js"
-    "@TaichiBlogBundle/Resources/public/js/bootstrap-datetimepicker.min.js"
-    "@TaichiBlogBundle/Resources/public/js/prism.js"
-    "@TaichiBlogBundle/Resources/public/js/main.js" %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+
+        {% block footer %}
+            <div class="ui inverted vertical footer segment">
+                <div class="ui center aligned container">
+                    <div class="ui stackable inverted divided grid">
+                        <div class="three wide column">
+                            <h4 class="ui inverted header">Group 1</h4>
+                            <div class="ui inverted link list">
+                                <a href="#" class="item">Link One</a>
+                                <a href="#" class="item">Link Two</a>
+                                <a href="#" class="item">Link Three</a>
+                                <a href="#" class="item">Link Four</a>
+                            </div>
+                        </div>
+                        <div class="three wide column">
+                            <h4 class="ui inverted header">Group 2</h4>
+                            <div class="ui inverted link list">
+                                <a href="#" class="item">Link One</a>
+                                <a href="#" class="item">Link Two</a>
+                                <a href="#" class="item">Link Three</a>
+                                <a href="#" class="item">Link Four</a>
+                            </div>
+                        </div>
+                        <div class="three wide column">
+                            <h4 class="ui inverted header">Group 3</h4>
+                            <div class="ui inverted link list">
+                                <a href="#" class="item">Link One</a>
+                                <a href="#" class="item">Link Two</a>
+                                <a href="#" class="item">Link Three</a>
+                                <a href="#" class="item">Link Four</a>
+                            </div>
+                        </div>
+                        <div class="seven wide column">
+                            <h4 class="ui inverted header">Footer Header</h4>
+                            <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                        </div>
+                    </div>
+                    <div class="ui inverted section divider"></div>
+                    {% image '@TaichiBlogBundle/Resources/public/img/logo.png' %}
+                    <img src="{{ asset_url }}" class="ui centered mini image">
+                    {% endimage %}
+                    <div class="ui horizontal inverted small divided link list">
+                        <a class="item" href="#">Site Map</a>
+                        <a class="item" href="#">Contact Us</a>
+                        <a class="item" href="#">Terms and Conditions</a>
+                        <a class="item" href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
 {% endblock %}
 </body>
+
 </html>

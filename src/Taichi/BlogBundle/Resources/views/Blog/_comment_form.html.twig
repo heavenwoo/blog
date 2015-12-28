@@ -6,32 +6,25 @@
     {{ form_start(form, { method: ..., action: ..., attr: { novalidate: 'novalidate' } }) }}
 #}
 
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
-
-{{ form_start(form, { method: 'POST', action: path('comment_new', { 'postSlug': post.slug }) }) }}
+{{ form_start(form, { method: 'POST', action: path('comment_new', { 'postSlug': post.slug }), attr: {class: 'ui reply form'} }) }}
     {#  instead of displaying form fields one by one, you can also display them
         all with their default options and styles just by calling to this function:
 
         {{ form_widget(form) }}
     #}
 
-<fieldset>
-    <legend>Leave a comment</legend>
 
-    {# Render any global form error (e.g. when a constraint on a public getter method failed) #}
-    {{ form_errors(form) }}
+    <div class="field">
+        {{ form_errors(form) }}
 
-    <div class="form-group {% if not form.content.vars.valid %}has-error{% endif %}">
-        {{ form_label(form.content, 'label.content', { label_attr: { class: 'hidden' }}) }}
+            {{ form_label(form.content, 'label.content', { label_attr: { class: 'hidden' }}) }}
 
-        {# Render any errors for the "content" field (e.g. when a class property constraint failed) #}
-        {{ form_errors(form.content) }}
+            {# Render any errors for the "content" field (e.g. when a class property constraint failed) #}
+            {{ form_errors(form.content) }}
 
-        {{ form_widget(form.content, { attr: { rows: 10 } }) }}
+            {{ form_widget(form.content, { attr: { rows: 10 } }) }}
     </div>
+    <button type="submit" class="ui primary labeled submit icon button"><i class="icon edit"></i> Add Reply </button>
 
-    <div class="form-group">
-        <button class="btn btn-primary pull-right" type="submit">Publish</button>
-    </div>
-</fieldset>
+
 {{ form_end(form) }}
