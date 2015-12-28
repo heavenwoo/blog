@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Tag
  *
  * @ORM\Table(name="tags")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\TagRepository")
  */
 class Tag
@@ -174,7 +175,7 @@ class Tag
     /**
      * @ORM\PrePersist()
      */
-    protected function PrePersist()
+    public function PrePersist()
     {
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTime('now'));
@@ -186,7 +187,7 @@ class Tag
     /**
      * @ORM\PreUpdate()
      */
-    protected function PreUpdate()
+    public function PreUpdate()
     {
         $this->setUpdatedAt(new \DateTime('now'));
     }

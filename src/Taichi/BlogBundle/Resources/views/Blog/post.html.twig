@@ -19,36 +19,36 @@
     {{ post.content|markdown }}
 
     <div class="ui comments">
-        <h3 class="ui dividing header">{{ post.comments|length }} comments: </h3>
-    {% for comment in post.comments %}
-        <div class="comment">
-            <a class="avatar">
-                {% image '@TaichiBlogBundle/Resources/public/img/avatar/elliot.jpg' %}
-                <img src="{{ asset_url }}">
-                {% endimage %}
-            </a>
-            <div class="content">
-                <a class="author">{{ comment.user.username }}</a>
-                <div class="metadata">
-                    <span class="date">{{ comment.createdAt|date("Y-m-d") }}</span>
-                </div>
-                <div class="text">{{ comment.content|markdown }}</div>
-                <div class="actions">
-                    <a class="reply">Reply</a>
+        <h3 class="ui dividing header">{{ 'post.num_comments'|transchoice(post.comments|length) }}</h3>
+        {% for comment in post.comments %}
+            <div class="comment">
+                <a class="avatar">
+                    {% image '@TaichiBlogBundle/Resources/public/img/avatar/elliot.jpg' %}
+                    <img src="{{ asset_url }}">
+                    {% endimage %}
+                </a>
+                <div class="content">
+                    <a class="author">{{ comment.user.username }}</a>
+                    <div class="metadata">
+                        {{ 'post.commented_on'|trans }}<span class="date">{{ comment.createdAt|date("Y-m-d") }}</span>
+                    </div>
+                    <div class="text">{{ comment.content|markdown }}</div>
+                    <div class="actions">
+                        <a class="reply">Reply</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {{ render(controller('TaichiBlogBundle:Blog:commentForm', { 'id': post.id })) }}
-    {% else %}
-        <form class="ui reply form">
-            <a class="ui button" href="{{ path('security_login_form') }}">
-                <i class="sign-in icon"></i> Sign in
-            </a>
-            to leave a comment.
-        </form>
+            {{ render(controller('TaichiBlogBundle:Blog:commentForm', { 'id': post.id })) }}
+        {% else %}
+            <form class="ui reply form">
+                <a class="ui button" href="{{ path('security_login_form') }}">
+                    <i class="sign-in icon"></i> Sign in
+                </a>
+                to leave a comment.
+            </form>
         {% endif %}
     </div>
 

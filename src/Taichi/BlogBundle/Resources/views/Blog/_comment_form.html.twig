@@ -5,7 +5,9 @@
 
     {{ form_start(form, { method: ..., action: ..., attr: { novalidate: 'novalidate' } }) }}
 #}
-
+{% if not form.content.vars.valid %}
+<div class="ui error message">{{ form_errors(form.content) }}</div>
+{% endif %}
 {{ form_start(form, { method: 'POST', action: path('comment_new', { 'postId': post.id }), attr: {class: 'ui reply form'} }) }}
     {#  instead of displaying form fields one by one, you can also display them
         all with their default options and styles just by calling to this function:
@@ -13,18 +15,15 @@
         {{ form_widget(form) }}
     #}
 
-
     <div class="field">
         {{ form_errors(form) }}
 
-            {{ form_label(form.content, 'label.content', { label_attr: { class: 'hidden' }}) }}
+            {{ form_label(form.content, 'action.publish_comment'|trans, { label_attr: { class: 'hidden' }}) }}
 
             {# Render any errors for the "content" field (e.g. when a class property constraint failed) #}
-            {{ form_errors(form.content) }}
 
             {{ form_widget(form.content, { attr: { rows: 10 } }) }}
     </div>
-    <button type="submit" class="ui primary labeled submit icon button"><i class="icon edit"></i> Add Reply </button>
-
+    <button type="submit" class="ui primary labeled submit icon button"><i class="icon edit"></i> {{ 'title.add_comment'|trans }} </button>
 
 {{ form_end(form) }}

@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Comment
  *
  * @ORM\Table(name="comments")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\CommentRepository")
  */
 class Comment
@@ -190,7 +191,7 @@ class Comment
     /**
      * @ORM\PrePersist()
      */
-    protected function PrePersist()
+    public function PrePersist()
     {
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTime('now'));
@@ -202,7 +203,7 @@ class Comment
     /**
      * @ORM\PreUpdate()
      */
-    protected function PreUpdate()
+    public function PreUpdate()
     {
         $this->setUpdatedAt(new \DateTime('now'));
     }

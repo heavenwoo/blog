@@ -3,11 +3,13 @@
 namespace Taichi\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
  *
  * @ORM\Table(name="comments")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\CommentRepository")
  */
 class Comment
@@ -25,6 +27,8 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank(message="The subject field should not be blank.")
+     * @Assert\Length(min = "10", minMessage = "The content is too short, 10 words is required at least.")
      */
     private $content;
 
@@ -187,7 +191,7 @@ class Comment
     /**
      * @ORM\PrePersist()
      */
-    protected function PrePersist()
+    public function PrePersist()
     {
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTime('now'));
@@ -199,7 +203,7 @@ class Comment
     /**
      * @ORM\PreUpdate()
      */
-    protected function PreUpdate()
+    public function PreUpdate()
     {
         $this->setUpdatedAt(new \DateTime('now'));
     }

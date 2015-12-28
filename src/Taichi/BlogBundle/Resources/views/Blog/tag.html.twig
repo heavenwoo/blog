@@ -2,7 +2,7 @@
 
 {% block heading %}
     <h1 class="ui inverted header">
-        Tag: {{ tag.name }}
+    {{ 'tag.name'|trans }}{{ tag.name }}
     </h1>
 {% endblock %}
 
@@ -19,12 +19,13 @@
                 <i class="calendar icon"></i> <span class="item">{{ post.createdAt|date("Y-m-d G:i") }}</span>
                 <i class="folder outline icon"></i> <a
                         class="item" href="{{ path('blog_category', {name: post.category.name}) }}">{{ post.category.name }}</a>
+                <i class="comments icon"></i> <span>{{ 'post.num_comments'|transchoice(post.comments|length) }}</span>
             </div>
             {{ post.summary|markdown }}
         </article>
         <h4 class="ui horizontal header divider">
             <a href="{{ path('blog_post', {id: post.id}) }}">
-                Read More
+                READ MORE
             </a>
         </h4>
     {% else %}

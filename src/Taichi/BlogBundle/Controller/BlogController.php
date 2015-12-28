@@ -127,8 +127,6 @@ class BlogController extends Controller
             $comment = $form->getData();
             $comment->setUser($this->getUser());
             $comment->setPost($post);
-            $comment->setCreatedAt(new \DateTime('now'))
-                ->setUpdatedAt(new \DateTime('now'));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);

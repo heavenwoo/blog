@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Category
  *
  * @ORM\Table(name="categories")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\CategoryRepository")
  */
 class Category
@@ -243,7 +244,7 @@ class Category
     /**
      * @ORM\PrePersist()
      */
-    protected function PrePersist()
+    public function PrePersist()
     {
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTime('now'));
@@ -255,8 +256,16 @@ class Category
     /**
      * @ORM\PreUpdate()
      */
-    protected function PreUpdate()
+    public function PreUpdate()
     {
         $this->setUpdatedAt(new \DateTime('now'));
+    }
+
+    /*
+     * get the category name
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

@@ -2,8 +2,6 @@
 
 namespace Taichi\BlogBundle\Repository;
 
-use Doctrine\ORM\Tools\Pagination\Paginator;
-
 /**
  * CategoryRepository
  *

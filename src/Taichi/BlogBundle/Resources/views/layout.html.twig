@@ -46,7 +46,7 @@
                 {% if app.user and is_granted('ROLE_ADMIN') %}
                     <div class="item">
                         <a class="ui button" href="{{ path('admin_dashboard') }}">
-                            <i class="fa fa-lock"></i> Admin
+                            <i class="fa fa-lock"></i> {{ 'menu.admin'|trans }}
                         </a>
                     </div>
                 {% endif %}
@@ -54,18 +54,18 @@
                     <div class="item">
                         <a class="ui primary button" href="{{ path('security_logout') }}">
                             <i class="fa fa-sign-out"></i>
-                            Logout
+                            {{ 'menu.logout'|trans }}
                         </a>
                     </div>
                 {% else %}
                     <div class="item">
                         <a class="ui button" href="{{ path('security_login_form') }}">
                             <i class="fa fa-sign-in"></i>
-                            Sign in
+                            {{ 'menu.login'|trans }}
                         </a>
                     </div>
                     <div class="item">
-                        <a class="ui primary button">Sign Up</a>
+                        <a class="ui primary button">{{ 'menu.signup'|trans }}</a>
                     </div>
                 {% endif %}
             </div>
@@ -81,20 +81,20 @@
         </a>
         {% if app.user and is_granted('ROLE_ADMIN') %}
             <a class="item" href="{{ path('admin_dashboard') }}">
-                <i class="fa fa-lock"></i> Admin
+                <i class="fa fa-lock"></i> {{ 'menu.admin'|trans }}
             </a>
         {% endif %}
         {% if app.user %}
             <a class="item" href="{{ path('security_logout') }}">
                 <i class="fa fa-sign-out"></i>
-                Logout
+                {{ 'menu.logout'|trans }}
             </a>
         {% else %}
             <a class="item" href="{{ path('security_login_form') }}">
                 <i class="fa fa-sign-in"></i>
-                Sign in
+                {{ 'menu.login'|trans }}
             </a>
-            <a class="item">Sign Up</a>
+            <a class="item">{{ 'menu.signup'|trans }}</a>
         {% endif %}
     </div>
 
@@ -113,20 +113,20 @@
                         <div class="right item">
                             {% if app.user and is_granted('ROLE_ADMIN') %}
                                 <a class="ui inverted button" href="{{ path('admin_dashboard') }}">
-                                    <i class="fa fa-lock"></i> Admin
+                                    <i class="fa fa-lock"></i> {{ 'menu.admin'|trans }}
                                 </a>
                             {% endif %}
                             {% if app.user %}
                                 <a class="ui inverted teal button" href="{{ path('security_logout') }}">
                                     <i class="fa fa-sign-out"></i>
-                                    Logout
+                                    {{ 'menu.logout'|trans }}
                                 </a>
                             {% else %}
                                 <a class="ui inverted button" href="{{ path('security_login_form') }}">
                                     <i class="fa fa-sign-in"></i>
-                                    Sign in
+                                    {{ 'menu.login'|trans }}
                                 </a>
-                                <a class="ui inverted teal button">Sign Up</a>
+                                <a class="ui inverted teal button">{{ 'menu.signup'|trans }}</a>
                             {% endif %}
                         </div>
                     </div>

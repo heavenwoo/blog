@@ -1,9 +1,5 @@
 {% extends 'TaichiBlogBundle::layout.html.twig' %}
 
-{% block main %}
-    <h1 class="text-danger">An error occurred.</h1>
-
-    <div class="well">
-        {{ include('TaichiBlogBundle:Blog:_comment_form.html.twig') }}
-    </div>
+{% block content %}
+    {{ include('TaichiBlogBundle:Blog:_comment_form.html.twig') }}
 {% endblock %}

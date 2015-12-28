@@ -68,9 +68,7 @@ class BlogController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post->setUser($this->getUser())
-                ->setCreatedAt(new \DateTime('now'))
-                ->setUpdatedAt(new \DateTime('now'));
+            $post->setUser($this->getUser());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);

@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Post
  *
  * @ORM\Table(name="posts")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\PostRepository")
  */
 class Post
@@ -416,7 +417,7 @@ class Post
     /**
      * @ORM\PrePersist()
      */
-    protected function PrePersist()
+    public function PrePersist()
     {
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTime('now'));
@@ -428,7 +429,7 @@ class Post
     /**
      * @ORM\PreUpdate()
      */
-    protected function PreUpdate()
+    public function PreUpdate()
     {
         $this->setUpdatedAt(new \DateTime('now'));
     }

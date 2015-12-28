@@ -4,15 +4,24 @@ namespace Taichi\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
  *
  * @ORM\Table(name="posts")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\PostRepository")
  */
 class Post
 {
+    /**
+     * Use constants to define configuration options that rarely change instead
+     * of specifying them in app/config/config.yml.
+     * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
+     */
+    const PAGE_ITEMS = 10;
+
     /**
      * @var int
      *
@@ -26,20 +35,15 @@ class Post
      * @var string
      *
      * @ORM\Column(name="subject", type="string", length=255)
+     * @Assert\NotBlank(message="The subject field should not be blank.")
      */
     private $subject;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="slug", type="string", length=255)
-     */
-    private $slug;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="intro", type="string", length=255)
+     * @ORM\Column(name="summary", type="string", length=255)
+     * @Assert\NotBlank(message="The Summary field should not be blank.")
      */
     private $summary;
 
@@ -47,6 +51,8 @@ class Post
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank(message="The Content field should not be blank.")
+     * @Assert\Length(min = "10", minMessage = "The content is too short, 10 words is required at least.")
      */
     private $content;
 
@@ -61,6 +67,7 @@ class Post
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $createdAt;
 
@@ -68,6 +75,7 @@ class Post
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $updatedAt;
 
@@ -82,6 +90,7 @@ class Post
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts", cascade={"persist"})
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @Assert\NotBlank(message="The Category field should not be blank.")
      */
     private $category;
 
@@ -96,6 +105,7 @@ class Post
 
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $comments;
 
@@ -143,9 +153,9 @@ class Post
     }
 
     /**
-     * Set intro
+     * Set summary
      *
-     * @param string $intro
+     * @param string $summary
      *
      * @return Post
      */
@@ -157,7 +167,7 @@ class Post
     }
 
     /**
-     * Get intro
+     * Get summary
      *
      * @return string
      */
@@ -305,7 +315,8 @@ class Post
      */
     public function addComment(\Taichi\BlogBundle\Entity\Comment $comment)
     {
-        $this->comments[] = $comment;
+        $this->comments->add($comment);
+        $comment->setPost($this);
 
         return $this;
     }
@@ -318,6 +329,7 @@ class Post
     public function removeComment(\Taichi\BlogBundle\Entity\Comment $comment)
     {
         $this->comments->removeElement($comment);
+        $comment->setPost(null);
     }
 
     /**
@@ -405,7 +417,7 @@ class Post
     /**
      * @ORM\PrePersist()
      */
-    protected function PrePersist()
+    public function PrePersist()
     {
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTime('now'));
@@ -417,7 +429,7 @@ class Post
     /**
      * @ORM\PreUpdate()
      */
-    protected function PreUpdate()
+    public function PreUpdate()
     {
         $this->setUpdatedAt(new \DateTime('now'));
     }
