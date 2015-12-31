@@ -2,6 +2,7 @@
 
 namespace Taichi\BlogBundle\Controller;
 
+use Carbon\Carbon;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller  as BaseController;
 
 class Controller extends BaseController
@@ -54,10 +55,5 @@ class Controller extends BaseController
         return $this->getDoctrine()
             ->getManager()
             ->getRepository('TaichiBlogBundle:Comment');
-    }
-
-    protected function getSiteConfig()
-    {
-        return $this->getParameter('site');
     }
 }

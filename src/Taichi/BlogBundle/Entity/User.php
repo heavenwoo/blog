@@ -2,6 +2,7 @@
 
 namespace Taichi\BlogBundle\Entity;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -270,7 +271,7 @@ class User implements UserInterface
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->createdAt ? Carbon::instance($this->createdAt) : null;
     }
 
     /**
@@ -294,7 +295,7 @@ class User implements UserInterface
      */
     public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return Carbon::instance($this->updatedAt);
     }
 
     /**

@@ -40,7 +40,6 @@ class BlogController extends Controller
 
         return [
             'posts' => $posts,
-            'site'  => $this->getSiteConfig(),
         ];
     }
 
@@ -52,7 +51,6 @@ class BlogController extends Controller
     {
         return [
             'post' => $post,
-            'site' => $this->getSiteConfig(),
         ];
     }
 
@@ -75,7 +73,6 @@ class BlogController extends Controller
         return [
             'tag'   => $tag,
             'posts' => $posts,
-            'site'  => $this->getSiteConfig(),
         ];
     }
 
@@ -98,7 +95,6 @@ class BlogController extends Controller
         return [
             'category' => $category,
             'posts'    => $posts,
-            'site'     => $this->getSiteConfig(),
         ];
     }
 
@@ -138,7 +134,6 @@ class BlogController extends Controller
         return [
             'post' => $post,
             'form' => $form->createView(),
-            'site' => $this->getSiteConfig(),
         ];
     }
 
@@ -164,7 +159,6 @@ class BlogController extends Controller
         return [
             'post' => $post,
             'form' => $form->createView(),
-            'site' => $this->getSiteConfig(),
         ];
     }
 

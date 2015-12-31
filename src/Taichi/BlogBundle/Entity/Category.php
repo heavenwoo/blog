@@ -2,6 +2,7 @@
 
 namespace Taichi\BlogBundle\Entity;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -214,7 +215,7 @@ class Category
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->createdAt ? Carbon::instance($this->createdAt) : null;
     }
 
     /**
@@ -238,7 +239,7 @@ class Category
      */
     public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return Carbon::instance($this->updatedAt);
     }
 
     /**
@@ -247,10 +248,10 @@ class Category
     public function PrePersist()
     {
         if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(new \DateTime('now'));
+            $this->setCreatedAt(Carbon::now());
         }
 
-        $this->setUpdatedAt(new \DateTime('now'));
+        $this->setUpdatedAt(Carbon::now());
     }
 
     /**
@@ -258,7 +259,7 @@ class Category
      */
     public function PreUpdate()
     {
-        $this->setUpdatedAt(new \DateTime('now'));
+        $this->setUpdatedAt(Carbon::now());
     }
 
     /*

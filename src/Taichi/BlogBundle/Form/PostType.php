@@ -18,20 +18,32 @@ class PostType extends AbstractType
     {
         $builder
             ->add('subject', TextType::class, [
-                'attr' => ['autofocus' => true],
+                'attr' => [
+                    'autofocus' => true,
+                ],
+                'label' => 'label.subject'
             ])
             ->add('category', EntityType::class, [
                 'class' => \Taichi\BlogBundle\Entity\Category::class,
+                'label' => 'label.category',
             ])
-            ->add('summary', TextareaType::class)
+            ->add('summary', TextareaType::class, [
+                'label' => 'label.summary'
+            ])
             ->add('content', TextareaType::class, [
-                'attr' => ['rows' => 20],
+                'attr' => [
+                    'rows' => 20,
+                ],
+                'label' => 'label.content',
             ])
             ->add('tags', EntityType::class, [
                 'class' => \Taichi\BlogBundle\Entity\Tag::class,
                 'multiple' => true,
+                'label' => 'label.tags',
             ])
-            ->add('pictureUrl', TextType::class)
+            ->add('pictureUrl', TextType::class, [
+                'label' => 'label.picture',
+            ])
         ;
     }
 

@@ -1,4 +1,0 @@
-parameters:
-    site:
-        name: Taichi Blog
-    posts_per_page: 10

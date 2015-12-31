@@ -1,5 +1,5 @@
 $(document)
-    .ready(function() {
+    .ready(function () {
 
         // fix menu when passed
         $('.masthead')

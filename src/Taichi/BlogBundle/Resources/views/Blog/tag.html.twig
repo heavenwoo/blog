@@ -16,7 +16,7 @@
             </h1>
 
             <div class="ui horizontal post-meta">
-                <i class="calendar icon"></i> <span class="item">{{ post.createdAt|date("Y-m-d G:i") }}</span>
+                <i class="calendar icon"></i> <span class="item">{{ post.createdAt(locale).diffForHumans }}</span>
                 <i class="folder outline icon"></i> <a
                         class="item" href="{{ path('blog_category', {name: post.category.name}) }}">{{ post.category.name }}</a>
                 <i class="comments icon"></i> <span>{{ 'post.num_comments'|transchoice(post.comments|length) }}</span>

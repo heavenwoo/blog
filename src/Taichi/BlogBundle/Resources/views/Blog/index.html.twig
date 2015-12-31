@@ -9,7 +9,7 @@
                 </a>
             </h1>
             <div class="ui horizontal post-meta">
-                <i class="calendar icon"></i> <span class="item">{{ post.createdAt|date("Y-m-d G:i") }}</span>
+                <i class="calendar icon"></i> <span class="item">{{ post.createdAt(app.request.locale).diffForHumans }}</span>
                 <i class="folder outline icon"></i> <a
                             class="item" href="{{ path('blog_category', {name: post.category.name}) }}">{{ post.category.name }}</a>
                 {% for tag in post.tags %}

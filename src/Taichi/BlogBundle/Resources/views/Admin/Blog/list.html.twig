@@ -8,7 +8,7 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Posts List</h1>
+            <h1 class="page-header">{{ 'menu.post_list'|trans }}</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -31,16 +31,16 @@
                                                 rowspan="1" colspan="1"><i class="fa fa-info"></i> ID
                                             </th>
                                             <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
-                                                rowspan="1" colspan="1"><i class="fa fa-edit"></i> Subject
+                                                rowspan="1" colspan="1"><i class="fa fa-edit"></i> {{ 'label.subject'|trans }}
                                             </th>
                                             <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
-                                                rowspan="1" colspan="1"><i class="fa fa-folder-o"></i> Category
+                                                rowspan="1" colspan="1"><i class="fa fa-folder-o"></i> {{ 'label.category'|trans }}
                                             </th>
                                             <th class="sorting_desc text-center" tabindex="0" aria-controls="dataTables-list"
-                                                rowspan="1" colspan="1"  aria-sort="descending"><i class="fa fa-calendar"></i> Created At
+                                                rowspan="1" colspan="1"  aria-sort="descending"><i class="fa fa-calendar"></i> {{ 'label.created_at'|trans }}
                                             </th>
                                             <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
-                                                rowspan="1" colspan="1"><i class="fa fa-cogs"></i> Actions
+                                                rowspan="1" colspan="1"><i class="fa fa-cogs"></i> {{ 'label.actions'|trans }}
                                             </th>
                                         </tr>
                                         </thead>
@@ -56,12 +56,12 @@
                                                     <div class="item-actions">
                                                         <a href="{{ path('admin_post_show', { id: post.id }) }}"
                                                            class="btn btn-xs btn-success">
-                                                            <i class="fa fa-file-o"></i> Show
+                                                            <i class="fa fa-file-o"></i> {{ 'action.show'|trans }}
                                                         </a>
 
                                                         <a href="{{ path('admin_post_edit', { id: post.id }) }}"
                                                            class="btn btn-xs btn-primary">
-                                                            <i class="fa fa-edit"></i> Edit
+                                                            <i class="fa fa-edit"></i> {{ 'action.edit'|trans }}
                                                         </a>
                                                     </div>
                                                 </td>

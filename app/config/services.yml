@@ -7,8 +7,27 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-    slugger:
-        class: Taichi\BlogBundle\Utils\Slugger
 
     # These are the Twig extensions that create new filters and functions for
     # using them in the templates
+
+    # These are the Twig extensions that create new filters and functions for
+    # using them in the templates
+    app.twig.app_extension:
+        public:    false
+        class:     Taichi\BlogBundle\Twig\BlogExtension
+        arguments: [%app_locales%]
+        tags:
+            - { name: twig.extension }
+
+    app.twig.intl_extension:
+        public: false
+        class:  Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
+    app.redirect_to_preferred_locale_listener:
+        class: Taichi\BlogBundle\EventListener\RedirectToPreferredLocaleListener
+        arguments: ['@router', %app_locales%, %locale%]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

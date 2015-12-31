@@ -2,6 +2,7 @@
 
 namespace Taichi\BlogBundle\Entity;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -145,7 +146,7 @@ class Tag
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->createdAt ? Carbon::instance($this->createdAt) : null;
     }
 
     /**
@@ -169,7 +170,7 @@ class Tag
      */
     public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return Carbon::instance($this->updatedAt);
     }
 
     /**

@@ -20,7 +20,6 @@ class SecurityController extends Controller
             'last_username' => $helper->getLastUsername(),
             // last authentication error (if any)
             'error'         => $helper->getLastAuthenticationError(),
-            'site'          => $this->getSiteConfig(),
         ];
     }
 

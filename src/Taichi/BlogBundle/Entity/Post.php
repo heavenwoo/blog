@@ -2,6 +2,7 @@
 
 namespace Taichi\BlogBundle\Entity;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -373,7 +374,7 @@ class Post
      *
      * @return Post
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(Carbon $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -385,9 +386,10 @@ class Post
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt($locale = 'en')
     {
-        return $this->createdAt;
+        Carbon::setLocale($locale);
+        return $this->createdAt ? Carbon::instance($this->createdAt) : null;
     }
 
     /**
@@ -397,7 +399,7 @@ class Post
      *
      * @return Post
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(Carbon $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -411,7 +413,7 @@ class Post
      */
     public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return Carbon::instance($this->updatedAt);
     }
 
     /**
@@ -420,10 +422,10 @@ class Post
     public function PrePersist()
     {
         if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(new \DateTime('now'));
+            $this->setCreatedAt(Carbon::now());
         }
 
-        $this->setUpdatedAt(new \DateTime('now'));
+        $this->setUpdatedAt(Carbon::now());
     }
 
     /**
@@ -431,6 +433,6 @@ class Post
      */
     public function PreUpdate()
     {
-        $this->setUpdatedAt(new \DateTime('now'));
+        $this->setUpdatedAt(Carbon::now());
     }
 }

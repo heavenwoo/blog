@@ -86,7 +86,6 @@ class BlogController extends Controller
         return [
             'post' => $post,
             'form' => $form->createView(),
-            'site' => $this->getSiteConfig(),
         ];
     }
 
@@ -105,7 +104,6 @@ class BlogController extends Controller
         return [
             'post'        => $post,
             'delete_form' => $deleteForm->createView(),
-            'site'        => $this->getSiteConfig(),
         ];
     }
 
@@ -139,7 +137,6 @@ class BlogController extends Controller
             'post'        => $post,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'site'        => $this->getSiteConfig(),
         ];
     }
 

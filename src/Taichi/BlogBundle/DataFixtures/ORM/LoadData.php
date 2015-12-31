@@ -41,8 +41,6 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
         for ($i = 0; $i < $this->tags; $i++) {
             $tag = new Tag();
             $tag->setName($this->faker->word);
-            $tag->setCreatedAt(new \DateTime('now'))
-                ->setUpdatedAt(new \DateTime('now'));
 
             $manager->persist($tag);
         }
@@ -59,7 +57,6 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
         $user->setEmail('john_user@symfony.com');
         $encodedPassword = $passwordEncoder->encodePassword($user, 'kitten');
         $user->setPassword($encodedPassword);
-        $user->setCreatedAt(new \DateTime('now'))->setUpdatedAt(new \DateTime('now'));
         $manager->persist($user);
 
         $admin = new User();
@@ -68,7 +65,6 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
         $admin->setRoles(array('ROLE_ADMIN'));
         $encodedPassword = $passwordEncoder->encodePassword($admin, 'heaven');
         $admin->setPassword($encodedPassword);
-        $admin->setCreatedAt(new \DateTime('now'))->setUpdatedAt(new \DateTime('now'));
         $manager->persist($admin);
 
         $manager->flush();
@@ -80,7 +76,6 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
             $category = new Category();
 
             $category->setName($this->faker->citySuffix);
-            $category->setCreatedAt(new \DateTime('now'))->setUpdatedAt(new \DateTime('now'));
 
             $manager->persist($category);
         }
@@ -104,7 +99,6 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
 
             $post->setSubject($this->faker->title);
             $post->setSummary($this->faker->paragraph(mt_rand(2, 4)));
-            $post->setSlug($this->container->get('slugger')->slugify($post->getSubject()));
             $post->setContent($this->faker->paragraph(mt_rand(6, 10)));
             $post->setUser($user);
             $post->setCategory($category);
@@ -116,7 +110,8 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
                 $post->addTag($tags);
             }
             $post->setPictureUrl($this->faker->imageUrl(400, 240));
-            $post->setCreatedAt(new \DateTime('now - '.$i.'days'));
+//            $post->setCreatedAt(new \DateTime('now - '.$i.'days'));
+            $post->setCreatedAt($this->faker->dateTimeBetween('-20 days', 'now'));
             $post->setUpdatedAt(new \DateTime('now - '.$i.'days'));
 
             foreach (range(1, 5) as $j) {

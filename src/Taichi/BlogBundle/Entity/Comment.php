@@ -2,6 +2,7 @@
 
 namespace Taichi\BlogBundle\Entity;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -159,9 +160,10 @@ class Comment
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt($locale = 'en')
     {
-        return $this->createdAt;
+        Carbon::setLocale($locale);
+        return $this->createdAt ? Carbon::instance($this->createdAt) : null;
     }
 
     /**
@@ -185,7 +187,7 @@ class Comment
      */
     public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return Carbon::instance($this->updatedAt);
     }
 
     /**
@@ -194,10 +196,10 @@ class Comment
     public function PrePersist()
     {
         if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(new \DateTime('now'));
+            $this->setCreatedAt(Carbon::now());
         }
 
-        $this->setUpdatedAt(new \DateTime('now'));
+        $this->setUpdatedAt(Carbon::now());
     }
 
     /**
@@ -205,6 +207,6 @@ class Comment
      */
     public function PreUpdate()
     {
-        $this->setUpdatedAt(new \DateTime('now'));
+        $this->setUpdatedAt(Carbon::now());
     }
 }

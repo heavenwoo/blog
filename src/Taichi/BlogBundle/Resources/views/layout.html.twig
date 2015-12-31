@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <!-- Standard Meta -->
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <title>{% block title %}   {% endblock %}{{ site.name }}</title>
+    <title>{% block title %}   {% endblock %}{{ sitename }}</title>
 
     {% block stylesheets %}
         {% stylesheets output="css/app.css"
         "@TaichiBlogBundle/Resources/public/css/semantic.css"
         "@TaichiBlogBundle/Resources/public/css/highlight-solarized-light.css"
-        "@TaichiBlogBundle/Resources/assets/semantic/dist/app.css" %}
+        "@TaichiBlogBundle/Resources/public/css/app.css" %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
@@ -25,9 +25,14 @@
         "@TaichiBlogBundle/Resources/public/css/semantic.js"
         "@TaichiBlogBundle/Resources/public/js/rainyday.min.js"
         "@TaichiBlogBundle/Resources/public/js/highlight.pack.js"
-        "@TaichiBlogBundle/Resources/assets/semantic/dist/app.js" %}
+        "@TaichiBlogBundle/Resources/public/js/app.js" %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
+        <script>
+            $('.ui.dropdown')
+                    .dropdown()
+            ;
+        </script>
     {% endblock %}
 
 </head>
@@ -109,7 +114,7 @@
                         <a class="toc item">
                             <i class="sidebar icon"></i>
                         </a>
-                        <a class="active item" href="{{ path('blog_index') }}">{{ site.name }}</a>
+                        <a class="active item" href="{{ path('blog_index') }}">{{ sitename }}</a>
                         <div class="right item">
                             {% if app.user and is_granted('ROLE_ADMIN') %}
                                 <a class="ui inverted button" href="{{ path('admin_dashboard') }}">
@@ -128,6 +133,17 @@
                                 </a>
                                 <a class="ui inverted teal button">{{ 'menu.signup'|trans }}</a>
                             {% endif %}
+
+                            <div class="ui icon buttons">
+                                <div class="ui top left pointing dropdown button">
+                                <i class="world icon"></i>
+                                <div class="menu">
+                            {% for locale in locales() %}
+                                <div class="item"><a href="{{ path(app.request.get('_route', 'blog_index'), app.request.get('_route_params', [])|merge({ _locale: locale.code })) }}">{{ locale.name|capitalize }}</a></div>
+                            {% endfor %}
+                                </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -135,7 +151,7 @@
                 <div class="ui text container">
                     {% block heading %}
                     <h1 class="ui inverted header">
-                        Taichi Blog
+                        {{ sitename }}
                     </h1>
                     <h2>Built by Symfony 3 and Semantic UI</h2>
                     {% endblock %}

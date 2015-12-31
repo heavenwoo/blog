@@ -264,13 +264,13 @@
                             <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Posts<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> {{ 'menu.posts'|trans }}<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{ path('admin_post_list') }}">List</a>
+                                    <a href="{{ path('admin_post_list') }}">{{ 'menu.post_list'|trans }}</a>
                                 </li>
                                 <li>
-                                    <a href="{{ path('admin_post_create') }}">Create</a>
+                                    <a href="{{ path('admin_post_create') }}">{{ 'menu.create_post'|trans }}</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
