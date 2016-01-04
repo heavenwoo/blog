@@ -79,6 +79,11 @@ assetic:
     filters:
         cssrewrite: ~
         jsqueeze: ~
+        lessphp:
+            apply_to: ".less$"
+            formatter: "compressed"
+            preserve_comments: false
+
         scssphp:
             formatter: "Leafo\\ScssPhp\\Formatter\\Compressed"
         uglifyjs2:

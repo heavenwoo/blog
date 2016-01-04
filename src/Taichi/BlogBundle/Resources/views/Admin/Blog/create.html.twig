@@ -1,91 +1,168 @@
 {% extends "TaichiBlogBundle:Admin:layout.html.twig" %}
 
-{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
-
 {% block title %}Taichi Blog Admin Panel{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="//cdn.bootcss.com/select2/4.0.1/css/select2.min.css" rel="stylesheet">
+
+    {% stylesheets
+    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css'
+    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css'
+    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+    '@TaichiBlogBundle/Resources/public/less/vendors/farbtastic/farbtastic.css'
+    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/chosen/chosen.min.css'
+    '@TaichiBlogBundle/Resources/public/less/vendors/summernote/dist/summernote.css' %}
+    <link href="{{ asset_url }}" rel="stylesheet">
+    {% endstylesheets %}
+
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Create Post</h1>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            {{ form_start(form) }}
-                            {{ form_row(form.subject) }}
-                            {{ form_row(form.category) }}
-                            {{ form_row(form.summary) }}
-                            {{ form_row(form.content) }}
-                            <div class="form-group" id="content_preview" hidden>
-                                <label id="label_preview"
-                                       class="col-lg-2 col-md-2 col-sm-2 control-label">{{ 'label.preview'|trans }}</label>
-                                <div class="col-lg-10 col-md-10 col-sm-10">
-                                    <div id="preview" class="alert alert-info">Content preview</div>
-                                </div>
-                            </div>
-                            {{ form_row(form.tags) }}
-                            {{ form_row(form.pictureUrl) }}
-                            <div class="form-group">
-                                <div class="col-lg-2">&nbsp;</div>
-                                <div class="col-lg-10">
-                                    <input type="submit" value="{{ 'label.save'|trans }}"
-                                           class="btn btn-success btn-lg btn-block"/>
+    <section id="content">
+        <div class="container">
+            <div class="block-header">
+                <h2>{{ 'menu.create_post'|trans }}</h2>
 
-                                    {{ form_widget(form.saveAndCreateNew, { label: "label.save_and_create_new", attr: { class: 'btn btn-primary btn-lg btn-block' } }) }}
-                                    <a href="{{ path('admin_post_list') }}" class="btn btn-link">
-                                        {{ 'action.back_to_list'|trans }}
-                                    </a>
-                                </div>
-                            </div>
-                            {{ form_end(form) }}
-                        </div>
-                        <!-- /.col-lg-12 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
-                </div>
-                <!-- /.panel-body -->
+                <ul class="actions">
+                    <li>
+                        <a href="">
+                            <i class="zmdi zmdi-trending-up"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="zmdi zmdi-check-all"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown">
+                            <i class="zmdi zmdi-more-vert"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="">Refresh</a>
+                            </li>
+                            <li>
+                                <a href="">Manage Widgets</a>
+                            </li>
+                            <li>
+                                <a href="">Widgets Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
             </div>
-            <!-- /.panel -->
+
+            <div class="card">
+                <div class="card-body card-padding">
+
+                    {{ form_start(form) }}
+                    <div class="form-group fg-float{% if not form.subject.vars.valid %} has-error has-feedback{% endif %}">
+                        <div class="fg-line fg-toggled">
+                            {{ form_label(form.subject, 'label.subject', { label_attr: { class: 'fg-label' }}) }}
+                            {{ form_widget(form.subject,  { attr: { class: "form-control fg-input" } }) }}
+                        </div>
+                        <span class="zmdi zmdi-check form-control-feedback"></span>
+                    </div>
+
+                    <br>
+
+                    <div class="{% if not form.category.vars.valid %} has-error has-feedback{% endif %}">
+                        <div class="btn-group bootstrap-select">
+                            {{ form_label(form.category, 'label.category', { label_attr: { class: 'fg-label' }}) }}
+                            {{ form_widget(form.category,  { attr: { class: "selectpicker" } }) }}
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <br>
+
+                    <div class="form-group fg-float{% if not form.summary.vars.valid %} has-error has-feedback{% endif %}">
+                        <div class="fg-line">
+                            {{ form_label(form.summary, 'label.summary', { label_attr: { class: 'fg-label' }}) }}
+                            {{ form_widget(form.summary,  { attr: { class: "form-control fg-input" } }) }}
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group fg-float{% if not form.content.vars.valid %} has-error has-feedback{% endif %}">
+                        <div class="fg-line">
+                            {{ form_label(form.content, 'label.content', { label_attr: { class: 'fg-label' }}) }}
+                            {{ form_widget(form.content,  { attr: { class: "form-control fg-input" } }) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="content_preview" hidden>
+                        <label id="label_preview"
+                               class="col-lg-2 col-md-2 col-sm-2 control-label">{{ 'label.preview'|trans }}</label>
+                        <div class="col-lg-10 col-md-10 col-sm-10">
+                            <div id="preview" class="alert alert-info">Content preview</div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="col-md-12{% if not form.tags.vars.valid %} has-error has-feedback{% endif %}">
+                        <div class="">
+                            {{ form_widget(form.tags,  { attr: { class: "chosen" } }) }}
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <br>
+
+                    <br>
+
+                    <br>
+
+                    <div class="form-group fg-float{% if not form.pictureUrl.vars.valid %} has-error has-feedback{% endif %}">
+                        <div class="fg-line">
+                            {{ form_label(form.pictureUrl, 'label.pictureUrl', { label_attr: { class: 'fg-label' }}) }}
+                            {{ form_widget(form.pictureUrl,  { attr: { class: "form-control fg-input" } }) }}
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="submit" value="{{ 'label.save'|trans }}"
+                                   class="btn btn-success btn-lg btn-block"/>
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_widget(form.saveAndCreateNew, { label: "label.save_and_create_new", attr: { class: 'btn btn-primary btn-lg btn-block' } }) }}
+                        </div>
+                    </div>
+
+                    <a href="{{ path('admin_post_list') }}" class="btn btn-link">
+                        {{ 'action.back_to_list'|trans }}
+                    </a>
+                    {{ form_end(form) }}
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="//cdn.bootcss.com/select2/4.0.1/js/select2.min.js"></script>
-    <script type="text/javascript">
-        $('select').select2({
-            placeholder: "Select the tags",
-            maximumSelectionSize: 3
-        });
-        $("#post_content").bind("input propertyonchange", function() {
-            this.editor.update();
-            if ($("#post_content").val().length == 0) {
-                $("#content_preview").hide();
-            } else {
-                $("#content_preview").show();
-            }
-        });
-        function Editor(input, preview) {
-            this.update = function () {
-                preview.innerHTML = markdown.toHTML(input.value);
-            };
-            input.editor = this;
-            this.update();
-        }
-        new Editor(document.getElementById("post_content"), document.getElementById("preview"));
-
-    </script>
+    {% javascripts
+    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/moment/min/moment.min.js'
+    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js'
+    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js'
+    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
+    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/typeahead.js/dist/typeahead.bundle.min.js'
+    '@TaichiBlogBundle/Resources/public/less/vendors/summernote/dist/summernote-updated.min.js'
+    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/chosen/chosen.jquery.min.js'
+    '@TaichiBlogBundle/Resources/public/less/vendors/fileinput/fileinput.min.js'
+    '@TaichiBlogBundle/Resources/public/less/vendors/input-mask/input-mask.min.js'
+    '@TaichiBlogBundle/Resources/public/less/vendors/farbtastic/farbtastic.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

@@ -1,33 +1,30 @@
-(function (a) {
-    //a(document).ready(function () {
-    //    a('[data-toggle="datetimepicker"]').datetimepicker({
-    //        icons: {
-    //            time: 'fa fa-clock-o',
-    //            date: 'fa fa-calendar',
-    //            up: 'fa fa-chevron-up',
-    //            down: 'fa fa-chevron-down',
-    //            previous: 'fa fa-chevron-left',
-    //            next: 'fa fa-chevron-right',
-    //            today: 'fa fa-check-circle-o',
-    //            clear: 'fa fa-trash',
-    //            close: 'fa fa-remove'
-    //        }
-    //    })
-    //});
-    a(document).on('submit', 'form[data-confirmation]', function (n) {
-        var e = a(this), t = a('#confirmationModal');
-        if (t.data('result') !== 'yes') {
-            n.preventDefault();
-            t.off('click', '#btnYes').on('click', '#btnYes', function () {
-                t.data('result', 'yes');
-                e.find('input[type="submit"]').attr('disabled', 'disabled');
-                e.submit()
-            }).modal('show')
-        }
-    })
-})(window.jQuery);
+$(window).load(function(){
+    //Welcome Message (not for login page)
+    function notify(message, type){
+        $.growl({
+            message: message
+        },{
+            type: type,
+            allow_dismiss: false,
+            label: 'Cancel',
+            className: 'btn-xs btn-inverse',
+            placement: {
+                from: 'top',
+                align: 'right'
+            },
+            delay: 2500,
+            animate: {
+                enter: 'animated fadeIn',
+                exit: 'animated fadeOut'
+            },
+            offset: {
+                x: 20,
+                y: 85
+            }
+        });
+    };
 
-$(document)
-    .ready(function() {
-        hljs.initHighlightingOnLoad();
-    });
+    if (!$('.login-content')[0]) {
+        notify('Welcome back Mallinda Hollaway', 'inverse');
+    }
+});

@@ -15,9 +15,7 @@
 
 {{ form_start(form, { attr: attr|default({}) }) }}
     {{ form_widget(form) }}
-<div class="form-group">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-10">
+
         <input type="submit" value="{{ button_label|default('Create Post') }}"
                class="{{ button_css|default("btn btn-success btn-lg btn-block") }}" data-toggle="modal"
                data-target="#confirmationModal"/>
@@ -26,7 +24,6 @@
         <a href="{{ path('admin_post_list') }}" class="btn btn-link">
             Back to Posts list
         </a>
-    </div>
-</div>
+
 {% endif %}
 {{ form_end(form) }}

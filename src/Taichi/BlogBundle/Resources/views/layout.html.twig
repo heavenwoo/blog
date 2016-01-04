@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="{{ locale }}">
 <head>
     <!-- Standard Meta -->
     <meta charset="utf-8"/>
@@ -43,7 +43,7 @@
     <div class="ui large top fixed hidden menu">
         <div class="ui container">
             <a class="item" href="{{ path('blog_index') }}">
-                {% image '@TaichiBlogBundle/Resources/public/img/logo.png' %}
+                {% image '@TaichiBlogBundle/Resources/public/images/logo.png' %}
                 <img src="{{ asset_url }}" class="logo">
                 {% endimage %}
             </a>
@@ -80,7 +80,7 @@
     <!-- Sidebar Menu -->
     <div class="ui vertical inverted sidebar menu">
         <a class="item" href="{{ path('blog_index') }}">
-            {% image '@TaichiBlogBundle/Resources/public/img/logo.png' %}
+            {% image '@TaichiBlogBundle/Resources/public/images/logo.png' %}
             <img src="{{ asset_url }}" class="mini image">
             {% endimage %}
         </a>
@@ -204,7 +204,7 @@
                         </div>
                     </div>
                     <div class="ui inverted section divider"></div>
-                    {% image '@TaichiBlogBundle/Resources/public/img/logo.png' %}
+                    {% image '@TaichiBlogBundle/Resources/public/images/logo.png' %}
                     <img src="{{ asset_url }}" class="ui centered mini image">
                     {% endimage %}
                     <div class="ui horizontal inverted small divided link list">
