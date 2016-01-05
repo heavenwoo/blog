@@ -85,7 +85,7 @@
             </trans-unit>
             <trans-unit id="action.edit_post">
                 <source>action.edit_post</source>
-                <target>Edit post</target>
+                <target>编辑</target>
             </trans-unit>
             <trans-unit id="action.save">
                 <source>action.save</source>
@@ -93,7 +93,7 @@
             </trans-unit>
             <trans-unit id="action.delete_post">
                 <source>action.delete_post</source>
-                <target>Delete post</target>
+                <target>删除</target>
             </trans-unit>
             <trans-unit id="delete_post_modal.title">
                 <source>delete_post_modal.title</source>
@@ -139,8 +139,8 @@
                 <source>label.tags</source>
                 <target>标签</target>
             </trans-unit>
-            <trans-unit id="label.picture">
-                <source>label.picture</source>
+            <trans-unit id="label.pictureUrl">
+                <source>label.pictureUrl</source>
                 <target>图片</target>
             </trans-unit>
             <trans-unit id="label.save">
@@ -186,11 +186,11 @@
             </trans-unit>
             <trans-unit id="label.username">
                 <source>label.username</source>
-                <target>Username</target>
+                <target>用户名</target>
             </trans-unit>
             <trans-unit id="label.password">
                 <source>label.password</source>
-                <target>Password</target>
+                <target>密码</target>
             </trans-unit>
             <trans-unit id="label.role">
                 <source>label.role</source>
@@ -212,9 +212,9 @@
                 <source>label.actions</source>
                 <target>操作</target>
             </trans-unit>
-            <trans-unit id="title.post_new">
-                <source>title.post_new</source>
-                <target>Post creation</target>
+            <trans-unit id="title.create_post">
+                <source>title.create_post</source>
+                <target>发表新文章</target>
             </trans-unit>
             <trans-unit id="action.edit_contents">
                 <source>action.edit_contents</source>
@@ -232,6 +232,10 @@
             <trans-unit id="menu.create_post">
                 <source>menu.create_post</source>
                 <target>发布文章</target>
+            </trans-unit>
+            <trans-unit id="menu.edit_post">
+                <source>menu.edit_post</source>
+                <target>文章编辑</target>
             </trans-unit>
             <trans-unit id="menu.back_to_blog">
                 <source>menu.back_to_blog</source>

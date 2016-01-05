@@ -1,5 +1,10 @@
 {% extends "TaichiBlogBundle:Admin:layout.html.twig" %}
 
+{% block mainmenu %}
+    {% set menuPostlist=1 %}
+    {{ parent() }}
+{% endblock %}
+
 {% block title %}Taichi Blog Admin Panel{% endblock %}
     {% block stylesheets %}
         {{ parent() }}
@@ -44,69 +49,67 @@
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <h2>Selection Example
-                        <small>Ensure that the data attribute [data-identifier="true"] is set on one column header.
-                        </small>
-                    </h2>
+
+                <div class="card-body card-padding">
+                    {{ include('TaichiBlogBundle::_flash_messages.html.twig') }}
+                    <div class="table-responsive">
+                        <table id="data-table-list" class="table table-striped">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
+                                    rowspan="1" colspan="1"><i class="fa fa-info"></i> ID
+                                </th>
+                                <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
+                                    rowspan="1" colspan="1"><i
+                                            class="fa fa-edit"></i> {{ 'label.subject'|trans }}
+                                </th>
+                                <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
+                                    rowspan="1" colspan="1"><i
+                                            class="fa fa-folder-o"></i> {{ 'label.category'|trans }}
+                                </th>
+                                <th class="sorting_desc text-center" tabindex="0"
+                                    aria-controls="dataTables-list"
+                                    rowspan="1" colspan="1" aria-sort="descending"><i
+                                            class="fa fa-calendar"></i> {{ 'label.created_at'|trans }}
+                                </th>
+                                <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
+                                    rowspan="1" colspan="1"><i
+                                            class="fa fa-cogs"></i> {{ 'label.actions'|trans }}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for post in posts %}
+                                <tr>
+                                    <td class="text-center">{{ post.id }}</td>
+                                    <td class="text-center">{{ post.subject }}</td>
+                                    <td class="text-center">{{ post.category.name }}</td>
+                                    <td class="text-center">{% if post.createdAt %}{{ post.createdAt|date("Y-m-d G:i") }}{% endif %}</td>
+                                    <td class="text-center">
+                                        <div class="item-actions">
+                                            <a href="{{ path('admin_post_show', { id: post.id }) }}"
+                                               class="btn btn-xs btn-success">
+                                                <i class="fa fa-file-o"></i> {{ 'action.show'|trans }}
+                                            </a>
+
+                                            <a href="{{ path('admin_post_edit', { id: post.id }) }}"
+                                               class="btn btn-xs btn-primary">
+                                                <i class="fa fa-edit"></i> {{ 'action.edit'|trans }}
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" align="center">No posts found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <div class="table-responsive">
-                    <table id="data-table-list" class="table table-striped">
-                        <thead>
-                        <tr role="row">
-                            <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
-                                rowspan="1" colspan="1"><i class="fa fa-info"></i> ID
-                            </th>
-                            <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
-                                rowspan="1" colspan="1"><i
-                                        class="fa fa-edit"></i> {{ 'label.subject'|trans }}
-                            </th>
-                            <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
-                                rowspan="1" colspan="1"><i
-                                        class="fa fa-folder-o"></i> {{ 'label.category'|trans }}
-                            </th>
-                            <th class="sorting_desc text-center" tabindex="0"
-                                aria-controls="dataTables-list"
-                                rowspan="1" colspan="1" aria-sort="descending"><i
-                                        class="fa fa-calendar"></i> {{ 'label.created_at'|trans }}
-                            </th>
-                            <th class="sorting text-center" tabindex="0" aria-controls="dataTables-list"
-                                rowspan="1" colspan="1"><i
-                                        class="fa fa-cogs"></i> {{ 'label.actions'|trans }}
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        {% for post in posts %}
-                            <tr>
-                                <td class="text-center">{{ post.id }}</td>
-                                <td class="text-center">{{ post.subject }}</td>
-                                <td class="text-center">{{ post.category.name }}</td>
-                                <td class="text-center">{% if post.createdAt %}{{ post.createdAt|date("Y-m-d G:i") }}{% endif %}</td>
-                                <td class="text-center">
-                                    <div class="item-actions">
-                                        <a href="{{ path('admin_post_show', { id: post.id }) }}"
-                                           class="btn btn-xs btn-success">
-                                            <i class="fa fa-file-o"></i> {{ 'action.show'|trans }}
-                                        </a>
-
-                                        <a href="{{ path('admin_post_edit', { id: post.id }) }}"
-                                           class="btn btn-xs btn-primary">
-                                            <i class="fa fa-edit"></i> {{ 'action.edit'|trans }}
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="4" align="center">No posts found</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     </section>
@@ -119,9 +122,10 @@
     <script>
         $(document).ready(function () {
             $('#data-table-list').DataTable({
-                responsive: true,
-				pagingType:   "full_numbers",
-				"oLanguage": {//国际语言转化
+                "responsive": true,
+                "pagingType": "full_numbers",
+                "order": [[3, 'desc']],
+                "oLanguage": {//国际语言转化
                     "oAria": {
                         "sSortAscending": " - click/return to sort ascending",
                         "sSortDescending": " - click/return to sort descending"
@@ -138,10 +142,10 @@
                     "sUrl": "",
                     //多语言配置文件，可将oLanguage的设置放在一个txt文件中，例：Javascript/datatable/dtCH.txt
                     "oPaginate": {
-                        "sFirst": "<i class=\"zmdi zmdi-chevron-right\"></i>",
+                        "sFirst": "<i class=\"zmdi zmdi-more-horiz\"></i>",
                         "sPrevious": "<i class=\"zmdi zmdi-chevron-left\"></i>",
                         "sNext": "<i class=\"zmdi zmdi-chevron-right\"></i>",
-                        "sLast": "<i class=\"zmdi zmdi-chevron-right\"></i>"
+                        "sLast": "<i class=\"zmdi zmdi-more-horiz\"></i>"
                     }
                 },
             });

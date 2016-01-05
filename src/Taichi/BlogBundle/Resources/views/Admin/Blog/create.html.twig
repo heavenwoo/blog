@@ -2,6 +2,11 @@
 
 {% block title %}Taichi Blog Admin Panel{% endblock %}
 
+{% block mainmenu %}
+    {% set menuPostcreate=1 %}
+    {{ parent() }}
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
 
@@ -21,7 +26,7 @@
     <section id="content">
         <div class="container">
             <div class="block-header">
-                <h2>{{ 'menu.create_post'|trans }}</h2>
+                <h2>{% if delete_form is defined %}{{ 'menu.edit_post'|trans }}{% else %}{{ 'menu.create_post'|trans }}{% endif %}</h2>
 
                 <ul class="actions">
                     <li>
@@ -57,92 +62,125 @@
 
             <div class="card">
                 <div class="card-body card-padding">
-
-                    {{ form_start(form) }}
-                    <div class="form-group fg-float{% if not form.subject.vars.valid %} has-error has-feedback{% endif %}">
-                        <div class="fg-line fg-toggled">
-                            {{ form_label(form.subject, 'label.subject', { label_attr: { class: 'fg-label' }}) }}
-                            {{ form_widget(form.subject,  { attr: { class: "form-control fg-input" } }) }}
-                        </div>
-                        <span class="zmdi zmdi-check form-control-feedback"></span>
-                    </div>
-
-                    <br>
-
-                    <div class="{% if not form.category.vars.valid %} has-error has-feedback{% endif %}">
-                        <div class="btn-group bootstrap-select">
-                            {{ form_label(form.category, 'label.category', { label_attr: { class: 'fg-label' }}) }}
-                            {{ form_widget(form.category,  { attr: { class: "selectpicker" } }) }}
-                        </div>
-                    </div>
-
-                    <br>
-
-                    <br>
-
-                    <div class="form-group fg-float{% if not form.summary.vars.valid %} has-error has-feedback{% endif %}">
-                        <div class="fg-line">
-                            {{ form_label(form.summary, 'label.summary', { label_attr: { class: 'fg-label' }}) }}
-                            {{ form_widget(form.summary,  { attr: { class: "form-control fg-input" } }) }}
-                        </div>
-                    </div>
-
-                    <br>
-
-                    <div class="form-group fg-float{% if not form.content.vars.valid %} has-error has-feedback{% endif %}">
-                        <div class="fg-line">
-                            {{ form_label(form.content, 'label.content', { label_attr: { class: 'fg-label' }}) }}
-                            {{ form_widget(form.content,  { attr: { class: "form-control fg-input" } }) }}
-                        </div>
-                    </div>
-
-                    <div class="form-group" id="content_preview" hidden>
-                        <label id="label_preview"
-                               class="col-lg-2 col-md-2 col-sm-2 control-label">{{ 'label.preview'|trans }}</label>
-                        <div class="col-lg-10 col-md-10 col-sm-10">
-                            <div id="preview" class="alert alert-info">Content preview</div>
-                        </div>
-                    </div>
-
-                    <br>
-
-                    <div class="col-md-12{% if not form.tags.vars.valid %} has-error has-feedback{% endif %}">
-                        <div class="">
-                            {{ form_widget(form.tags,  { attr: { class: "chosen" } }) }}
-                        </div>
-                    </div>
-
-                    <br>
-
-                    <br>
-
-                    <br>
-
-                    <br>
-
-                    <div class="form-group fg-float{% if not form.pictureUrl.vars.valid %} has-error has-feedback{% endif %}">
-                        <div class="fg-line">
-                            {{ form_label(form.pictureUrl, 'label.pictureUrl', { label_attr: { class: 'fg-label' }}) }}
-                            {{ form_widget(form.pictureUrl,  { attr: { class: "form-control fg-input" } }) }}
-                        </div>
-                    </div>
-
-                    <br>
-
+                    {{ include('TaichiBlogBundle::_flash_messages.html.twig') }}
                     <div class="row">
-                        <div class="col-md-6">
-                            <input type="submit" value="{{ 'label.save'|trans }}"
-                                   class="btn btn-success btn-lg btn-block"/>
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_widget(form.saveAndCreateNew, { label: "label.save_and_create_new", attr: { class: 'btn btn-primary btn-lg btn-block' } }) }}
+                        <div class="col-sm-12 m-b-25">
+
+                            {{ form_start(form) }}
+                            <div class="form-group fg-float{% if not form.subject.vars.valid %} has-error has-feedback{% endif %}">
+                                <div class="fg-line">
+                                    {{ form_label(form.subject, 'label.subject', { label_attr: { class: 'fg-label' }}) }}
+                                    {{ form_widget(form.subject,  { attr: { class: "form-control fg-input" } }) }}
+                                </div>
+                                {% if not form.subject.vars.valid %}
+                                    <span class="zmdi zmdi-close form-control-feedback"></span>
+                                    <small class="help-block">{{ form_errors(form.subject) }}</small>
+                                {% endif %}
+                            </div>
+
+                            <br>
+
+                            <div class="{% if not form.category.vars.valid %} has-error has-feedback{% endif %}">
+                                <div class="btn-group bootstrap-select">
+                                    {{ form_label(form.category, 'label.category', { label_attr: { class: 'fg-label' }}) }}
+                                    {{ form_widget(form.category,  { attr: { class: "selectpicker form-control" } }) }}
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <br>
+
+                            <div class="form-group fg-float{% if not form.summary.vars.valid %} has-error has-feedback{% endif %}">
+                                <div class="fg-line">
+                                    {{ form_label(form.summary, 'label.summary', { label_attr: { class: 'fg-label' }}) }}
+                                    {{ form_widget(form.summary,  { attr: { class: "form-control fg-input" } }) }}
+                                </div>
+                                {% if not form.summary.vars.valid %}
+                                    <span class="zmdi zmdi-close form-control-feedback"></span>
+                                    <small class="help-block">{{ form_errors(form.summary) }}</small>
+                                {% endif %}
+                            </div>
+
+                            <br>
+
+                            <div class="form-group fg-float{% if not form.content.vars.valid %} has-error has-feedback{% endif %}">
+                                <div class="fg-line">
+                                    {{ form_label(form.content, 'label.content', { label_attr: { class: 'fg-label' }}) }}
+                                    {{ form_widget(form.content,  { attr: { class: "form-control fg-input" } }) }}
+                                </div>
+                                {% if not form.content.vars.valid %}
+                                    <span class="zmdi zmdi-close form-control-feedback"></span>
+                                    <small class="help-block">{{ form_errors(form.content) }}</small>
+                                {% endif %}
+                            </div>
+
+                            <div class="panel-group" data-collapse-color="black" id="accordionBlack" role="tablist"
+                                 aria-multiselectable="true">
+                                <div class="panel panel-collapse">
+                                    <div class="panel-heading" role="tab">
+                                        <h5 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordionBlack"
+                                               href="#accordionBlack-one" aria-expanded="false" class="collapsed">
+                                                {{ 'label.preview'|trans }}
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="accordionBlack-one" class="collapse" role="tabpanel" aria-expanded="false"
+                                         style="height: 0px;">
+                                        <div id="preview" class="panel-body">Content preview</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group fg-float{% if not form.tags.vars.valid %} has-error has-feedback{% endif %}">
+                                <div class="fg-line">
+                                    {{ form_widget(form.tags,  { attr: { class: "selectpicker" } }) }}
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group fg-float{% if not form.pictureUrl.vars.valid %} has-error has-feedback{% endif %}">
+                                <div class="fg-line">
+                                    {{ form_label(form.pictureUrl, 'label.pictureUrl', { label_attr: { class: 'fg-label' }}) }}
+                                    {{ form_widget(form.pictureUrl,  { attr: { class: "form-control fg-input" } }) }}
+                                </div>
+                                {% if not form.pictureUrl.vars.valid %}
+                                    <span class="zmdi zmdi-close form-control-feedback"></span>
+                                    <small class="help-block">{{ form_errors(form.pictureUrl) }}</small>
+                                {% endif %}
+                            </div>
+
+                            <br>
+
+                            <div class="form-group fg-float">
+                                <button type="submit"
+                                        class="btn btn-success btn-sm m-t-10">{{ 'label.save'|trans }}</button>
+
+                                {% if form.saveAndCreateNew is defined %}
+                                    {{ form_widget(form.saveAndCreateNew, { label: "label.save_and_create_new", attr: { class: 'btn btn-primary btn-sm m-t-10' } }) }}
+                                {% endif %}
+
+                                {{ form_end(form) }}
+
+                                {% if delete_form is defined %}
+                                    {{ include('TaichiBlogBundle:Admin:Blog/_delete_post_confirmation.html.twig') }}
+                                    {{ form_start(delete_form, { attr: {'data-confirmation': true} }) }}
+                                    {{ form_widget(delete_form) }}
+
+                                    <input type="submit" value="{{ 'action.delete_post'|trans }}"
+                                           class="btn btn-danger btn-sm m-t-10" data-toggle="modal"
+                                           data-target="#confirmationModal"/>
+
+                                    {{ form_end(delete_form) }}
+                                {% endif %}
+                                <a href="{{ path('admin_post_list') }}" class="btn btn-link btn-sm m-t-10">
+                                    {{ 'action.back_to_list'|trans }}
+                                </a>
+                            </div>
                         </div>
                     </div>
-
-                    <a href="{{ path('admin_post_list') }}" class="btn btn-link">
-                        {{ 'action.back_to_list'|trans }}
-                    </a>
-                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
@@ -162,7 +200,47 @@
     '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/chosen/chosen.jquery.min.js'
     '@TaichiBlogBundle/Resources/public/less/vendors/fileinput/fileinput.min.js'
     '@TaichiBlogBundle/Resources/public/less/vendors/input-mask/input-mask.min.js'
-    '@TaichiBlogBundle/Resources/public/less/vendors/farbtastic/farbtastic.min.js' %}
+    '@TaichiBlogBundle/Resources/public/less/vendors/farbtastic/farbtastic.min.js'
+    "@TaichiBlogBundle/Resources/public/js/highlight.pack.js"
+    '@TaichiBlogBundle/Resources/public/js/markdown.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <script type="text/javascript">
+        $("#post_content").bind("input propertyonchange", function () {
+            this.editor.update();
+            if ($("#post_content").val().length == 0) {
+                $("#content_preview").hide();
+            } else {
+                $("#content_preview").show();
+            }
+        });
+        function Editor(input, preview) {
+            this.update = function () {
+                preview.innerHTML = markdown.toHTML(input.value);
+            };
+            input.editor = this;
+            this.update();
+        }
+        new Editor(document.getElementById("post_content"), document.getElementById("preview"));
+
+        // Handling the modal confirmation message.
+        $(document).on('submit', 'form[data-confirmation]', function (event) {
+            var $form = $(this),
+                    $confirm = $('#confirmationModal');
+
+            if ($confirm.data('result') !== 'yes') {
+                //cancel submit event
+                event.preventDefault();
+
+                $confirm
+                        .off('click', '#btnYes')
+                        .on('click', '#btnYes', function () {
+                            $confirm.data('result', 'yes');
+                            $form.find('input[type="submit"]').attr('disabled', 'disabled');
+                            $form.submit();
+                        })
+                        .modal('show');
+            }
+        });
+    </script>
 {% endblock %}

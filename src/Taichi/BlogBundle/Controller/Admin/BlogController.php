@@ -74,7 +74,7 @@ class BlogController extends Controller
             $em->persist($post);
             $em->flush();
 
-            $this->addFlash('success', 'Post updated successfully');
+            $this->addFlash('success', 'post.created_successfully');
 
             if ($form->get('saveAndCreateNew')->isClicked()) {
                 return $this->redirectToRoute('admin_post_create');
@@ -128,14 +128,14 @@ class BlogController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em->flush();
 
-            $this->addFlash('success', 'Post updated successfully');
+            $this->addFlash('success', 'post.updated_successfully');
 
             return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()]);
         }
 
         return [
             'post'        => $post,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ];
     }

@@ -2,6 +2,11 @@
 
 {% block title %}Taichi Blog Admin Panel{% endblock %}
 
+{% block mainmenu %}
+    {% set menuDashboard=1 %}
+    {{ parent() }}
+{% endblock %}
+
 {% block content %}
     <section id="content">
         <div class="container">

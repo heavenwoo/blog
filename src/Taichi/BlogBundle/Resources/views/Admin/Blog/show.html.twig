@@ -2,6 +2,11 @@
 
 {% block title %}Taichi Blog Admin Panel{% endblock %}
 
+{% block mainmenu %}
+    {% set menuPostlist=1 %}
+    {{ parent() }}
+{% endblock %}
+
 {% block content %}
     <section id="content">
         <div class="container">
@@ -21,41 +26,72 @@
                 <table class="table">
                     <tbody>
                     <tr>
-                        <th>Summary</th>
+                        <th>{{ 'label.summary'|trans }}</th>
                         <td>{{ post.summary|markdown }}</td>
                     </tr>
                     <tr>
-                        <th>Content</th>
+                        <th>{{ 'label.content'|trans }}</th>
                         <td>{{ post.content|markdown }}</td>
                     </tr>
                     <tr>
-                        <th>Author</th>
+                        <th>{{ 'label.username'|trans }}</th>
                         <td><p>{{ post.user.username }}</p></td>
                     </tr>
                     <tr>
-                        <th>Created At</th>
+                        <th>{{ 'label.created_at'|trans }}</th>
                         <td><p>{{ post.createdAt|date("F jS \\@ G:i") }}</p></td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="card-body card-padding">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a href="{{ path('admin_post_edit', { id: post.id }) }}" class="btn btn-lg btn-block btn-success">
-                                <i class="fa fa-edit"></i> Edit
-                            </a>
-                        </div>
-                        <div class="col-md-6">
-                            {{ include('TaichiBlogBundle:Admin:Blog/_form.html.twig', {
-                                form: delete_form,
-                                button_label: 'Delete',
-                                button_css: 'btn btn-lg btn-block btn-danger',
-                                show_confirmation: true,
-                            }, with_context = false) }}
-                        </div>
-                    </div>
+                    <a href="{{ path('admin_post_edit', { id: post.id }) }}"
+                       class="btn btn-sm btn-success m-t-10">
+                        <i class="fa fa-edit"></i> {{ 'action.edit_post'|trans }}
+                    </a>
+                    {{ include('TaichiBlogBundle:Admin:Blog/_delete_post_confirmation.html.twig') }}
+                    {{ form_start(delete_form, { attr: {'data-confirmation': true} }) }}
+                    {{ form_widget(delete_form) }}
+
+                    <input type="submit" value="{{ 'action.delete_post'|trans }}" class="btn btn-danger btn-sm m-t-10"
+                           data-toggle="modal" data-target="#confirmationModal"/>
+
+                    {{ form_end(delete_form) }}
                 </div>
             </div>
         </div>
     </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    "@TaichiBlogBundle/Resources/public/js/highlight.pack.js" %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                hljs.initHighlightingOnLoad();
+            });
+        })(window.jQuery);
+
+        // Handling the modal confirmation message.
+        $(document).on('submit', 'form[data-confirmation]', function (event) {
+            var $form = $(this),
+                    $confirm = $('#confirmationModal');
+
+            if ($confirm.data('result') !== 'yes') {
+                //cancel submit event
+                event.preventDefault();
+
+                $confirm
+                        .off('click', '#btnYes')
+                        .on('click', '#btnYes', function () {
+                            $confirm.data('result', 'yes');
+                            $form.find('input[type="submit"]').attr('disabled', 'disabled');
+                            $form.submit();
+                        })
+                        .modal('show');
+            }
+        });
+    </script>
 {% endblock %}

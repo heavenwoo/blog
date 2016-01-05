@@ -9,10 +9,10 @@
     <title>{% block title %}   {% endblock %}{{ sitename }}</title>
 
     {% block stylesheets %}
-        {% stylesheets output="css/app.css"
-        "@TaichiBlogBundle/Resources/public/css/semantic.css"
-        "@TaichiBlogBundle/Resources/public/css/highlight-solarized-light.css"
-        "@TaichiBlogBundle/Resources/public/css/app.css" %}
+        {% stylesheets output="css/app.css" filter="cssrewrite"
+        "bundles/taichiblog/css/semantic.css"
+        "bundles/taichiblog/css/highlight-solarized-light.css"
+        "bundles/taichiblog/css/app.css" %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
