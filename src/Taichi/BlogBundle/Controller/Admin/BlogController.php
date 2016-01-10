@@ -81,22 +81,6 @@ class BlogController extends Controller
     }
 
     /**
-     * @param Post $post
-     * @return array
-     *
-     * @Route("/post/{id}", methods={"GET"}, requirements={"id" = "\d+"}, name="admin_post_show")
-     */
-    public function showAction(Post $post)
-    {
-        $deleteForm = $this->createDeleteForm($post);
-
-        return $this->render('TaichiBlogBundle:Admin/Blog:show.html.twig', [
-            'post'        => $post,
-            'delete_form' => $deleteForm->createView(),
-        ]);
-    }
-
-    /**
      * @param Post    $post
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -122,7 +106,23 @@ class BlogController extends Controller
 
         return $this->render('TaichiBlogBundle:Admin/Blog:edit.html.twig', [
             'post'        => $post,
-            'form'   => $editForm->createView(),
+            'form'        => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ]);
+    }
+
+    /**
+     * @param Post $post
+     * @return array
+     *
+     * @Route("/post/{id}", methods={"GET"}, requirements={"id" = "\d+"}, name="admin_post_show")
+     */
+    public function showAction(Post $post)
+    {
+        $deleteForm = $this->createDeleteForm($post);
+
+        return $this->render('TaichiBlogBundle:Admin/Blog:show.html.twig', [
+            'post'        => $post,
             'delete_form' => $deleteForm->createView(),
         ]);
     }
