@@ -104,3 +104,20 @@ assetic:
 knp_paginator:
     template:
         pagination: TaichiBlogBundle:Pagination:pagination.html.twig
+
+knp_menu:
+    # use "twig: false" to disable the Twig extension and the TwigRenderer
+    twig:
+        template: TaichiBlogBundle:Menu:knp_menu.html.twig
+    #  if true, enables the helper for PHP templates
+    templating: false
+    # the renderer to use, list is also available by default
+    default_renderer: twig
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Taichi\UserBundle\Entity\User
+    registration:
+        form:
+            type: Taichi\UserBundle\Form\Type\RegistrationFormType

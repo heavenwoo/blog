@@ -1,0 +1,23 @@
+services:
+#    taichi_blog.example:
+#        class: Taichi\BlogBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    taichi_intl.twig.app_extension:
+        public:    false
+        class:     Taichi\IntlBundle\Twig\IntlExtension
+        arguments: [%app_locales%]
+        tags:
+            - { name: twig.extension }
+
+    taichi_intl.twig.intl_extension:
+        public: false
+        class:  Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
+    taichi_intl.redirect_to_preferred_locale_listener:
+        class: Taichi\IntlBundle\EventListener\RedirectToPreferredLocaleListener
+        arguments: ['@router', %app_locales%, %locale%]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

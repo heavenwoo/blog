@@ -10,13 +10,12 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    {% stylesheets
-    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css'
-    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css'
-    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
-    '@TaichiBlogBundle/Resources/public/less/vendors/farbtastic/farbtastic.css'
-    '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/chosen/chosen.min.css'
-    '@TaichiBlogBundle/Resources/public/less/vendors/summernote/dist/summernote.css' %}
+    {% stylesheets filter='cssrewrite'
+    'bundles/taichiblog/less/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css'
+    'bundles/taichiblog/less/vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css'
+    'bundles/taichiblog/less/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+    'bundles/taichiblog/less/vendors/bower_components/chosen/chosen.min.css'
+    'bundles/taichiblog/css/highlight-solarized-light.css' %}
     <link href="{{ asset_url }}" rel="stylesheet">
     {% endstylesheets %}
 
@@ -91,14 +90,17 @@
 
                             <br>
 
-                            <div class="form-group fg-float{% if not form.summary.vars.valid %} has-error has-feedback{% endif %}">
+                            <div class="form-group fg-float{% if not form.abstract.vars.valid %} has-error
+                            has-feedback{%
+                            endif %}">
                                 <div class="fg-line">
-                                    {{ form_label(form.summary, 'label.summary', { label_attr: { class: 'fg-label' }}) }}
-                                    {{ form_widget(form.summary,  { attr: { class: "form-control fg-input" } }) }}
+                                    {{ form_label(form.abstract, 'label.abstract', { label_attr: { class: 'fg-label'
+                                    }}) }}
+                                    {{ form_widget(form.abstract,  { attr: { class: "form-control fg-input" } }) }}
                                 </div>
-                                {% if not form.summary.vars.valid %}
+                                {% if not form.abstract.vars.valid %}
                                     <span class="zmdi zmdi-close form-control-feedback"></span>
-                                    <small class="help-block">{{ form_errors(form.summary) }}</small>
+                                    <small class="help-block">{{ form_errors(form.abstract) }}</small>
                                 {% endif %}
                             </div>
 

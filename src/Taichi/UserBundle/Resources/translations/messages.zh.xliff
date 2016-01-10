@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="security.login.username">
+                <source>security.login.username</source>
+                <target>用户名</target>
+            </trans-unit>
+            <trans-unit id="security.login.password">
+                <source>security.login.password</source>
+                <target>密码</target>
+            </trans-unit>
+            <trans-unit id="security.login.remember_me">
+                <source>security.login.remember_me</source>
+                <target>记住我</target>
+            </trans-unit>
+            <trans-unit id="security.login.submit">
+                <source>security.login.submit</source>
+                <target>登录</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

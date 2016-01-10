@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\PostRepository")
  */
-class Post
+class Post extends Entity
 {
     /**
      * Use constants to define configuration options that rarely change instead
@@ -24,29 +24,20 @@ class Post
     const PAGE_ITEMS = 10;
 
     /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="subject", type="string", length=255)
      * @Assert\NotBlank(message="The subject field should not be blank.")
      */
-    private $subject;
+    protected $subject;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="summary", type="string", length=255)
+     * @ORM\Column(name="abstract", type="string", length=255)
      * @Assert\NotBlank(message="The Summary field should not be blank.")
      */
-    private $summary;
+    protected $abstract;
 
     /**
      * @var string
@@ -55,36 +46,20 @@ class Post
      * @Assert\NotBlank(message="The Content field should not be blank.")
      * @Assert\Length(min = "10", minMessage = "The content is too short, 10 words is required at least.")
      */
-    private $content;
+    protected $content;
 
     /**
      * @var string
      *
      * @ORM\Column(name="picture_url", type="string", length=255, nullable=true)
      */
-    private $pictureUrl;
+    protected $pictureUrl;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     * @Assert\DateTime()
-     */
-    private $createdAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
-     * @Assert\DateTime()
-     */
-    private $updatedAt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Taichi\UserBundle\Entity\User", inversedBy="posts", cascade={"persist"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user;
+    protected $user;
 
     /**
      * @var string
@@ -93,7 +68,7 @@ class Post
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * @Assert\NotBlank(message="The Category field should not be blank.")
      */
-    private $category;
+    protected $category;
 
     /**
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
@@ -102,13 +77,13 @@ class Post
      *      inverseJoinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")}
      *      )
      */
-    private $tags;
+    protected $tags;
 
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
      * @ORM\OrderBy({"createdAt" = "DESC"})
      */
-    private $comments;
+    protected $comments;
 
     /**
      * Post constructor.
@@ -117,16 +92,6 @@ class Post
     {
         $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -160,9 +125,9 @@ class Post
      *
      * @return Post
      */
-    public function setSummary($summary)
+    public function setAbstract($abstract)
     {
-        $this->summary = $summary;
+        $this->abstract = $abstract;
 
         return $this;
     }
@@ -172,9 +137,9 @@ class Post
      *
      * @return string
      */
-    public function getSummary()
+    public function getAbstract()
     {
-        return $this->summary;
+        return $this->abstract;
     }
 
     /**
@@ -341,98 +306,5 @@ class Post
     public function getComments()
     {
         return $this->comments;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return Post
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Post
-     */
-    public function setCreatedAt(Carbon $createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt($locale = 'en')
-    {
-        Carbon::setLocale($locale);
-        return $this->createdAt ? Carbon::instance($this->createdAt) : null;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Post
-     */
-    public function setUpdatedAt(Carbon $updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return Carbon::instance($this->updatedAt);
-    }
-
-    /**
-     * @ORM\PrePersist()
-     */
-    public function PrePersist()
-    {
-        if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(Carbon::now());
-        }
-
-        $this->setUpdatedAt(Carbon::now());
-    }
-
-    /**
-     * @ORM\PreUpdate()
-     */
-    public function PreUpdate()
-    {
-        $this->setUpdatedAt(Carbon::now());
     }
 }

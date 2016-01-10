@@ -1,0 +1,9 @@
+.progress {
+  box-shadow: none;
+  border-radius: 0;
+  height: 5px;
+  margin-bottom: 0;
+}
+.progress .progress-bar {
+  box-shadow: none;
+}

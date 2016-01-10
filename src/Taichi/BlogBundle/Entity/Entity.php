@@ -10,21 +10,40 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\HasLifecycleCallbacks
  */
-class Entity
+abstract class Entity
 {
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set createdAt
@@ -45,9 +64,10 @@ class Entity
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt($locale = 'en')
     {
-        return $this->createdAt;
+        Carbon::setLocale($locale);
+        return $this->createdAt ? Carbon::instance($this->createdAt) : null;
     }
 
     /**

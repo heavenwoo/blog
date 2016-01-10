@@ -1,0 +1,71 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+
+    <div class="input-group fg-float">
+        <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+        <div class="fg-line m-d-20{% if not form.username.vars.valid %} has-error{% elseif form.vars.submitted and form.username.vars.valid %} has-success{% endif %}">
+            {{ form_label(form.username, 'form.username', { label_attr: { class: 'fg-label' }}) }}
+            {{ form_widget(form.username,  { attr: { class: "form-control fg-input" } }) }}
+            {% if not form.username.vars.valid %}
+                <span class="zmdi zmdi-close form-control-feedback"></span>
+                <small class="help-block text-left">{{ form_errors(form.username) }}</small>
+            {% endif %}
+        </div>
+    </div>
+
+    <br>
+
+    <div class="input-group fg-float">
+        <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+        <div class="fg-line m-d-20{% if not form.email.vars.valid %} has-error{% elseif form.vars.submitted and form.email.vars.valid %} has-success{% endif %}">
+            {{ form_label(form.email, 'form.email', { label_attr: { class: 'fg-label' }}) }}
+            {{ form_widget(form.email,  { attr: { class: "form-control fg-input" } }) }}
+            {% if not form.email.vars.valid %}
+                <span class="zmdi zmdi-close form-control-feedback"></span>
+                <small class="help-block text-left">{{ form_errors(form.email) }}</small>
+            {% endif %}
+        </div>
+    </div>
+
+    <br>
+
+    <div class="input-group fg-float">
+        <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+        <div class="fg-line m-d-20{% if not form.plainPassword.first.vars.valid %} has-error{% elseif form.vars.submitted
+        and form.plainPassword.first.vars.valid %} has-success{% endif %}">
+            {{ form_label(form.plainPassword.first, 'form.password', { label_attr: { class: 'fg-label' }}) }}
+            {{ form_widget(form.plainPassword.first,  { attr: { class: "form-control fg-input" } }) }}
+            {% if not form.plainPassword.first.vars.valid %}
+                <span class="zmdi zmdi-close form-control-feedback"></span>
+                <small class="help-block text-left">{{ form_errors(form.plainPassword.first) }}</small>
+            {% endif %}
+        </div>
+    </div>
+
+    <br>
+
+    <div class="input-group fg-float">
+        <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+        <div class="fg-line m-d-20{% if not form.plainPassword.second.vars.valid %} has-error{% elseif form.vars.submitted
+        and form.plainPassword.second.vars.valid %} has-success{% endif %}">
+            {{ form_label(form.plainPassword.second, 'form.password_confirmation', { label_attr: { class: 'fg-label' }}) }}
+            {{ form_widget(form.plainPassword.second,  { attr: { class: "form-control fg-input" } }) }}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></button>
+
+    {{ form_end(form) }}
+
+    <ul class="login-navigation">
+        <li class="bgm-green"><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans }}</a></li>
+        <li class="bgm-orange"><a
+                    href="{{ path('fos_user_resetting_request') }}">{{ 'resetting.request.submit'|trans }}</a>
+        </li>
+    </ul>
+{% endblock fos_user_content %}

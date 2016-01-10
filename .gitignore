@@ -7,4 +7,4 @@ composer.lock
 /var/
 /web/
 /app/config/parameters.yml
-/src/Taichi/BlogBundle/Resources/assetic/node_modules/
+/src/Taichi/BlogBundle/Resources/assets/node_modules/

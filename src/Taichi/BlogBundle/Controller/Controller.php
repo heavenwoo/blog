@@ -14,7 +14,7 @@ class Controller extends BaseController
     {
         return $this->getDoctrine()
             ->getManager()
-            ->getRepository('TaichiBlogBundle:User');
+            ->getRepository('TaichiUserBundle:User');
     }
 
     /**

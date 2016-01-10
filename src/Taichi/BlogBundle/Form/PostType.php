@@ -27,8 +27,8 @@ class PostType extends AbstractType
                 'class' => \Taichi\BlogBundle\Entity\Category::class,
                 'label' => 'label.category',
             ])
-            ->add('summary', TextareaType::class, [
-                'label' => 'label.summary'
+            ->add('abstract', TextareaType::class, [
+                'label' => 'label.abstract'
             ])
             ->add('content', TextareaType::class, [
                 'attr' => [

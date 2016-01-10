@@ -1,0 +1,15 @@
+.invoice {
+  min-width: 1100px;
+  max-width: 1170px;
+}
+.i-logo {
+  width: 150px;
+}
+.i-table .highlight {
+  background-color: #eee;
+  border-bottom: 1px solid #e6e6e6;
+}
+.i-table td.highlight {
+  font-size: 14px;
+  font-weight: 500;
+}

@@ -2,3 +2,18 @@ services:
 #    taichi_blog.example:
 #        class: Taichi\BlogBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    taichi.blog.menu_builder:
+        class: Taichi\BlogBundle\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory"]
+        tags:
+              # The alias is what is used to retrieve the menu
+            - { name: knp_menu.menu_builder, method: createAdminSidebarMenu, alias: admin_sidebar }
+
+    taichi.blog.menu_renderer:
+        # The class implements Knp\Menu\Renderer\RendererInterface
+        class: Taichi\BlogBundle\Menu\TaichiRenderer
+        arguments: [%kernel.charset%] # set your own dependencies here
+        tags:
+            # The alias is what is used to retrieve the menu
+            - { name: knp_menu.renderer, alias: taichi }

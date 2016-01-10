@@ -1,6 +1,7 @@
 .login-content {
     overflow: hidden;
     height: 100%;
+    background: @m-teal;
 }
 
 .lc-block {
@@ -81,7 +82,11 @@
         &:hover {
             border-radius: 10px;
             padding: 0 5px;
-            font-size: 8px; 
+            font-size: 8px;
+
+            & > a {
+              color: #fff;
+            }
 
             & > span {
                 .opacity(1);
@@ -119,23 +124,23 @@
 
 body.login-content {
     text-align: center;
-    
-    &:after {
-        content: "";
-        vertical-align: middle; 
-        display: inline-block;
-        width: 1px;
-        height: 100%;
-    }
-    
-    &:before {
-        height: 50%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: @m-cyan;
-        content: "";
-        z-index: 0;
-    }
+    //
+    //&:after {
+    //    content: "";
+    //    vertical-align: middle;
+    //    display: inline-block;
+    //    width: 1px;
+    //    height: 100%;
+    //}
+    //
+    //&:before {
+    //    height: 50%;
+    //    width: 100%;
+    //    position: absolute;
+    //    top: 0;
+    //    left: 0;
+    //    background: @m-cyan;
+    //    content: "";
+    //    z-index: 0;
+    //}
 }

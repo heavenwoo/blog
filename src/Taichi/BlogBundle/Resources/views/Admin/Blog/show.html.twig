@@ -7,6 +7,16 @@
     {{ parent() }}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='cssrewrite'
+    'bundles/taichiblog/css/highlight-solarized-light.css' %}
+    <link href="{{ asset_url }}" rel="stylesheet">
+    {% endstylesheets %}
+
+{% endblock %}
+
 {% block content %}
     <section id="content">
         <div class="container">
@@ -23,11 +33,11 @@
             </div>
 
             <div class="card">
-                <table class="table">
+                <table class="table table-striped">
                     <tbody>
                     <tr>
-                        <th>{{ 'label.summary'|trans }}</th>
-                        <td>{{ post.summary|markdown }}</td>
+                        <th>{{ 'label.abstract'|trans }}</th>
+                        <td>{{ post.abstract|markdown }}</td>
                     </tr>
                     <tr>
                         <th>{{ 'label.content'|trans }}</th>

@@ -8,13 +8,10 @@ use Taichi\BlogBundle\Entity\Category;
 use Taichi\BlogBundle\Entity\Comment;
 use Taichi\BlogBundle\Entity\Post;
 use Taichi\BlogBundle\Entity\Tag;
-use Taichi\BlogBundle\Entity\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Taichi\BlogBundle\Form\CommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -23,94 +20,59 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class BlogController extends Controller
 {
     /**
+     * Index listing
      * @Route("/", name="blog_index", defaults={"page" = 1})
      * @Route("/page/{page}", name="blog_index_paginated", requirements={"page" : "\d+"})
-     * @Template()
+     *
+     * Tag listing
+     * @Route("/tag/{name}", name="blog_tag", defaults={"page" = 1})
+     * @Route("/tag/{name}/page/{page}", name="blog_tag_paginated", requirements={"page" : "\d+"})
+     *
+     * Category listing
+     * @Route("/category/{name}", name="blog_category", defaults={"page" = 1})
+     * @Route("/category/{name}/page/{page}", name="blog_category_paginated", requirements={"page" : "\d+"})
      */
-    public function indexAction($page)
+    public function listAction($page, Tag $tag = null, Category $category = null)
     {
-        $query = $this->getPostRepository()->findBy([], ['createdAt' => 'DESC']);
+        if ($tag !== null) {
+            $query = $tag->getPosts();
+            $usedRoute = 'blog_tag_paginated';
+        } else if ($category !== null) {
+            $query = $category->getPosts();
+            $usedRoute = 'blog_category_paginated';
+        } else {
+            $query = $this->getPostRepository()->findBy([], ['createdAt' => 'DESC']);
+            $usedRoute = 'blog_index_paginated';
+        }
 
         /** @var $paginator \Knp\Component\Pager\Paginator */
         $paginator = $this->get('knp_paginator');
 
         $posts = $paginator->paginate($query, $page, Post::PAGE_ITEMS);
 
-        $posts->setUsedRoute('blog_index_paginated');
+        $posts->setUsedRoute($usedRoute);
 
-        return [
-            'posts' => $posts,
-        ];
+        return $this->render('TaichiBlogBundle:Blog:index.html.twig', compact('posts', 'tag', 'category'));
     }
 
     /**
      * @Route("/post/{id}", name="blog_post")
-     * @Template()
      */
     public function postAction(Post $post)
     {
-        return [
-            'post' => $post,
-        ];
+        return $this->render('TaichiBlogBundle:Blog:post.html.twig', compact('post'));
     }
 
     /**
-     * @Route("/tag/{name}", name="blog_tag", defaults={"page" = 1})
-     * @Route("/tag/{name}/page/{page}", name="blog_tag_paginated", requirements={"page" : "\d+"})
-     * @Template()
-     */
-    public function tagAction($page, Tag $tag)
-    {
-        $query = $tag->getPosts();
-
-        /** @var $paginator \Knp\Component\Pager\Paginator */
-        $paginator = $this->get('knp_paginator');
-
-        $posts = $paginator->paginate($query, $page, Post::PAGE_ITEMS);
-
-        $posts->setUsedRoute('blog_tag_paginated');
-
-        return [
-            'tag'   => $tag,
-            'posts' => $posts,
-        ];
-    }
-
-    /**
-     * @Route("/category/{name}", name="blog_category", defaults={"page" = 1})
-     * @Route("/category/{name}/page/{page}", name="blog_category_paginated", requirements={"page" : "\d+"})
-     * @Template()
-     */
-    public function categoryAction($page, Category $category)
-    {
-        $query = $category->getPosts();
-
-        /** @var $paginator \Knp\Component\Pager\Paginator */
-        $paginator = $this->get('knp_paginator');
-
-        $posts = $paginator->paginate($query, $page, Post::PAGE_ITEMS);
-
-        $posts->setUsedRoute('blog_category_paginated');
-
-        return [
-            'category' => $category,
-            'posts'    => $posts,
-        ];
-    }
-
-    /**
-     * @Route("/comment/{postId}/new", name = "comment_new")
+     * @Route("/comment/{postId}/new", methods={"POST"}, name = "comment_new")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      *
-     * @Method("POST")
      * @ParamConverter("post", options={"mapping": {"postId": "id"}})
      *
      * NOTE: The ParamConverter mapping is required because the route parameter
      * (postId) doesn't match any of the Doctrine entity properties (id).
      * See
      * http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
-     *
-     * @Template()
      */
     public function commentAction(Post $post, Request $request)
     {
@@ -131,16 +93,16 @@ class BlogController extends Controller
             return $this->redirectToRoute('blog_post', ['id' => $post->getId()]);
         }
 
-        return [
+        return $this->render('TaichiBlogBundle:Blog:comment.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
-        ];
+        ]);
     }
 
 
     /**
      * This controller is called directly via the render() function in the
-     * blog/post_show.html.twig template. That's why it's not needed to define
+     * Blog/post.html.twig template. That's why it's not needed to define
      * a route name for it.
      *
      * The "id" of the Post is passed in and then turned into a Post object
@@ -149,39 +111,14 @@ class BlogController extends Controller
      * @param Post $post
      *
      * @return Response
-     *
-     * @Template("TaichiBlogBundle:Blog:_comment_form.html.twig")
      */
     public function commentFormAction(Post $post)
     {
         $form = $this->createForm(CommentType::class);
 
-        return [
+        return $this->render('TaichiBlogBundle:Blog:_comment_form.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
-        ];
-    }
-
-    /**
-     * @Route("/tag/add", name="tag_add")
-     */
-    public function addTagAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $i = 0;
-        while ($i < 30) {
-            $post = $this->getPostRepository()->findOneBy(['id' => ++$i]);
-
-            for ($j = 0; $j < 10; $j++) {
-                /** @var $tag \Taichi\BlogBundle\Entity\Tag */
-                $tag = $this->getTagRepository()->findOneBy(['id' => $j + 1]);
-
-                $post->addTag($tag);
-
-                $em->persist($post);
-                $em->flush();
-            }
-        }
+        ]);
     }
 }

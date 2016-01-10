@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block stylesheets %}
+        {% stylesheets filter="cssrewrite"
+        'bundles/taichiblog/less/vendors/bower_components/animate.css/animate.min.css'
+        'bundles/taichiblog/less/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css'
+        'bundles/taichiblog/css/material.css' %}
+        <link href="{{ asset_url }}" rel="stylesheet">
+        {% endstylesheets %}
+    {% endblock %}
+</head>
+
+<body class="login-content">
+{{ dump() }}
+<div>
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+    <a href="{{ path('fos_user_security_logout') }}">
+        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+    </a>
+{% else %}
+    <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+{% endif %}
+</div>
+
+{% for type, messages in app.session.flashBag.all %}
+    {% for message in messages %}
+        <div class="{{ type }}">
+            {{ message|trans({}, 'FOSUserBundle') }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+<!-- Login -->
+<div class="lc-block toggled">
+{% block fos_user_content %}{% endblock %}
+</div>
+
+<!-- Older IE warning message -->
+<!--[if lt IE 9]>
+<div class="ie-warning">
+    <h1 class="c-white">Warning!!</h1>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web
+        browsers to access this website.</p>
+    <div class="iew-container">
+        <ul class="iew-download">
+            <li>
+                <a href="http://www.google.com/chrome/">
+                    {% image '@TaichiBlogBundle/Resources/public/images/browsers/chrome.png' %}
+                    <img src="{{ asset_url }}" alt="">
+                    {% endimage %}
+                    <div>Chrome</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.mozilla.org/en-US/firefox/new/">
+                    {% image '@TaichiBlogBundle/Resources/public/images/browsers/firefox.png' %}
+                    <img src="{{ asset_url }}" alt="">
+                    {% endimage %}
+                    <div>Firefox</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.opera.com">
+                    {% image '@TaichiBlogBundle/Resources/public/images/browsers/opera.png' %}
+                    <img src="{{ asset_url }}" alt="">
+                    {% endimage %}
+                    <div>Opera</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.apple.com/safari/">
+                    {% image '@TaichiBlogBundle/Resources/public/images/browsers/safari.png' %}
+                    <img src="{{ asset_url }}" alt="">
+                    {% endimage %}
+                    <div>Safari</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                    {% image '@TaichiBlogBundle/Resources/public/images/browsers/ie.png' %}
+                    <img src="{{ asset_url }}" alt="">
+                    {% endimage %}
+                    <div>IE (New)</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <p>Sorry for the inconvenience!</p>
+</div>
+<![endif]-->
+
+<!-- Javascript Libraries -->
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+{% block javascripts %}
+    {% javascripts
+    '@TaichiBlogBundle/Resources/public/admin/js/functions.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+</body>
+</html>

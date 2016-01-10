@@ -1,0 +1,19 @@
+.cp-container {
+  position: relative;
+}
+.cp-container > .input-group input.cp-value {
+  color: #000 !important;
+  background: transparent !important;
+}
+.cp-container > .input-group .dropdown-menu {
+  padding: 20px;
+  margin-left: 10px;
+}
+.cp-container i.cp-value {
+  width: 25px;
+  height: 25px;
+  border-radius: 2px;
+  position: absolute;
+  top: 0;
+  right: 15px;
+}

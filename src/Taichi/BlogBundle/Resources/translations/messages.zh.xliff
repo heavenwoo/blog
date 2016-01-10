@@ -200,8 +200,8 @@
                 <source>label.content</source>
                 <target>正文</target>
             </trans-unit>
-            <trans-unit id="label.summary">
-                <source>label.summary</source>
+            <trans-unit id="label.abstract">
+                <source>label.abstract</source>
                 <target>摘要</target>
             </trans-unit>
             <trans-unit id="label.published_at">
@@ -221,6 +221,10 @@
                 <target>Edit contents</target>
             </trans-unit>
 
+            <trans-unit id="menu.dashboard">
+                <source>menu.dashboard</source>
+                <target>Home</target>
+            </trans-unit>
             <trans-unit id="menu.posts">
                 <source>menu.posts</source>
                 <target>文章管理</target>
@@ -260,6 +264,28 @@
             <trans-unit id="menu.signup">
                 <source>menu.signup</source>
                 <target>注册</target>
+            </trans-unit>
+
+            <trans-unit id="layout.login">
+                <source>layout.login</source>
+                <target>登录</target>
+            </trans-unit>
+
+            <trans-unit id="security.login.username">
+                <source>security.login.username</source>
+                <target>用户名</target>
+            </trans-unit>
+            <trans-unit id="security.login.password">
+                <source>security.login.password</source>
+                <target>密码</target>
+            </trans-unit>
+            <trans-unit id="security.login.remember_me">
+                <source>security.login.remember_me</source>
+                <target>记住我</target>
+            </trans-unit>
+            <trans-unit id="security.login.submit">
+                <source>security.login.submit</source>
+                <target>登录</target>
             </trans-unit>
 
             <trans-unit id="post.to_publish_a_comment">

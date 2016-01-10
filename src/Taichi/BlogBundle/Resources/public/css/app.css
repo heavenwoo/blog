@@ -5,7 +5,6 @@ body {
   display: none;
 }
 .ui.vertical.banner {
-  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/banner.png");
   padding: 1.5rem 0;
   margin-top: -20px;
   margin-bottom: 20px;

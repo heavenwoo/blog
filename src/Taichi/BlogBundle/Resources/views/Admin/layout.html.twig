@@ -14,11 +14,9 @@
         {% stylesheets filter="cssrewrite"
         'bundles/taichiblog/less/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css'
         'bundles/taichiblog/less/vendors/bower_components/animate.css/animate.min.css'
-        'bundles/taichiblog/less/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css'
         'bundles/taichiblog/less/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css'
         'bundles/taichiblog/less/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css'
         'bundles/taichiblog/less/vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css'
-        "bundles/taichiblog/css/highlight-solarized-light.css"
         'bundles/taichiblog/css/material.css' %}
         <link href="{{ asset_url }}" rel="stylesheet">
         {% endstylesheets %}
@@ -112,8 +110,7 @@
                         <a href="profile-about.html"><i class="zmdi zmdi-account"></i> View Profile</a>
                     </li>
                     <li>
-                        <a href="{{ path('security_logout') }}"><i
-                                    class="zmdi zmdi-time-restore"></i> {{ 'menu.logout'|trans }}</a>
+                        <a href="{{ path('fos_user_security_logout') }}"><i class="zmdi zmdi-time-restore"></i> {{ 'menu.logout'|trans }}</a>
                     </li>
                 </ul>
             </div>
