@@ -1,8 +1,3 @@
-taichi_user:
-    resource: "@TaichiUserBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 taichi_blog:
     resource: "@TaichiBlogBundle/Controller/"
     type:     annotation

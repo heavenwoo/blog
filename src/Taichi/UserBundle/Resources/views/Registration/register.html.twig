@@ -1,6 +1,8 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "TaichiUserBundle::layout.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
+
+{% form_theme form _self %}
 
 {% block fos_user_content %}
 
@@ -51,12 +53,15 @@
 
     <div class="input-group fg-float">
         <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
-        <div class="fg-line m-d-20{% if not form.plainPassword.second.vars.valid %} has-error{% elseif form.vars.submitted
-        and form.plainPassword.second.vars.valid %} has-success{% endif %}">
+        <div class="fg-line m-d-20{% if not form.captcha.vars.valid %} has-error{% elseif form.vars.submitted and form.captcha.vars.valid %} has-success{% endif %}">
             {{ form_label(form.plainPassword.second, 'form.password_confirmation', { label_attr: { class: 'fg-label' }}) }}
             {{ form_widget(form.plainPassword.second,  { attr: { class: "form-control fg-input" } }) }}
         </div>
     </div>
+
+    <br>
+
+    {{ form_widget(form.captcha) }}
 
     <button type="submit" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></button>
 
@@ -69,3 +74,37 @@
         </li>
     </ul>
 {% endblock fos_user_content %}
+
+{% block captcha_widget %}
+    {% if is_human %}
+        -
+    {% else %}
+        {% spaceless %}
+            <div class="row">
+                <div class="col-md-8 pull-left">
+                    <div class="input-group fg-float">
+                        <span class="input-group-addon"> </span>
+                        <div class="fg-line m-d-20{% if not form.vars.valid %} has-error{% elseif form.vars.submitted
+                        and form.vars.valid %} has-success{% endif %}">
+                            {{ form_label(form, 'form.captcha', { label_attr: { class: 'fg-label' }}) }}
+                            {{ form_widget(form,  { attr: { class: "form-control fg-input" } }) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img id="{{ image_id }}" src="{{ captcha_code }}" alt="" title="captcha" width="{{ captcha_width }}" height="{{ captcha_height }}" />
+                </div>
+            </div>
+
+            {% if reload %}
+                <script type="text/javascript">
+                    function reload_{{ image_id }}() {
+                        var img = document.getElementById('{{ image_id }}');
+                        img.src = '{{ captcha_code }}?n=' + (new Date()).getTime();
+                    }
+                </script>
+                <a class="captcha_reload" href="javascript:reload_{{ image_id }}();">{{ 'Renew'|trans({}, 'gregwar_captcha') }}</a>
+            {% endif %}
+        {% endspaceless %}
+    {% endif %}
+{% endblock %}

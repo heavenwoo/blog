@@ -2,19 +2,13 @@
 
 namespace Taichi\BlogBundle\Controller\Admin;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Taichi\BlogBundle\Entity\Category;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
-use Taichi\BlogBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Taichi\BlogBundle\Entity\Post;
-use Taichi\BlogBundle\Entity\Tag;
-use Taichi\BlogBundle\Form\PostType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Taichi\BlogBundle\Controller\Controller;
+use Taichi\BlogBundle\Entity\Post;
+use Taichi\BlogBundle\Form\PostType;
 
 /**
  * @Route("/admin")
@@ -24,7 +18,6 @@ class BlogController extends Controller
 {
     /**
      * @Route("/dashboard", name="admin_dashboard")
-     * @Template()
      */
     public function dashboardAction()
     {
@@ -34,29 +27,27 @@ class BlogController extends Controller
         $categories = $this->getCategoryRepository()->findAll();
         $tags = $this->getTagRepository()->findAll();
 
-        return [
+        return $this->render('TaichiBlogBundle:Admin/Blog:dashboard.html.twig', [
             'posts'      => $posts,
             'comments'   => $comments,
             'users'      => $users,
             'categories' => $categories,
             'tags'       => $tags,
-        ];
+        ]);
     }
 
     /**
      * @Route("/post/list", name="admin_post_list")
-     * @Template()
      */
     public function listAction()
     {
-        return [
+        return $this->render('TaichiBlogBundle:Admin/Blog:list.html.twig', [
             'posts' => $this->getPostRepository()->findAll(),
-        ];
+        ]);
     }
 
     /**
      * @Route("/post/create", name="admin_post_create")
-     * @Template()
      */
     public function createAction(Request $request)
     {
@@ -83,28 +74,26 @@ class BlogController extends Controller
             return $this->redirectToRoute('admin_post_list');
         }
 
-        return [
+        return $this->render('TaichiBlogBundle:Admin/Blog:create.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
-        ];
+        ]);
     }
 
     /**
      * @param Post $post
      * @return array
      *
-     * @Route("/post/{id}", requirements={"id" = "\d+"}, name="admin_post_show")
-     * @Template()
-     * @Method("GET")
+     * @Route("/post/{id}", methods={"GET"}, requirements={"id" = "\d+"}, name="admin_post_show")
      */
     public function showAction(Post $post)
     {
         $deleteForm = $this->createDeleteForm($post);
 
-        return [
+        return $this->render('TaichiBlogBundle:Admin/Blog:show.html.twig', [
             'post'        => $post,
             'delete_form' => $deleteForm->createView(),
-        ];
+        ]);
     }
 
     /**
@@ -112,9 +101,7 @@ class BlogController extends Controller
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @Route("/post/{id}/edit", requirements={"id" = "\d+"}, name="admin_post_edit")
-     * @Template()
-     * @Method({"GET", "POST"})
+     * @Route("/post/{id}/edit", methods={"GET", "POST"}, requirements={"id" = "\d+"}, name="admin_post_edit")
      */
     public function editAction(Post $post, Request $request)
     {
@@ -133,11 +120,11 @@ class BlogController extends Controller
             return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()]);
         }
 
-        return [
+        return $this->render('TaichiBlogBundle:Admin/Blog:edit.html.twig', [
             'post'        => $post,
             'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ];
+        ]);
     }
 
     /**
@@ -145,8 +132,7 @@ class BlogController extends Controller
      * @param Post    $post
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @Route("/post/{id}", name="admin_post_delete")
-     * @Method("DELETE")
+     * @Route("/post/{id}", methods={"DELETE"}, name="admin_post_delete")
      *
      */
     public function deleteAction(Request $request, Post $post)
