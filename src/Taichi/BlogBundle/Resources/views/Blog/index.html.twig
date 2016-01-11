@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block content %}
+    {{ 'now'|carbon('en', 'y-m-d') }}
     {% for post in posts %}
         <article class="post">
             <h1>
@@ -24,7 +25,7 @@
             </h1>
             <div class="ui horizontal post-meta">
                 <i class="calendar icon"></i> <span
-                        class="item">{{ post.createdAt(app.request.locale).diffForHumans }}</span>
+                        class="item">{{ post.createdAt|diffForHumans }}</span>
                 {% if category is null %}
                     <i class="folder outline icon"></i> <a
                         class="item"

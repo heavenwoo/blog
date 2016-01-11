@@ -1,0 +1,13 @@
+services:
+#    taichi_carbon.example:
+#        class: Taichi\CarbonBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+    taichi.carbon.extension:
+        class: Taichi\CarbonBundle\Twig\CarbonExtension
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }
+
+    taichi.carbon.processor:
+        class: Taichi\CarbonBundle\Utils\Processor
+        arguments: ['@service_container']

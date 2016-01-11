@@ -1,0 +1,15 @@
+{
+  "name": "taichi/carbon-bundle",
+  "license": "MTI",
+  "type": "A Carbon twig extension for Symfony",
+  "autoload": {
+    "psr-4": {
+      "Taichi\\CarbonBundle\\": ""
+    }
+  },
+  "require": {
+    "php": ">=5.5.9",
+    "twig/extensions": "^1.3",
+    "nesbot/carbon": "*"
+  }
+}

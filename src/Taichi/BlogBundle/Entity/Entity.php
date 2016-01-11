@@ -66,8 +66,7 @@ abstract class Entity
      */
     public function getCreatedAt($locale = 'en')
     {
-        Carbon::setLocale($locale);
-        return $this->createdAt ? Carbon::instance($this->createdAt) : null;
+        return $this->createdAt;
     }
 
     /**

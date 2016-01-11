@@ -121,3 +121,7 @@ fos_user:
     registration:
         form:
             type: Taichi\UserBundle\Form\Type\RegistrationFormType
+
+taichi_carbon:
+    locale: %locale%
+    format: 'Y年m月d日 H点i分'

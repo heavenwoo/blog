@@ -28,6 +28,7 @@ class AppKernel extends Kernel
 
             new Taichi\BlogBundle\TaichiBlogBundle(),
             new Taichi\UserBundle\TaichiUserBundle(),
+            new Taichi\CarbonBundle\TaichiCarbonBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
