@@ -24,6 +24,16 @@ class CarbonExtension extends \Twig_Extension
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getFunctions()
+    {
+        return array(
+            new \Twig_SimpleFunction('carbon', array($this, 'carbon')),
+        );
+    }
+
     public function diffForHumans($dateTime, $otherDateTime = null)
     {
         $dt = ($dateTime instanceof \DateTime)
@@ -42,13 +52,13 @@ class CarbonExtension extends \Twig_Extension
         return $dt->diffForHumans($otherDt);
     }
 
-    public function carbon($dateTime, $locale = null, $format = null)
+    public function carbon($dateTime = null, $format = null)
     {
         $dt = ($dateTime instanceof \DateTime)
             ? Carbon::instance($dateTime)
             : new Carbon($dateTime);
 
-        $locale = $locale ?: $this->container->getParameter('taichi.carbon.locale');
+        $locale = $this->container->getParameter('taichi.carbon.locale');
         $format = $format ?: $this->container->getParameter('taichi.carbon.format');
 
         $dt->setLocale($locale);

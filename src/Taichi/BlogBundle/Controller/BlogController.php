@@ -23,36 +23,53 @@ class BlogController extends Controller
      * Index listing
      * @Route("/", name="blog_index", defaults={"page" = 1})
      * @Route("/page/{page}", name="blog_index_paginated", requirements={"page" : "\d+"})
-     *
-     * Tag listing
-     * @Route("/tag/{name}", name="blog_tag", defaults={"page" = 1})
-     * @Route("/tag/{name}/page/{page}", name="blog_tag_paginated", requirements={"page" : "\d+"})
-     *
-     * Category listing
-     * @Route("/category/{name}", name="blog_category", defaults={"page" = 1})
-     * @Route("/category/{name}/page/{page}", name="blog_category_paginated", requirements={"page" : "\d+"})
      */
     public function listAction($page, Tag $tag = null, Category $category = null)
     {
         if ($tag !== null) {
-            $query = $tag->getPosts();
-            $usedRoute = 'blog_tag_paginated';
+            $query = $this->getPostRepository()->getAllPostsByTag($tag);
+            $route = 'tag';
         } else if ($category !== null) {
-            $query = $category->getPosts();
-            $usedRoute = 'blog_category_paginated';
+            $query = $this->getPostRepository()->getAllPostsByCategory($category);
+            $route = 'category';
         } else {
-            $query = $this->getPostRepository()->findBy([], ['createdAt' => 'DESC']);
-            $usedRoute = 'blog_index_paginated';
+            $query = $this->getPostRepository()->getAllPosts();
+            $route = 'index';
         }
 
         /** @var $paginator \Knp\Component\Pager\Paginator */
         $paginator = $this->get('knp_paginator');
 
+        /** @var \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $posts */
         $posts = $paginator->paginate($query, $page, Post::PAGE_ITEMS);
 
-        $posts->setUsedRoute($usedRoute);
+        $posts->setUsedRoute("blog_{$route}_paginated");
 
-        return $this->render('TaichiBlogBundle:Blog:index.html.twig', compact('posts', 'tag', 'category'));
+        return $this->render('TaichiBlogBundle:Blog:index.html.twig', [
+            'posts' => $posts,
+            'tag' => $tag,
+            'category' => $category,
+        ]);
+    }
+
+    /**
+     * Category listing
+     * @Route("/category/{name}", name="blog_category", defaults={"page" = 1})
+     * @Route("/category/{name}/page/{page}", name="blog_category_paginated", requirements={"page" : "\d+"})
+     */
+    public function categoryAction($page, Category $category)
+    {
+        return $this->listAction($page, null, $category);
+    }
+
+    /**
+     * Tag listing
+     * @Route("/tag/{name}", name="blog_tag", defaults={"page" = 1})
+     * @Route("/tag/{name}/page/{page}", name="blog_tag_paginated", requirements={"page" : "\d+"})
+     */
+    public function tagAction($page, Tag $tag)
+    {
+        return $this->listAction($page, $tag);
     }
 
     /**
@@ -60,7 +77,7 @@ class BlogController extends Controller
      */
     public function postAction(Post $post)
     {
-        return $this->render('TaichiBlogBundle:Blog:post.html.twig', compact('post'));
+        return $this->render('TaichiBlogBundle:Blog:post.html.twig', ['post' => $post]);
     }
 
     /**

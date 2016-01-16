@@ -42,7 +42,7 @@ class BlogController extends Controller
     public function listAction()
     {
         return $this->render('TaichiBlogBundle:Admin/Blog:list.html.twig', [
-            'posts' => $this->getPostRepository()->findAll(),
+            'posts' => $this->getPostRepository()->getAllPosts(),
         ]);
     }
 

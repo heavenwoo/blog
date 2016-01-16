@@ -2,7 +2,6 @@
 
 namespace Taichi\BlogBundle\Entity;
 
-use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,7 +51,7 @@ abstract class Entity
      *
      * @return Category
      */
-    public function setCreatedAt(Carbon $createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -64,7 +63,7 @@ abstract class Entity
      *
      * @return \DateTime
      */
-    public function getCreatedAt($locale = 'en')
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
@@ -76,7 +75,7 @@ abstract class Entity
      *
      * @return Category
      */
-    public function setUpdatedAt(Carbon $updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -99,10 +98,10 @@ abstract class Entity
     public function PrePersist()
     {
         if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(Carbon::now());
+            $this->setCreatedAt(new \DateTime('now'));
         }
 
-        $this->setUpdatedAt(Carbon::now());
+        $this->setUpdatedAt(new \DateTime('now'));
     }
 
     /**
@@ -110,6 +109,6 @@ abstract class Entity
      */
     public function PreUpdate()
     {
-        $this->setUpdatedAt(Carbon::now());
+        $this->setUpdatedAt(new \DateTime('now'));
     }
 }

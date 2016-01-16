@@ -2,7 +2,6 @@
 
 namespace Taichi\BlogBundle\Entity;
 
-use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -13,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\CategoryRepository")
  */
-class Category
+class Category extends Entity
 {
     /**
      * @var int
@@ -30,20 +29,6 @@ class Category
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
-     */
-    protected $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
@@ -66,16 +51,6 @@ class Category
     public function __construct()
     {
         $this->posts = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -194,77 +169,6 @@ class Category
         return $this->posts;
     }
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Category
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt ? Carbon::instance($this->createdAt) : null;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Category
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return Carbon::instance($this->updatedAt);
-    }
-
-    /**
-     * @ORM\PrePersist()
-     */
-    public function PrePersist()
-    {
-        if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(Carbon::now());
-        }
-
-        $this->setUpdatedAt(Carbon::now());
-    }
-
-    /**
-     * @ORM\PreUpdate()
-     */
-    public function PreUpdate()
-    {
-        $this->setUpdatedAt(Carbon::now());
-    }
-
-    /*
-     * get the category name
-     */
     public function __toString()
     {
         return $this->getName();

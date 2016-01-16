@@ -125,3 +125,9 @@ fos_user:
 taichi_carbon:
     locale: %locale%
     format: 'Y年m月d日 H点i分'
+
+gregwar_captcha:
+    height: 40
+#    as_url: true
+#    reload: true
+    background_color: [255, 255, 255]

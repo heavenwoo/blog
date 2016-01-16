@@ -2,7 +2,6 @@
 
 namespace Taichi\BlogBundle\Entity;
 
-use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -13,37 +12,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\TagRepository")
  */
-class Tag
+class Tag extends Entity
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
-     */
-    private $updatedAt;
 
     /**
      * @var array
@@ -125,77 +101,6 @@ class Tag
         return $this->posts;
     }
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Tag
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt ? Carbon::instance($this->createdAt) : null;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Tag
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return Carbon::instance($this->updatedAt);
-    }
-
-    /**
-     * @ORM\PrePersist()
-     */
-    public function PrePersist()
-    {
-        if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(new \DateTime('now'));
-        }
-
-        $this->setUpdatedAt(new \DateTime('now'));
-    }
-
-    /**
-     * @ORM\PreUpdate()
-     */
-    public function PreUpdate()
-    {
-        $this->setUpdatedAt(new \DateTime('now'));
-    }
-
-    /**
-     * @return string
-     */
     public function __toString()
     {
         return $this->getName();

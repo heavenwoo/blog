@@ -3,7 +3,8 @@
 namespace Taichi\BlogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
+use Taichi\BlogBundle\Entity\Category;
+use Taichi\BlogBundle\Entity\Tag;
 
 /**
  * PostRepository
@@ -13,4 +14,52 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class PostRepository extends EntityRepository
 {
+    public function getAllPosts()
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery('
+            SELECT p, c, t, co
+            FROM TaichiBlogBundle:Post p
+            JOIN p.category c
+            JOIN p.tags t
+            LEFT JOIN p.comments co
+            ORDER BY p.createdAt DESC
+        ');
+
+        return $query->execute();
+    }
+
+    public function getAllPostsByCategory(Category $category)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery('
+            SELECT p, t, co
+            FROM TaichiBlogBundle:Post p
+            JOIN p.tags t
+            LEFT JOIN p.comments co
+            WHERE p.category = :category
+            ORDER BY p.createdAt DESC
+        ')->setParameter('category', $category);
+
+        return $query->execute();
+    }
+
+    public function getAllPostsByTag(Tag $tag)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery('
+            SELECT p, c, t, co
+            FROM TaichiBlogBundle:Post p
+            JOIN p.category c
+            JOIN p.tags t
+            LEFT JOIN p.comments co
+            WHERE t = :tag
+            ORDER BY p.createdAt DESC
+        ')->setParameter('tag', $tag);
+
+        return $query->execute();
+    }
 }

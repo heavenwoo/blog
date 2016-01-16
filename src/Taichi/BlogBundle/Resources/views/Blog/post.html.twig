@@ -7,7 +7,7 @@
         {{ post.subject }}
     </h1>
     <div class="ui horizontal post-meta post-show">
-        <i class="calendar icon"></i> <span class="item">{{ post.createdAt(app.request.locale).diffForHumans }}</span>
+        <i class="calendar icon"></i> <span class="item">{{ post.createdAt | diffForHumans }}</span>
         <i class="folder outline icon"></i> <a
                 class="item" href="{{ path('blog_category', {name: post.category.name}) }}">{{ post.category.name }}</a>
         {% for tag in post.tags %}
@@ -33,7 +33,7 @@
                     <a class="author">{{ comment.user.username }}</a>
                     <div class="metadata">
                         {{ 'post.commented_on'|trans }} <span
-                                class="date">{{ comment.createdAt(app.request.locale).diffForHumans }}</span>
+                                class="date">{{ comment.createdAt | diffForHumans }}</span>
                     </div>
                     <div class="text">{{ comment.content|markdown }}</div>
                     <div class="actions">

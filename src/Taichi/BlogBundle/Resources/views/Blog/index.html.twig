@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-    {{ 'now'|carbon('en', 'y-m-d') }}
+    {{ carbon() }}
     {% for post in posts %}
         <article class="post">
             <h1>
