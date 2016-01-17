@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Comment
  *
  * @ORM\Table(name="comments")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Taichi\BlogBundle\Repository\CommentRepository")
  */
 class Comment extends Entity
@@ -65,7 +66,7 @@ class Comment extends Entity
      *
      * @return Comment
      */
-    public function setUser(\Taichi\BlogBundle\Entity\User $user = null)
+    public function setUser(\Taichi\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
 

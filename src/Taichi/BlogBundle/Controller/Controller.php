@@ -1,9 +1,7 @@
 <?php
-
 namespace Taichi\BlogBundle\Controller;
 
-use Carbon\Carbon;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller  as BaseController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 
 class Controller extends BaseController
 {

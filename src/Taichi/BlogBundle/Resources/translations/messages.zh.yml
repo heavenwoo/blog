@@ -1,0 +1,44 @@
+tag:
+    name: 标签:
+
+category:
+    name: 分类:
+
+menu:
+    login: 登录
+    logout: 退出
+    admin: 管理
+    register: 注册
+    post_list: 文章列表
+    posts: 文章管理
+    create_post: 发布文章
+    edit_post: 文章编辑
+
+post:
+    num_comments: %count% 条评论|%count% 条评论
+    commented_on: 评论于
+
+action:
+    publish_comment: 发表评论
+    show: 查看
+    edit: 编辑
+    edit_post: 编辑文章
+    delete_post: 删除文章
+    back_to_list: 返回文章列表
+
+title:
+    add_comment: 添加评论
+
+label:
+    actions: 操作
+    subject: 标题
+    category: 分类
+    abstract: 摘要
+    content: 内容
+    tag: 标签
+    pictureUrl: 图片
+    created_at: 创建时间
+    username: 用户名
+    preview: 预览
+    save_and_create_new: 保存并创建新文章
+    save: 保存

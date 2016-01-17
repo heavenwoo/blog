@@ -83,23 +83,11 @@ assetic:
             apply_to: ".less$"
             formatter: "compressed"
             preserve_comments: false
-
         scssphp:
             formatter: "Leafo\\ScssPhp\\Formatter\\Compressed"
         uglifyjs2:
             bin: /usr/local/bin/uglifyjs
             node: /usr/local/bin/node
-#    assets:
-#        jquery_and_bootstrap:
-#            inputs:
-#                - '@TaichiBlogBundle/Resources/public/js/vendor/jquery-1.11.2.js'
-#                - '@TaichiBlogBundle/Resources/public/js/vendor/bootstrap.min.js'
-#                - '@TaichiBlogBundle/Resources/public/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'
-#                - '@TaichiBlogBundle/Resources/public/js/vendor/npm.js'
-#        bootstrap:
-#            inputs:
-#                - '@TaichiBlogBundle/Resources/public/css/bootstrap.min.css'
-#                - '@TaichiBlogBundle/Resources/public/css/bootstrap-theme.min.css'
 
 knp_paginator:
     template:

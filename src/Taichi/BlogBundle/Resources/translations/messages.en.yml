@@ -1,0 +1,44 @@
+tag:
+    name: 'Tag: '
+
+category:
+    name: 'Category: '
+
+menu:
+    login: 'Sign in'
+    logout: Logout
+    admin: Admin
+    register: 'Sign up'
+    post_list: 'Post List'
+    posts: 'Post Admin'
+    create_post: 'Create Post'
+    edit_post: 'Edit Post'
+
+post:
+    num_comments: %count% comment|%count% comments
+    commented_on: 'commented on'
+
+action:
+    publish_comment: 'Publish Comment'
+    show: Show
+    edit: Edit
+    edit_post: 'Edit Post'
+    delete_post: 'Delete Post'
+    back_to_list: 'Back to post list'
+
+title:
+    add_comment: 'Add Comment'
+
+label:
+    actions: 'Actions'
+    subject: 'Subject'
+    category: 'Category'
+    abstract: 'Abstract'
+    content: 'Content'
+    tag: 'Tag'
+    pictureUrl: 'Picture'
+    created_at: 'Created at'
+    username: 'Username'
+    preview: 'Preview'
+    save_and_create_new: 'Save and create new'
+    save: 'Save'

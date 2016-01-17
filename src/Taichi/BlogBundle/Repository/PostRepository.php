@@ -16,50 +16,40 @@ class PostRepository extends EntityRepository
 {
     public function getAllPosts()
     {
-        $em = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('p')
+            ->select('p', 'c', 't', 'co')
+            ->join('p.category', 'c')
+            ->leftJoin('p.tags', 't')
+            ->leftJoin('p.comments', 'co')
+            ->orderBy('p.createdAt', 'DESC');
 
-        $query = $em->createQuery('
-            SELECT p, c, t, co
-            FROM TaichiBlogBundle:Post p
-            JOIN p.category c
-            JOIN p.tags t
-            LEFT JOIN p.comments co
-            ORDER BY p.createdAt DESC
-        ');
-
-        return $query->execute();
+        return $qb->getQuery()->getResult();
     }
 
     public function getAllPostsByCategory(Category $category)
     {
-        $em = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('p')
+            ->select('p', 't', 'co')
+            ->leftJoin('p.tags', 't')
+            ->leftJoin('p.comments', 'co')
+            ->where('p.category = :category')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setParameter('category', $category);
 
-        $query = $em->createQuery('
-            SELECT p, t, co
-            FROM TaichiBlogBundle:Post p
-            JOIN p.tags t
-            LEFT JOIN p.comments co
-            WHERE p.category = :category
-            ORDER BY p.createdAt DESC
-        ')->setParameter('category', $category);
-
-        return $query->execute();
+        return $qb->getQuery()->getResult();
     }
 
     public function getAllPostsByTag(Tag $tag)
     {
-        $em = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('p')
+            ->select('p', 'c', 'co')
+            ->join('p.category', 'c')
+            ->leftJoin('p.tags', 't')
+            ->leftJoin('p.comments', 'co')
+            ->where('t = :tag')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setParameter('tag', $tag);
 
-        $query = $em->createQuery('
-            SELECT p, c, t, co
-            FROM TaichiBlogBundle:Post p
-            JOIN p.category c
-            JOIN p.tags t
-            LEFT JOIN p.comments co
-            WHERE t = :tag
-            ORDER BY p.createdAt DESC
-        ')->setParameter('tag', $tag);
-
-        return $query->execute();
+        return $qb->getQuery()->getResult();
     }
 }

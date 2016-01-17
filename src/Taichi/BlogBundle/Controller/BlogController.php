@@ -1,21 +1,19 @@
 <?php
-
 namespace Taichi\BlogBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Response;
-use Taichi\BlogBundle\Entity\Category;
-use Taichi\BlogBundle\Entity\Comment;
-use Taichi\BlogBundle\Entity\Post;
 use Taichi\BlogBundle\Entity\Tag;
-use Symfony\Component\HttpFoundation\Request;
+use Taichi\BlogBundle\Entity\Post;
+use Taichi\BlogBundle\Entity\Comment;
+use Taichi\BlogBundle\Entity\Category;
 use Taichi\BlogBundle\Form\CommentType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
- *
  */
 class BlogController extends Controller
 {

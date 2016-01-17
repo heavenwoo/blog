@@ -5,9 +5,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\{TextType, TextareaType};
+use Taichi\BlogBundle\Entity\{Category, Tag, Post};
 
 class PostType extends AbstractType
 {
@@ -24,7 +23,7 @@ class PostType extends AbstractType
                 'label' => 'label.subject'
             ])
             ->add('category', EntityType::class, [
-                'class' => \Taichi\BlogBundle\Entity\Category::class,
+                'class' => Category::class,
                 'label' => 'label.category',
             ])
             ->add('abstract', TextareaType::class, [
@@ -37,7 +36,7 @@ class PostType extends AbstractType
                 'label' => 'label.content',
             ])
             ->add('tags', EntityType::class, [
-                'class' => \Taichi\BlogBundle\Entity\Tag::class,
+                'class' => Tag::class,
                 'multiple' => true,
                 'label' => 'label.tags',
             ])
@@ -53,7 +52,7 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Taichi\BlogBundle\Entity\Post',
+            'data_class' => Post::class,
         ]);
     }
 

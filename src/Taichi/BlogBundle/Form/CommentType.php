@@ -49,7 +49,7 @@ class CommentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Taichi\BlogBundle\Entity\Comment',
+            'data_class' => \Taichi\BlogBundle\Entity\Comment::class,
         ));
     }
 
