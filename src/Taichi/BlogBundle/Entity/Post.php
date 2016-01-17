@@ -192,11 +192,11 @@ class Post extends Entity
     /**
      * Set user
      *
-     * @param \Taichi\BlogBundle\Entity\User $user
+     * @param \Taichi\UserBundle\Entity\User $user
      *
      * @return Post
      */
-    public function setUser(\Taichi\BlogBundle\Entity\User $user = null)
+    public function setUser(\Taichi\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
