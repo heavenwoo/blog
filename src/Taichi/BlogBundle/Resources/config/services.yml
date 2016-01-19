@@ -17,3 +17,21 @@ services:
         tags:
             # The alias is what is used to retrieve the menu
             - { name: knp_menu.renderer, alias: taichi }
+
+    admin.category:
+        class: Taichi\BlogBundle\Admin\CategoryAdmin
+        arguments: [~, Taichi\BlogBundle\Entity\Category, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: label.category }
+
+    admin.tag:
+        class: Taichi\BlogBundle\Admin\TagAdmin
+        arguments: [~, Taichi\BlogBundle\Entity\Tag, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: label.tag }
+
+    admin.post:
+        class: Taichi\BlogBundle\Admin\PostAdmin
+        arguments: [~, Taichi\BlogBundle\Entity\Post, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: label.post }

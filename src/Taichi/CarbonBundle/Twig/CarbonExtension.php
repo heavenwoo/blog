@@ -47,6 +47,10 @@ class CarbonExtension extends \Twig_Extension
 
         $locale = $this->container->getParameter('taichi.carbon.locale');
 
+        if ($locale[2]) {
+            $locale = substr($locale, 0, 2);
+        }
+
         $dt->setLocale($locale);
 
         return $dt->diffForHumans($otherDt);
@@ -60,6 +64,10 @@ class CarbonExtension extends \Twig_Extension
 
         $locale = $this->container->getParameter('taichi.carbon.locale');
         $format = $format ?: $this->container->getParameter('taichi.carbon.format');
+
+        if ($locale[2]) {
+            $locale = substr($locale, 0, 2);
+        }
 
         $dt->setLocale($locale);
 

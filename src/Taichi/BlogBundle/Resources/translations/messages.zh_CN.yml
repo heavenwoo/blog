@@ -36,6 +36,7 @@ label:
     abstract: 摘要
     content: 内容
     tag: 标签
+    post: 文章
     pictureUrl: 图片
     created_at: 创建时间
     username: 用户名

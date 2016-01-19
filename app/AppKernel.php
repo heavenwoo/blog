@@ -15,17 +15,28 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 
+            //Symfony extra bundles
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
+            //Knp bundles
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
+            //FOSUser bundles
             new FOS\UserBundle\FOSUserBundle(),
 
+            //Captcha bundle
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
 
+            //Sonata bundles
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
+
+            //Taichi bundles
             new Taichi\BlogBundle\TaichiBlogBundle(),
             new Taichi\UserBundle\TaichiUserBundle(),
             new Taichi\CarbonBundle\TaichiCarbonBundle(),

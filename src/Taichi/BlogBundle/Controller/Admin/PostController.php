@@ -11,33 +11,13 @@ use Taichi\BlogBundle\Entity\Post;
 use Taichi\BlogBundle\Form\PostType;
 
 /**
- * @Route("/admin")
+ * @Route("/admins/post")
  * @Security("has_role('ROLE_ADMIN')")
  */
-class BlogController extends Controller
+class PostController extends Controller
 {
     /**
-     * @Route("/dashboard", name="admin_dashboard")
-     */
-    public function dashboardAction()
-    {
-        $posts = $this->getPostRepository()->findAll();
-        $comments = $this->getCommentRepository()->findAll();
-        $users = $this->getUserRepository()->findAll();
-        $categories = $this->getCategoryRepository()->findAll();
-        $tags = $this->getTagRepository()->findAll();
-
-        return $this->render('TaichiBlogBundle:Admin/Blog:dashboard.html.twig', [
-            'posts'      => $posts,
-            'comments'   => $comments,
-            'users'      => $users,
-            'categories' => $categories,
-            'tags'       => $tags,
-        ]);
-    }
-
-    /**
-     * @Route("/post/list", name="admin_post_list")
+     * @Route("/list", name="admin_post_list")
      */
     public function listAction()
     {
@@ -47,7 +27,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/post/create", name="admin_post_create")
+     * @Route("/create", name="admin_post_create")
      */
     public function createAction(Request $request)
     {
@@ -85,7 +65,7 @@ class BlogController extends Controller
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @Route("/post/{id}/edit", methods={"GET", "POST"}, requirements={"id" = "\d+"}, name="admin_post_edit")
+     * @Route("/{id}/edit", methods={"GET", "POST"}, requirements={"id" = "\d+"}, name="admin_post_edit")
      */
     public function editAction(Post $post, Request $request)
     {
@@ -115,7 +95,7 @@ class BlogController extends Controller
      * @param Post $post
      * @return array
      *
-     * @Route("/post/{id}", methods={"GET"}, requirements={"id" = "\d+"}, name="admin_post_show")
+     * @Route("/{id}", methods={"GET"}, requirements={"id" = "\d+"}, name="admin_post_show")
      */
     public function showAction(Post $post)
     {
@@ -132,7 +112,7 @@ class BlogController extends Controller
      * @param Post    $post
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @Route("/post/{id}", methods={"DELETE"}, name="admin_post_delete")
+     * @Route("/{id}", methods={"DELETE"}, name="admin_post_delete")
      *
      */
     public function deleteAction(Request $request, Post $post)
