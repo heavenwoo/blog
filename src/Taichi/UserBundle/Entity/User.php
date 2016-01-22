@@ -40,13 +40,6 @@ class User extends BaseUser
     protected $updatedAt;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="locale", type="string", length=2)
-     */
-    protected $locale;
-
-    /**
      * @ORM\OneToMany(targetEntity="Taichi\BlogBundle\Entity\Post", mappedBy="user")
      */
     protected $posts;

@@ -74,7 +74,7 @@ class Tag extends Entity
      *
      * @return Tag
      */
-    public function addPost(\Taichi\BlogBundle\Entity\Post $post)
+    public function addPost(Post $post)
     {
         $this->posts[] = $post;
 
@@ -86,7 +86,7 @@ class Tag extends Entity
      *
      * @param \Taichi\BlogBundle\Entity\Post $post
      */
-    public function removePost(\Taichi\BlogBundle\Entity\Post $post)
+    public function removePost(Post $post)
     {
         $this->posts->removeElement($post);
     }

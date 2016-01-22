@@ -65,9 +65,9 @@ class PostAdmin extends Admin
     {
         $datagridMapper
             ->add('subject')
-        ->add('category', null, [], EntityType::class, [
-            'class' => Category::class,
-        ]);
+            ->add('category', null, [], EntityType::class, [
+                'class' => Category::class,
+            ]);
     }
 
     protected function configureListFields(ListMapper $listMapper)

@@ -18,16 +18,21 @@ class PostController extends Controller
 {
     /**
      * @Route("/list", name="admin_post_list")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction()
     {
         return $this->render('TaichiBlogBundle:Admin/Blog:list.html.twig', [
-            'posts' => $this->getPostRepository()->getAllPosts(),
+            'posts' => $this->getPostRepository()->findAll(),
         ]);
     }
 
     /**
      * @Route("/create", name="admin_post_create")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
     {
@@ -63,7 +68,7 @@ class PostController extends Controller
     /**
      * @param Post    $post
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @Route("/{id}/edit", methods={"GET", "POST"}, requirements={"id" = "\d+"}, name="admin_post_edit")
      */
@@ -92,10 +97,10 @@ class PostController extends Controller
     }
 
     /**
-     * @param Post $post
-     * @return array
-     *
      * @Route("/{id}", methods={"GET"}, requirements={"id" = "\d+"}, name="admin_post_show")
+     *
+     * @param Post $post
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Post $post)
     {

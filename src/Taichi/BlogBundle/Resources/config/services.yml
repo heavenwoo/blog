@@ -1,8 +1,7 @@
-services:
-#    taichi_blog.example:
-#        class: Taichi\BlogBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+parameters:
+    taichi_blog.sitemap.listener.class: Taichi\BlogBundle\EventListener\SitemapListener
 
+services:
     taichi.blog.menu_builder:
         class: Taichi\BlogBundle\Menu\MenuBuilder
         arguments: ["@knp_menu.factory"]
@@ -28,10 +27,15 @@ services:
         class: Taichi\BlogBundle\Admin\TagAdmin
         arguments: [~, Taichi\BlogBundle\Entity\Tag, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: label.tag }
+            - { name: sonata.admin, manager_type: orm, group: 'Content', label: label.tag }
 
     admin.post:
         class: Taichi\BlogBundle\Admin\PostAdmin
         arguments: [~, Taichi\BlogBundle\Entity\Post, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: label.post }
+
+    my.sitemap.listener:
+        class: %taichi_blog.sitemap.listener.class%
+        arguments: ['@router']
+        tags: [{name: "presta.sitemap.listener"}]

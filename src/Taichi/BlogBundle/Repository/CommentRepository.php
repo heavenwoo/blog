@@ -12,4 +12,22 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getCommentsCount()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getCommentsPerMonth($begin, $end)
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->where('c.createdAt BETWEEN :begin AND :end')
+            ->setParameter('begin', $begin)
+            ->setParameter('end', $end);
+
+        return $qb->getQuery()->getResult();
+    }
 }

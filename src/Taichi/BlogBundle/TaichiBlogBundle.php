@@ -1,5 +1,4 @@
 <?php
-
 namespace Taichi\BlogBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;

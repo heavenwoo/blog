@@ -30,11 +30,16 @@ class AppKernel extends Kernel
             //Captcha bundle
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
 
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+
             //Sonata bundles
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
+
+            //Presta sitemap bundle
+            new Presta\SitemapBundle\PrestaSitemapBundle(),
 
             //Taichi bundles
             new Taichi\BlogBundle\TaichiBlogBundle(),

@@ -11,16 +11,61 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
+ *
+ * @Cache(expires="1 hour")
  */
 class BlogController extends Controller
 {
     /**
      * Index listing
-     * @Route("/", name="blog_index", defaults={"page" = 1})
+     * @Route("/", name="blog_index", defaults={"page" = 1}, options={"sitemap" = true})
      * @Route("/page/{page}", name="blog_index_paginated", requirements={"page" : "\d+"})
+     *
+     * @param $page
+     * @return Response
+     */
+    public function indexAction($page)
+    {
+        return $this->listAction($page);
+    }
+
+    /**
+     * Category listing
+     * @Route("/category/{name}", name="blog_category", defaults={"page" = 1})
+     * @Route("/category/{name}/page/{page}", name="blog_category_paginated", requirements={"page" : "\d+"})
+     *
+     * @param          $page
+     * @param Category $category
+     * @return Response
+     */
+    public function categoryAction($page, Category $category)
+    {
+        return $this->listAction($page, null, $category);
+    }
+
+    /**
+     * Tag listing
+     * @Route("/tag/{name}", name="blog_tag", defaults={"page" = 1})
+     * @Route("/tag/{name}/page/{page}", name="blog_tag_paginated", requirements={"page" : "\d+"})
+     *
+     * @param     $page
+     * @param Tag $tag
+     * @return Response
+     */
+    public function tagAction($page, Tag $tag)
+    {
+        return $this->listAction($page, $tag);
+    }
+
+    /**
+     * @param               $page
+     * @param Tag|null      $tag
+     * @param Category|null $category
+     * @return Response
      */
     public function listAction($page, Tag $tag = null, Category $category = null)
     {
@@ -51,27 +96,10 @@ class BlogController extends Controller
     }
 
     /**
-     * Category listing
-     * @Route("/category/{name}", name="blog_category", defaults={"page" = 1})
-     * @Route("/category/{name}/page/{page}", name="blog_category_paginated", requirements={"page" : "\d+"})
-     */
-    public function categoryAction($page, Category $category)
-    {
-        return $this->listAction($page, null, $category);
-    }
-
-    /**
-     * Tag listing
-     * @Route("/tag/{name}", name="blog_tag", defaults={"page" = 1})
-     * @Route("/tag/{name}/page/{page}", name="blog_tag_paginated", requirements={"page" : "\d+"})
-     */
-    public function tagAction($page, Tag $tag)
-    {
-        return $this->listAction($page, $tag);
-    }
-
-    /**
      * @Route("/post/{id}", name="blog_post")
+     *
+     * @param Post $post
+     * @return Response
      */
     public function postAction(Post $post)
     {
@@ -88,6 +116,10 @@ class BlogController extends Controller
      * (postId) doesn't match any of the Doctrine entity properties (id).
      * See
      * http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
+     *
+     * @param Post    $post
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function commentAction(Post $post, Request $request)
     {
@@ -113,7 +145,6 @@ class BlogController extends Controller
             'form' => $form->createView(),
         ]);
     }
-
 
     /**
      * This controller is called directly via the render() function in the

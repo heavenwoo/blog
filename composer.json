@@ -41,10 +41,10 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "knplabs/knp-menu-bundle": "^2.1",
         "gregwar/captcha-bundle": "^2.0",
-        "taichi/intl-bundle": "dev-master",
         "stof/doctrine-extensions-bundle": "dev-master",
         "sonata-project/admin-bundle": "2.4.x-dev",
-        "sonata-project/doctrine-orm-admin-bundle": "2.4.x-dev"
+        "sonata-project/doctrine-orm-admin-bundle": "2.4.x-dev",
+        "presta/sitemap-bundle": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

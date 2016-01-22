@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Comment extends Entity
 {
+    const PAGE_ITEMS = 5;
+
     /**
      * @var string
      *
@@ -90,7 +92,7 @@ class Comment extends Entity
      *
      * @return Comment
      */
-    public function setPost(\Taichi\BlogBundle\Entity\Post $post = null)
+    public function setPost(Post $post = null)
     {
         $this->post = $post;
 

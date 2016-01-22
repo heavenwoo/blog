@@ -44,7 +44,18 @@
                     {{ 'post.num_comments'|transchoice(post.comments|length) }}
                 </span>
             </div>
-            {{ post.abstract|markdown }}
+            {% if post.pictureUrl is not empty %}
+            <div class="ui grid">
+                <div class="four wide column">
+                    <img class="ui small rounded image" src="{{ post.pictureUrl }}">
+                </div>
+                <div class="twelve wide column">
+                    {{ post.abstract|markdown }}
+                </div>
+            </div>
+            {% else %}
+                {{ post.abstract|markdown }}
+            {% endif %}
         </article>
         <h4 class="ui horizontal header divider">
             <a href="{{ path('blog_post', {id: post.id}) }}">

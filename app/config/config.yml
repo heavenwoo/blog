@@ -63,6 +63,38 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+#
+#        entity_managers:
+#            default:
+#                mappings:
+#                    gedmo_translatable:
+#                        type: annotation
+#                        prefix: Gedmo\Translatable\Entity
+#                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+#                        alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
+#                        is_bundle: false
+#                    gedmo_translator:
+#                        type: annotation
+#                        prefix: Gedmo\Translator\Entity
+#                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
+#                        alias: GedmoTranslator # (optional) it will default to the name set for the mapping
+#                        is_bundle: false
+#                    gedmo_loggable:
+#                        type: annotation
+#                        prefix: Gedmo\Loggable\Entity
+#                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+#                        alias: GedmoLoggable # (optional) it will default to the name set for the mappingmapping
+#                        is_bundle: false
+#                    gedmo_tree:
+#                        type: annotation
+#                        prefix: Gedmo\Tree\Entity
+#                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+#                        alias: GedmoTree # (optional) it will default to the name set for the mapping
+#                        is_bundle: false
+#                filters:
+#                    softdeleteable:
+#                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+#                        enabled: true
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -126,3 +158,24 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts: [admin]
+#
+#presta_sitemap:
+#    timetolive: 3600
+#    items_by_set: 50000
+
+sonata_admin:
+    templates:
+        dashboard: SonataAdminBundle:Core:dashboard.html.twig
+    dashboard:
+        groups:
+            taichi.blog.admin.group.content:
+                label: taichi.blog.admin.group.content
+                label_catalogue: TaichiBlogBundle
+                items:
+                    - sonata.admin.post
+            taichi.blog.admin.group.blog:
+                items: ~
+                item_adds:
+                    - sonata.admin.page
+                roles: [ ROLE_ONE, ROLE_TWO ]
+            taichi.blog.admin.group.misc: ~

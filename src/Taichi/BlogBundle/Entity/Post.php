@@ -220,7 +220,7 @@ class Post extends Entity
      *
      * @return Post
      */
-    public function setCategory(\Taichi\BlogBundle\Entity\Category $category = null)
+    public function setCategory(Category $category = null)
     {
         $this->category = $category;
 
@@ -244,8 +244,9 @@ class Post extends Entity
      *
      * @return Post
      */
-    public function addTag(\Taichi\BlogBundle\Entity\Tag $tag)
+    public function addTag(Tag $tag)
     {
+        $tag->addPost($this);
         $this->tags[] = $tag;
 
         return $this;
@@ -256,7 +257,7 @@ class Post extends Entity
      *
      * @param \Taichi\BlogBundle\Entity\Tag $tag
      */
-    public function removeTag(\Taichi\BlogBundle\Entity\Tag $tag)
+    public function removeTag(Tag $tag)
     {
         $this->tags->removeElement($tag);
     }
@@ -278,7 +279,7 @@ class Post extends Entity
      *
      * @return Post
      */
-    public function addComment(\Taichi\BlogBundle\Entity\Comment $comment)
+    public function addComment(Comment $comment)
     {
         $this->comments->add($comment);
         $comment->setPost($this);
@@ -291,7 +292,7 @@ class Post extends Entity
      *
      * @param \Taichi\BlogBundle\Entity\Comment $comment
      */
-    public function removeComment(\Taichi\BlogBundle\Entity\Comment $comment)
+    public function removeComment(Comment $comment)
     {
         $this->comments->removeElement($comment);
         $comment->setPost(null);

@@ -10,4 +10,11 @@ namespace Taichi\BlogBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getCategoriesCount()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)');
+
+        return $qb->getQuery()->getResult();
+    }
 }

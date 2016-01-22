@@ -13,6 +13,7 @@ menu:
     posts: 文章管理
     create_post: 发布文章
     edit_post: 文章编辑
+    signup: 注册
 
 post:
     num_comments: %count% 条评论|%count% 条评论

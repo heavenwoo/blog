@@ -12,4 +12,11 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getUsersCount()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)');
+
+        return $qb->getQuery()->getResult();
+    }
 }

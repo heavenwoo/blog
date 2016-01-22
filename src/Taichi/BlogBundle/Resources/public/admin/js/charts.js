@@ -38,28 +38,18 @@ $(document).ready(function () {
             offset: 0,
             borderWidth: 0
         });
-    }    
-    
+    }
+
     /* Mini Chart - Bar Chart 1 */
     if ($('.stats-bar')[0]) {
-        sparklineBar('stats-bar', [6,4,8,6,5,6,7,8,3,5,9,5,8,4,3,6,8], '45px', 3, '#fff', 2);
+        sparklineBar('stats-bar', [6,4,8,6,5,6,7,8,3,5,9,5], '45px', 3, '#fff', 2);
     }
-    
+
     /* Mini Chart - Bar Chart 2 */
     if ($('.stats-bar-2')[0]) {
-        sparklineBar('stats-bar-2', [4,7,6,2,5,3,8,6,6,4,8,6,5,8,2,4,6], '45px', 3, '#fff', 2);
+        sparklineBar('stats-bar-2', [4,7,6,2,5,3,8,6,6,4,8,6], '45px', 3, '#fff', 2);
     }
-    
-    /* Mini Chart - Line Chart 1 */
-    if ($('.stats-line')[0]) {
-        sparklineLine('stats-line', [9,4,6,5,6,4,5,7,9,3,6,5], 85, 45, '#fff', 'rgba(0,0,0,0)', 1.25, 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.4)', 3, '#fff', 'rgba(255,255,255,0.4)');
-    }
-    
-    /* Mini Chart - Line Chart 2 */
-    if ($('.stats-line-2')[0]) {
-        sparklineLine('stats-line-2', [5,6,3,9,7,5,4,6,5,6,4,9], 85, 45, '#fff', 'rgba(0,0,0,0)', 1.25, 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.4)', 3, '#fff', 'rgba(255,255,255,0.4)');
-    }
-    
+
     /* Mini Chart - Pie Chart 1 */
     if ($('.stats-pie')[0]) {
         sparklinePie('stats-pie', [20, 35, 30, 5], 45, 45, ['#fff', 'rgba(255,255,255,0.7)', 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.2)']);

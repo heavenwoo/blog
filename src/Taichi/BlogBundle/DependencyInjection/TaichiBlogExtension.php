@@ -24,6 +24,7 @@ class TaichiBlogExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+        $loader->load('config.yml');
     }
 
     public function getConfiguration(array $config, ContainerBuilder $container)

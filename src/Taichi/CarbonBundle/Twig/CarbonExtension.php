@@ -2,13 +2,13 @@
 namespace Taichi\CarbonBundle\Twig;
 
 use Carbon\Carbon;
-use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CarbonExtension extends \Twig_Extension
 {
     protected $container;
 
-    public function __construct(Container $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }

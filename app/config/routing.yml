@@ -1,22 +1,2 @@
-taichi_blog:
-    resource: "@TaichiBlogBundle/Controller/"
-    type:     annotation
-#    prefix:   /{_locale}
-#    prefix:   /
-#    requirements:
-#        _locale: %app_locales%
-#    defaults:
-#        _locale: %locale%
-#
-
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
-admin_area:
-    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
-    prefix: /admin
-
-_sonata_admin:
-    resource: .
-    type: sonata_admin
-    prefix: /admin
+_front:
+    resource: "@TaichiBlogBundle/Resources/config/routing.yml"

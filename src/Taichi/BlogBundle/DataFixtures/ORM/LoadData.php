@@ -9,9 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Taichi\BlogBundle\Entity\Category;
 use Taichi\BlogBundle\Entity\Tag;
-use Taichi\BlogBundle\Entity\User;
-use Taichi\BlogBundle\Entity\Post;
-use Taichi\BlogBundle\Entity\Comment;
+use Taichi\UserBundle\Entity\User;
 
 
 class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
@@ -22,7 +20,11 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
     /** @var ContainerInterface  */
     protected $container;
 
-    protected $tags = 10;
+    const TAG_NUMS = 10;
+
+    const CATEGORY_NUMS = 6;
+
+    const USER_NUMS = 50;
 
     public function __construct()
     {
@@ -38,7 +40,7 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
 
     protected function loadTags(ObjectManager $manager)
     {
-        for ($i = 0; $i < $this->tags; $i++) {
+        for ($i = 0; $i < self::TAG_NUMS; $i++) {
             $tag = new Tag();
             $tag->setName($this->faker->word);
 
@@ -52,82 +54,42 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
     {
         $passwordEncoder = $this->container->get('security.password_encoder');
 
-        $user = new User();
-        $user->setUsername('john_user');
-        $user->setEmail('john_user@symfony.com');
-        $encodedPassword = $passwordEncoder->encodePassword($user, 'kitten');
-        $user->setPassword($encodedPassword);
-        $manager->persist($user);
-
         $admin = new User();
         $admin->setUsername('heaven');
+        $admin->setUsernameCanonical('heaven');
         $admin->setEmail('heavenwoo@live.com');
-        $admin->setRoles(array('ROLE_ADMIN'));
+        $admin->setEmailCanonical('heavenwoo@live.com');
+        $admin->setEnabled(true);
+        $admin->setSuperAdmin(true);
         $encodedPassword = $passwordEncoder->encodePassword($admin, 'heaven');
         $admin->setPassword($encodedPassword);
+        $admin->setCreatedAt($this->faker->dateTimeBetween('-12 months', '-11 months'));
         $manager->persist($admin);
+
+        foreach (range(1, self::USER_NUMS) as $i) {
+            $user = new User();
+            $user->setUsername($this->faker->name);
+            $user->setUsernameCanonical($user->getUsername());
+            $user->setEmail($this->faker->email);
+            $user->setEmailCanonical($user->getEmail());
+            $user->setEnabled((bool)mt_rand(0, 1));
+            $encodedPassword = $passwordEncoder->encodePassword($user, $user->getUsername());
+            $user->setPassword($encodedPassword);
+            $user->setCreatedAt($this->faker->dateTimeBetween('-1 year', '-10 days'));
+            $manager->persist($user);
+        }
 
         $manager->flush();
     }
 
     protected function loadCategories(ObjectManager $manager)
     {
-        foreach (range(1, 6) as $i) {
+        foreach (range(1, self::CATEGORY_NUMS) as $i) {
             $category = new Category();
 
             $category->setName($this->faker->citySuffix);
 
             $manager->persist($category);
-        }
-
-        $manager->flush();
-    }
-
-    protected function loadPosts(ObjectManager $manager)
-    {
-        $user = $manager
-            ->getRepository('TaichiBlogBundle:Post')
-            ->findOneBy(['id' => 2]);
-
-        foreach (range(1, 30) as $i) {
-            $post = new Post();
-
-            $category = $manager
-                ->getRepository('TaichiBlogBundle:Category')
-                ->findOneBy(['id' => mt_rand(1, 6)]);
-
-
-            $post->setSubject($this->faker->title);
-            $post->setSummary($this->faker->paragraph(mt_rand(2, 4)));
-            $post->setContent($this->faker->paragraph(mt_rand(6, 10)));
-            $post->setUser($user);
-            $post->setCategory($category);
-            for ($k = 0; $k < mt_rand(2, 5); $k++) {
-                $tags = $manager
-                    ->getRepository('TaichiBlogBundle:Post')
-                    ->findOneBy(['id' => mt_rand(1, 10)]);
-
-                $post->addTag($tags);
-            }
-            $post->setPictureUrl($this->faker->imageUrl(400, 240));
-//            $post->setCreatedAt(new \DateTime('now - '.$i.'days'));
-            $post->setCreatedAt($this->faker->dateTimeBetween('-20 days', 'now'));
-            $post->setUpdatedAt(new \DateTime('now - '.$i.'days'));
-
-            foreach (range(1, 5) as $j) {
-                $comment = new Comment();
-
-                $comment->setUser($user);
-                $comment->setCreatedAt(new \DateTime('now + '.($i + $j).'seconds'));
-                $comment->setUpdatedAt(new \DateTime('now + '.($i + $j).'seconds'));
-                $comment->setContent($this->faker->paragraph(mt_rand(1, 3)));
-                $comment->setPost($post);
-
-                $manager->persist($comment);
-                $post->addComment($comment);
-            }
-
-            $manager->persist($post);
         }
 
         $manager->flush();

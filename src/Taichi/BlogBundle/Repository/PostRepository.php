@@ -17,10 +17,6 @@ class PostRepository extends EntityRepository
     public function getAllPosts()
     {
         $qb = $this->createQueryBuilder('p')
-            ->select('p', 'c', 't', 'co')
-            ->join('p.category', 'c')
-            ->leftJoin('p.tags', 't')
-            ->leftJoin('p.comments', 'co')
             ->orderBy('p.createdAt', 'DESC');
 
         return $qb->getQuery()->getResult();
@@ -29,9 +25,6 @@ class PostRepository extends EntityRepository
     public function getAllPostsByCategory(Category $category)
     {
         $qb = $this->createQueryBuilder('p')
-            ->select('p', 't', 'co')
-            ->leftJoin('p.tags', 't')
-            ->leftJoin('p.comments', 'co')
             ->where('p.category = :category')
             ->orderBy('p.createdAt', 'DESC')
             ->setParameter('category', $category);
@@ -42,13 +35,28 @@ class PostRepository extends EntityRepository
     public function getAllPostsByTag(Tag $tag)
     {
         $qb = $this->createQueryBuilder('p')
-            ->select('p', 'c', 'co')
-            ->join('p.category', 'c')
-            ->leftJoin('p.tags', 't')
-            ->leftJoin('p.comments', 'co')
-            ->where('t = :tag')
+            ->where(':tag MEMBER OF p.tags')
             ->orderBy('p.createdAt', 'DESC')
             ->setParameter('tag', $tag);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getPostsCount()
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getPostsPerMonth($begin, $end)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->where('p.createdAt BETWEEN :begin AND :end')
+            ->setParameter('begin', $begin)
+        ->setParameter('end', $end);
 
         return $qb->getQuery()->getResult();
     }

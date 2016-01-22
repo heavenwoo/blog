@@ -13,6 +13,7 @@ menu:
     posts: 'Post Admin'
     create_post: 'Create Post'
     edit_post: 'Edit Post'
+    signup: 'Sign up'
 
 post:
     num_comments: %count% comment|%count% comments

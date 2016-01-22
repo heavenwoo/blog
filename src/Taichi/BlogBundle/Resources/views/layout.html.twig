@@ -28,9 +28,7 @@
     <div class="ui large top fixed hidden menu">
         <div class="ui container">
             <a class="item" href="{{ path('blog_index') }}">
-                {% image '@TaichiBlogBundle/Resources/public/images/logo.png' %}
-                <img src="{{ asset_url }}" class="mini logo">
-                {% endimage %}
+                <img src="{{ asset('bundles/taichiblog/images/logo.png') }}" class="mini logo">
             </a>
             <div class="right menu">
                 {% if app.user and is_granted('ROLE_ADMIN') %}
@@ -68,9 +66,7 @@
     <!-- Sidebar Menu -->
     <div class="ui vertical inverted sidebar menu">
         <a class="item" href="{{ path('blog_index') }}">
-            {% image '@TaichiBlogBundle/Resources/public/images/logo.png' %}
-            <img src="{{ asset_url }}" class="ui mini image">
-            {% endimage %}
+            <img src="{{ asset('bundles/taichiblog/images/logo.png') }}" class="ui mini image">
         </a>
         {% if app.user and is_granted('ROLE_ADMIN') %}
             <a class="item" href="{{ path('admin_dashboard') }}">
@@ -201,9 +197,7 @@
                         {#</div>#}
                     {#</div>#}
                     {#<div class="ui inverted section divider"></div>#}
-                    {% image '@TaichiBlogBundle/Resources/public/images/logo.png' %}
-                    <img src="{{ asset_url }}" class="ui centered mini image">
-                    {% endimage %}
+                    <img src="{{ asset('bundles/taichiblog/images/logo.png') }}" class="ui centered mini image">
                     <div class="ui horizontal inverted small divided link list">
                         <a class="item" href="#">Site Map</a>
                         <a class="item" href="#">Contact Us</a>

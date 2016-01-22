@@ -12,4 +12,11 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class TagRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getTagsCount()
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)');
+
+        return $qb->getQuery()->getResult();
+    }
 }
