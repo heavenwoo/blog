@@ -1,0 +1,16 @@
+output = <<<
+
+  _______           _          _       _
+ |__   __|         (_)        | |     (_)
+    | |      __ _   _    ___  | |__    _
+    | |     / _` | | |  / __| | '_ \  | |
+    | |    | (_| | | | | (__  | | | | | |
+    |_|     \__,_| |_|  \___| |_| |_| |_|
+
+<<<end;
+
+bin/console doctrine:database:drop --force
+bin/console doctrine:database:create
+bin/console doctrine:schema:create
+bin/console doctrine:fixtures:load
+bin/console cache:clear

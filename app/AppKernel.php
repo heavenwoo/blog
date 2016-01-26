@@ -41,6 +41,8 @@ class AppKernel extends Kernel
             //Presta sitemap bundle
             new Presta\SitemapBundle\PrestaSitemapBundle(),
 
+            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
+
             //Taichi bundles
             new Taichi\BlogBundle\TaichiBlogBundle(),
             new Taichi\UserBundle\TaichiUserBundle(),

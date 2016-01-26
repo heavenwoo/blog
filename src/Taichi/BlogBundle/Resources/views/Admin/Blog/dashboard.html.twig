@@ -52,7 +52,7 @@
                                 <div class="chart stats-line-1"></div>
                                 <div class="count">
                                     <small>Total Posts</small>
-                                    <h2>{{ posts.0.1.1 }}</h2>
+                                    <h2>{{ posts }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                 <div class="chart stats-line-2"></div>
                                 <div class="count">
                                     <small>Total Users</small>
-                                    <h2>{{ users.0.1.1 }}</h2>
+                                    <h2>{{ users }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                                 <div class="chart stats-line-3"></div>
                                 <div class="count">
                                     <small>Total Comments</small>
-                                    <h2>{{ comments.0.1.1 }}</h2>
+                                    <h2>{{ comments }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                 <div class="chart stats-line-4"></div>
                                 <div class="count">
                                     <small>Total Tags</small>
-                                    <h2>{{ tags.0.1.1 }}</h2>
+                                    <h2>{{ tags }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -127,12 +127,12 @@
 
             /* Mini Chart - Line Chart 1 */
             if ($('.stats-line-1')[0]) {
-                sparklineLine('stats-line-1', [{{ monthPosts }}], 85, 45, '#fff', 'rgba(0,0,0,0)', 1.25, 'rgba' + '(255,255,' + '255,0.4)' + '', 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.4)', 3, '#fff', 'rgba(255,255,255,0.4)');
+                sparklineLine('stats-line-1', [{{ monthPosts|join(',') }}], 85, 45, '#fff', 'rgba(0,0,0,0)', 1.25, 'rgba' + '(255,255,' + '255,0.4)' + '', 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.4)', 3, '#fff', 'rgba(255,255,255,0.4)');
             }
 
             /* Mini Chart - Line Chart 1 */
             if ($('.stats-line-3')[0]) {
-                sparklineLine('stats-line-3', [{{ monthComments }}], 85, 45, '#fff', 'rgba(0,0,0,0)', 1.25, 'rgba' + '' + '(255,255,' + '255,0.4)' + '', 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.4)', 3, '#fff', 'rgba(255,255,255,0.4)');
+                sparklineLine('stats-line-3', [{{ monthComments|join(',') }}], 85, 45, '#fff', 'rgba(0,0,0,0)', 1.25, 'rgba' + '' + '(255,255,' + '255,0.4)' + '', 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.4)', 3, '#fff', 'rgba(255,255,255,0.4)');
             }
 
         });

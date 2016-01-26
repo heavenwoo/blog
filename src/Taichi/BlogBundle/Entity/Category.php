@@ -34,6 +34,7 @@ class Category extends Entity
      * @var array
      *
      * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     protected $posts;
 

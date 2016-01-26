@@ -70,13 +70,13 @@ class BlogController extends Controller
     public function listAction($page, Tag $tag = null, Category $category = null)
     {
         if ($tag !== null) {
-            $query = $this->getPostRepository()->getAllPostsByTag($tag);
+            $query = $tag->getPosts();
             $route = 'tag';
         } else if ($category !== null) {
-            $query = $this->getPostRepository()->getAllPostsByCategory($category);
+            $query = $category->getPosts();
             $route = 'category';
         } else {
-            $query = $this->getPostRepository()->getAllPosts();
+            $query = $this->getPostRepository()->findBy([], ['createdAt' => 'DESC']);
             $route = 'index';
         }
 

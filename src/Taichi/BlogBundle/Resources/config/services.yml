@@ -21,19 +21,19 @@ services:
         class: Taichi\BlogBundle\Admin\CategoryAdmin
         arguments: [~, Taichi\BlogBundle\Entity\Category, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: label.category }
+            - { name: sonata.admin, manager_type: orm, group: 'label.blog', label: label.category }
 
     admin.tag:
         class: Taichi\BlogBundle\Admin\TagAdmin
         arguments: [~, Taichi\BlogBundle\Entity\Tag, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Content', label: label.tag }
+            - { name: sonata.admin, manager_type: orm, group: 'label.blog', label: label.tag }
 
     admin.post:
         class: Taichi\BlogBundle\Admin\PostAdmin
         arguments: [~, Taichi\BlogBundle\Entity\Post, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: label.post }
+            - { name: sonata.admin, manager_type: orm, group: 'label.blog', label: label.post }
 
     my.sitemap.listener:
         class: %taichi_blog.sitemap.listener.class%

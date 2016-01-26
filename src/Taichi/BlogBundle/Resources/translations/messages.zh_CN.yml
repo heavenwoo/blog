@@ -31,6 +31,7 @@ title:
     add_comment: 添加评论
 
 label:
+    blog: 博客
     actions: 操作
     subject: 标题
     category: 分类

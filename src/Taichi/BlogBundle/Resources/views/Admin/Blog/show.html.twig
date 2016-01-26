@@ -49,7 +49,7 @@
                     </tr>
                     <tr>
                         <th>{{ 'label.created_at'|trans }}</th>
-                        <td><p>{{ post.createdAt|date("F jS \\@ G:i") }}</p></td>
+                        <td><p>{{ carbon(post.createdAt).toRfc850String }}</p></td>
                     </tr>
                     </tbody>
                 </table>

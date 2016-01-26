@@ -1,7 +1,7 @@
 <?php
 namespace Taichi\BlogBundle\DataFixtures\ORM;
 
-ini_set('memory_limit', -1);
+//ini_set('memory_limit', -1);
 
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Faker\Factory;
@@ -25,7 +25,7 @@ class LoadPostsData implements FixtureInterface, ContainerAwareInterface, Ordere
         $this->faker = Factory::create();
     }
 
-    const POST_NUMS = 2000;
+    const POST_NUMS = 20000;
 
     const COMMENT_NUMS = 50;
 
@@ -87,7 +87,9 @@ class LoadPostsData implements FixtureInterface, ContainerAwareInterface, Ordere
                 $comment = new Comment();
 
                 $comment->setUser($user);
-                $comment->setCreatedAt($this->faker->dateTimeBetween($post->getCreatedAt(), 'now'));
+                $comment->setCreatedAt($this->faker->dateTimeBetween(
+                    $post->getCreatedAt(), 'now')
+                );
                 $comment->setUpdatedAt($comment->getCreatedAt());
                 $comment->setContent($this->faker->paragraph(mt_rand(1, 3)));
                 $comment->setPost($post);

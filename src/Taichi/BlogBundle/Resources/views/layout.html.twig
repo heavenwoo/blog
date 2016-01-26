@@ -1,9 +1,9 @@
-{% extends '::base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}   {{ sitename }}{% endblock %}
 
 {% block stylesheets %}
-    {% stylesheets output="css/app.css" filter="cssrewrite"
+    {% stylesheets output="css/app.css" filter="cssrewrite" filter="uglifycss"
     "bundles/taichiblog/css/semantic.css"
     "bundles/taichiblog/css/highlight-solarized-light.css"
     "bundles/taichiblog/css/app.css" %}
@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% javascripts filter="?jsqueeze" output="js/app.js"
+    {% javascripts output="js/app.js" filter="?jsqueeze" filter="uglifyjs2"
     "@TaichiBlogBundle/Resources/public/js/jquery-2.1.4.js"
     "@TaichiBlogBundle/Resources/public/css/semantic.js"
     "@TaichiBlogBundle/Resources/public/js/rainyday.min.js"
@@ -33,7 +33,7 @@
             <div class="right menu">
                 {% if app.user and is_granted('ROLE_ADMIN') %}
                     <div class="item">
-                        <a class="ui button" href="{{ path('admin_dashboard') }}">
+                        <a class="ui button" href="{{ path('sonata_admin_dashboard') }}">
                             <i class="lock icon"></i> {{ 'menu.admin'|trans }}
                         </a>
                     </div>
@@ -143,10 +143,8 @@
 
                 <div class="ui text container">
                     {% block heading %}
-                        <h1 class="ui inverted header">
-                            {{ sitename }}
-                        </h1>
-                        <h2>Built by Symfony 3 and Semantic UI</h2>
+                        <h1 class="ui inverted header">{{ sitename }}</h1>
+                        <h2>{{ description }}</h2>
                     {% endblock %}
                 </div>
 
@@ -163,40 +161,6 @@
         {% block footer %}
             <div class="ui inverted vertical footer segment">
                 <div class="ui center aligned container">
-                    {#<div class="ui stackable inverted divided grid">#}
-                        {#<div class="three wide column">#}
-                            {#<h4 class="ui inverted header">Group 1</h4>#}
-                            {#<div class="ui inverted link list">#}
-                                {#<a href="#" class="item">Link One</a>#}
-                                {#<a href="#" class="item">Link Two</a>#}
-                                {#<a href="#" class="item">Link Three</a>#}
-                                {#<a href="#" class="item">Link Four</a>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="three wide column">#}
-                            {#<h4 class="ui inverted header">Group 2</h4>#}
-                            {#<div class="ui inverted link list">#}
-                                {#<a href="#" class="item">Link One</a>#}
-                                {#<a href="#" class="item">Link Two</a>#}
-                                {#<a href="#" class="item">Link Three</a>#}
-                                {#<a href="#" class="item">Link Four</a>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="three wide column">#}
-                            {#<h4 class="ui inverted header">Group 3</h4>#}
-                            {#<div class="ui inverted link list">#}
-                                {#<a href="#" class="item">Link One</a>#}
-                                {#<a href="#" class="item">Link Two</a>#}
-                                {#<a href="#" class="item">Link Three</a>#}
-                                {#<a href="#" class="item">Link Four</a>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="seven wide column">#}
-                            {#<h4 class="ui inverted header">Footer Header</h4>#}
-                            {#<p>Extra space for a call to action inside the footer that could help re-engage users.</p>#}
-                        {#</div>#}
-                    {#</div>#}
-                    {#<div class="ui inverted section divider"></div>#}
                     <img src="{{ asset('bundles/taichiblog/images/logo.png') }}" class="ui centered mini image">
                     <div class="ui horizontal inverted small divided link list">
                         <a class="item" href="#">Site Map</a>

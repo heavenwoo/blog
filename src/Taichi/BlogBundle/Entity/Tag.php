@@ -25,6 +25,7 @@ class Tag extends Entity
      * @var array
      *
      * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $posts;
 

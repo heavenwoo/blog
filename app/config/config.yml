@@ -33,14 +33,16 @@ framework:
     fragments:       ~
     http_method_override: true
     assets: ~
+    esi: { enabled: true }
 
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
-        sitename: Taichi Blog
-        locale: %locale%
+        sitename:    Taichi Blog
+        description: Built by Symfony 3 and Semantic UI
+        locale:      %locale%
 
 # Doctrine Configuration
 doctrine:
@@ -111,15 +113,17 @@ assetic:
     filters:
         cssrewrite: ~
         jsqueeze: ~
-        lessphp:
-            apply_to: ".less$"
-            formatter: "compressed"
-            preserve_comments: false
-        scssphp:
-            formatter: "Leafo\\ScssPhp\\Formatter\\Compressed"
+#        lessphp:
+#            apply_to: ".less$"
+#            formatter: "compressed"
+#            preserve_comments: false
+#        scssphp:
+#            formatter: "Leafo\\ScssPhp\\Formatter\\Compressed"
         uglifyjs2:
             bin: /usr/local/bin/uglifyjs
             node: /usr/local/bin/node
+        uglifycss:
+            bin: /usr/local/bin/uglifycss
 
 knp_paginator:
     template:
@@ -158,6 +162,10 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts: [admin]
+
+        sonata.block.service.text:
+        sonata.block.service.rss:
+
 #
 #presta_sitemap:
 #    timetolive: 3600
@@ -167,15 +175,23 @@ sonata_admin:
     templates:
         dashboard: SonataAdminBundle:Core:dashboard.html.twig
     dashboard:
-        groups:
-            taichi.blog.admin.group.content:
-                label: taichi.blog.admin.group.content
-                label_catalogue: TaichiBlogBundle
-                items:
-                    - sonata.admin.post
-            taichi.blog.admin.group.blog:
-                items: ~
-                item_adds:
-                    - sonata.admin.page
-                roles: [ ROLE_ONE, ROLE_TWO ]
-            taichi.blog.admin.group.misc: ~
+        blocks:
+            -
+                position: left
+                type: sonata.admin.block.admin_list
+            -
+                position: right
+                type: sonata.block.service.text
+                settings:
+                    content: >
+                        <h2>Welcome to the Sonata Admin</h2>
+                        <p>This is a <code>sonata.block.service.text</code> from the Block
+                        Bundle, you can create and add new block in these area by configuring
+                        the <code>sonata_admin</code> section.</p> <br /> For instance, here
+                        a RSS feed parser (<code>sonata.block.service.rss</code>):
+            -
+                position: right
+                type: sonata.block.service.rss
+                settings:
+                    title: Sonata Project's Feeds
+                    url: http://sonata-project.org/blog/archive.rss

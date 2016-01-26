@@ -74,14 +74,14 @@ class PostController extends Controller
      */
     public function editAction(Post $post, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $editForm = $this->createForm(PostType::class, $post);
         $deleteForm = $this->createDeleteForm($post);
 
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
             $em->flush();
 
             $this->addFlash('success', 'post.updated_successfully');
