@@ -11,7 +11,7 @@
     <title>{% block title %}{% endblock %}</title>
 
     {% block stylesheets %}
-        {% stylesheets filter="cssrewrite" filter="uglifycss"
+        {% stylesheets filter="cssrewrite"
         'bundles/taichiblog/less/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css'
         'bundles/taichiblog/less/vendors/bower_components/animate.css/animate.min.css'
         'bundles/taichiblog/less/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css'
@@ -215,7 +215,7 @@
     <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {% block javascripts %}
-        {% javascripts filter="uglifyjs2"
+        {% javascripts
         '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
         '@TaichiBlogBundle/Resources/public/less/vendors/bootstrap-growl/bootstrap-growl.min.js'
         '@TaichiBlogBundle/Resources/public/less/vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js'
