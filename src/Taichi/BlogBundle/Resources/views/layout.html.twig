@@ -3,7 +3,7 @@
 {% block title %}   {{ sitename }}{% endblock %}
 
 {% block stylesheets %}
-    {% stylesheets output="css/app.css" filter="cssrewrite" filter="uglifycss"
+    {% stylesheets output="css/app.css" filter="cssrewrite"
     "bundles/taichiblog/css/semantic.css"
     "bundles/taichiblog/css/highlight-solarized-light.css"
     "bundles/taichiblog/css/app.css" %}
@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% javascripts output="js/app.js" filter="?jsqueeze" filter="uglifyjs2"
+    {% javascripts output="js/app.js" filter="?jsqueeze"
     "@TaichiBlogBundle/Resources/public/js/jquery-2.1.4.js"
     "@TaichiBlogBundle/Resources/public/css/semantic.js"
     "@TaichiBlogBundle/Resources/public/js/rainyday.min.js"
